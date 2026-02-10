@@ -42,6 +42,7 @@ import {
   isRateLimitAssistantError,
   isTimeoutErrorMessage,
   pickFallbackThinkingLevel,
+  isJsonParseError,
   type FailoverReason,
 } from "../pi-embedded-helpers.js";
 import { normalizeUsage, type UsageLike } from "../usage.js";
@@ -384,7 +385,9 @@ export async function runEmbeddedPiAgent(
       }
 
       const MAX_OVERFLOW_COMPACTION_ATTEMPTS = 3;
+      const MAX_JSON_PARSE_ERROR_ATTEMPTS = 2;
       let overflowCompactionAttempts = 0;
+      let jsonParseErrorAttempts = 0;
       let toolResultTruncationAttempted = false;
       const usageAccumulator = createUsageAccumulator();
       let autoCompactionCount = 0;
@@ -647,6 +650,39 @@ export async function runEmbeddedPiAgent(
                   },
                   systemPromptReport: attempt.systemPromptReport,
                   error: { kind: "image_size", message: errorText },
+                },
+              };
+            }
+            // Handle JSON parse errors with retry limit
+            if (isJsonParseError(errorText)) {
+              if (jsonParseErrorAttempts < MAX_JSON_PARSE_ERROR_ATTEMPTS) {
+                jsonParseErrorAttempts++;
+                log.warn(
+                  `JSON parse error detected (attempt ${jsonParseErrorAttempts}/${MAX_JSON_PARSE_ERROR_ATTEMPTS}); ` +
+                    `error: ${errorText.slice(0, 200)}`,
+                );
+                // Don't retry - JSON parse errors are unlikely to resolve on retry
+                // Fall through to return error
+              }
+              return {
+                payloads: [
+                  {
+                    text:
+                      "Tool call failed due to JSON format error. " +
+                      "This may be caused by special characters in the content. " +
+                      "Please try rephrasing your request or use simpler text.",
+                    isError: true,
+                  },
+                ],
+                meta: {
+                  durationMs: Date.now() - started,
+                  agentMeta: {
+                    sessionId: sessionIdUsed,
+                    provider,
+                    model: model.id,
+                  },
+                  systemPromptReport: attempt.systemPromptReport,
+                  error: { kind: "json_parse", message: errorText },
                 },
               };
             }

@@ -201,8 +201,16 @@ function parseApiErrorPayload(raw: string): ErrorPayload | null {
       if (isErrorPayloadObject(parsed)) {
         return parsed;
       }
-    } catch {
-      // ignore parse errors
+    } catch (parseError) {
+      // Log JSON parse errors for debugging tool call issues
+      const errorMsg = parseError instanceof Error ? parseError.message : String(parseError);
+      if (errorMsg.includes("JSON") || errorMsg.includes("position")) {
+        console.warn(
+          `[parseApiErrorPayload] JSON parse error: ${errorMsg}`,
+          `\nCandidate (first 200 chars): ${candidate.slice(0, 200)}`,
+        );
+      }
+      // Continue trying other candidates
     }
   }
   return null;
@@ -378,6 +386,15 @@ export function formatAssistantErrorText(
     );
   }
 
+  // Catch JSON parse errors in tool calls
+  if (isJsonParseError(raw)) {
+    return (
+      "Tool call failed due to JSON format error. " +
+      "This may be caused by special characters in the content. " +
+      "Please try rephrasing your request or use simpler text."
+    );
+  }
+
   const invalidRequest = raw.match(/"type":"invalid_request_error".*?"message":"([^"]+)"/);
   if (invalidRequest?.[1]) {
     return `LLM request rejected: ${invalidRequest[1]}`;
@@ -504,6 +521,15 @@ const ERROR_PATTERNS = {
     "messages.1.content.1.tool_use.id",
     "invalid request format",
   ],
+  jsonParse: [
+    /expected.*(?:,|'}').*after property value/i,
+    /unexpected.*in json/i,
+    /json.*parse.*error/i,
+    /invalid.*json/i,
+    /malformed.*json/i,
+    "at position",
+    "at line",
+  ],
 } as const;
 
 const TOOL_CALL_INPUT_MISSING_RE =
@@ -615,6 +641,10 @@ export function isImageSizeError(errorMessage?: string): boolean {
     return false;
   }
   return Boolean(parseImageSizeError(errorMessage));
+}
+
+export function isJsonParseError(raw: string): boolean {
+  return matchesErrorPatterns(raw, ERROR_PATTERNS.jsonParse);
 }
 
 export function isCloudCodeAssistFormatError(raw: string): boolean {
