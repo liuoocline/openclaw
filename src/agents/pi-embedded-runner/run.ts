@@ -385,9 +385,7 @@ export async function runEmbeddedPiAgent(
       }
 
       const MAX_OVERFLOW_COMPACTION_ATTEMPTS = 3;
-      const MAX_JSON_PARSE_ERROR_ATTEMPTS = 2;
       let overflowCompactionAttempts = 0;
-      let jsonParseErrorAttempts = 0;
       let toolResultTruncationAttempted = false;
       const usageAccumulator = createUsageAccumulator();
       let autoCompactionCount = 0;
@@ -653,17 +651,9 @@ export async function runEmbeddedPiAgent(
                 },
               };
             }
-            // Handle JSON parse errors with retry limit
+            // Handle JSON parse errors — not retryable, return immediately
             if (isJsonParseError(errorText)) {
-              if (jsonParseErrorAttempts < MAX_JSON_PARSE_ERROR_ATTEMPTS) {
-                jsonParseErrorAttempts++;
-                log.warn(
-                  `JSON parse error detected (attempt ${jsonParseErrorAttempts}/${MAX_JSON_PARSE_ERROR_ATTEMPTS}); ` +
-                    `error: ${errorText.slice(0, 200)}`,
-                );
-                // Don't retry - JSON parse errors are unlikely to resolve on retry
-                // Fall through to return error
-              }
+              log.warn(`JSON parse error detected: ${errorText.slice(0, 200)}`);
               return {
                 payloads: [
                   {

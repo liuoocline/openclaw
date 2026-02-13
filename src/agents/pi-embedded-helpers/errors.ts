@@ -201,16 +201,8 @@ function parseApiErrorPayload(raw: string): ErrorPayload | null {
       if (isErrorPayloadObject(parsed)) {
         return parsed;
       }
-    } catch (parseError) {
-      // Log JSON parse errors for debugging tool call issues
-      const errorMsg = parseError instanceof Error ? parseError.message : String(parseError);
-      if (errorMsg.includes("JSON") || errorMsg.includes("position")) {
-        console.warn(
-          `[parseApiErrorPayload] JSON parse error: ${errorMsg}`,
-          `\nCandidate (first 200 chars): ${candidate.slice(0, 200)}`,
-        );
-      }
-      // Continue trying other candidates
+    } catch {
+      // ignore parse errors
     }
   }
   return null;
@@ -522,13 +514,11 @@ const ERROR_PATTERNS = {
     "invalid request format",
   ],
   jsonParse: [
-    /expected.*(?:,|'}').*after property value/i,
-    /unexpected.*in json/i,
+    /expected.*(?:,|'}').*after property value in json/i,
+    /unexpected.{1,20}in json/i,
     /json.*parse.*error/i,
-    /invalid.*json/i,
-    /malformed.*json/i,
-    "at position",
-    "at line",
+    /invalid json/i,
+    /malformed json/i,
   ],
 } as const;
 
