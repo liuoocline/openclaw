@@ -448,6 +448,14 @@ export function formatAssistantErrorText(
     );
   }
 
+  if (isJsonParseError(raw)) {
+    return (
+      "Tool call failed due to JSON format error. " +
+      "This may be caused by special characters in the content. " +
+      "Please try rephrasing your request or use simpler text."
+    );
+  }
+
   if (isMissingToolCallInputError(raw)) {
     return (
       "Session history looks corrupted (tool call input missing). " +
@@ -582,6 +590,13 @@ const ERROR_PATTERNS = {
     "messages.1.content.1.tool_use.id",
     "invalid request format",
   ],
+  jsonParse: [
+    /expected.*(?:,|'}').*after property value in json/i,
+    /unexpected.{1,20}in json/i,
+    /json.*parse.*error/i,
+    /invalid json/i,
+    /malformed json/i,
+  ],
 } as const;
 
 const TOOL_CALL_INPUT_MISSING_RE =
@@ -693,6 +708,10 @@ export function isImageSizeError(errorMessage?: string): boolean {
     return false;
   }
   return Boolean(parseImageSizeError(errorMessage));
+}
+
+export function isJsonParseError(raw: string): boolean {
+  return matchesErrorPatterns(raw, ERROR_PATTERNS.jsonParse);
 }
 
 export function isCloudCodeAssistFormatError(raw: string): boolean {
