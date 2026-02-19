@@ -78,6 +78,7 @@ export function mergeConsecutiveUserTurns(
  * Validates and fixes conversation turn sequences for Anthropic API.
  * Anthropic requires strict alternating user→assistant pattern.
  * Merges consecutive user messages together AND consecutive assistant messages.
+ * Also filters out messages with empty content (required for OpenAI-compatible APIs like NVIDIA).
  */
 export function validateAnthropicTurns(messages: AgentMessage[]): AgentMessage[] {
   if (!Array.isArray(messages) || messages.length === 0) {
@@ -97,6 +98,15 @@ export function validateAnthropicTurns(messages: AgentMessage[]): AgentMessage[]
     if (!msgRole) {
       result.push(msg);
       continue;
+    }
+
+    // Filter out messages with empty content (NVIDIA API requirement)
+    const content = (msg as { content?: unknown }).content;
+    if (Array.isArray(content) && content.length === 0) {
+      continue; // Skip empty content arrays
+    }
+    if (typeof content === "string" && content.trim() === "") {
+      continue; // Skip empty string content
     }
 
     // Merge consecutive user messages
