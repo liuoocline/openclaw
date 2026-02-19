@@ -77,7 +77,7 @@ export function mergeConsecutiveUserTurns(
 /**
  * Validates and fixes conversation turn sequences for Anthropic API.
  * Anthropic requires strict alternating user→assistant pattern.
- * Merges consecutive user messages together.
+ * Merges consecutive user messages together AND consecutive assistant messages.
  */
 export function validateAnthropicTurns(messages: AgentMessage[]): AgentMessage[] {
   if (!Array.isArray(messages) || messages.length === 0) {
@@ -99,6 +99,7 @@ export function validateAnthropicTurns(messages: AgentMessage[]): AgentMessage[]
       continue;
     }
 
+    // Merge consecutive user messages
     if (msgRole === lastRole && lastRole === "user") {
       const lastMsg = result[result.length - 1];
       const currentMsg = msg as Extract<AgentMessage, { role: "user" }>;
@@ -106,6 +107,33 @@ export function validateAnthropicTurns(messages: AgentMessage[]): AgentMessage[]
       if (lastMsg && typeof lastMsg === "object") {
         const lastUser = lastMsg as Extract<AgentMessage, { role: "user" }>;
         const merged = mergeConsecutiveUserTurns(lastUser, currentMsg);
+        result[result.length - 1] = merged;
+        continue;
+      }
+    }
+
+    // Merge consecutive assistant messages (fix for "roles must alternate" error)
+    if (msgRole === lastRole && lastRole === "assistant") {
+      const lastMsg = result[result.length - 1];
+      const currentMsg = msg as Extract<AgentMessage, { role: "assistant" }>;
+
+      if (lastMsg && typeof lastMsg === "object") {
+        const lastAsst = lastMsg as Extract<AgentMessage, { role: "assistant" }>;
+        const mergedContent = [
+          ...(Array.isArray(lastAsst.content) ? lastAsst.content : []),
+          ...(Array.isArray(currentMsg.content) ? currentMsg.content : []),
+        ];
+
+        const merged: Extract<AgentMessage, { role: "assistant" }> = {
+          ...lastAsst,
+          content: mergedContent,
+          ...(currentMsg.usage && { usage: currentMsg.usage }),
+          ...(currentMsg.stopReason && { stopReason: currentMsg.stopReason }),
+          ...(currentMsg.errorMessage && {
+            errorMessage: currentMsg.errorMessage,
+          }),
+        };
+
         result[result.length - 1] = merged;
         continue;
       }
