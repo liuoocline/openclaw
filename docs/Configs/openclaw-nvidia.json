@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.13",
+    "lastTouchedAt": "2026-02-19T04:07:40.568Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-18T15:27:32.021Z",
+    "lastRunVersion": "2026.2.13",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "browser": {
+    "enabled": true,
+    "executablePath": "/usr/bin/google-chrome-stable",
+    "headless": true,
+    "noSandbox": true,
+    "defaultProfile": "openclaw"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "custom-integrate-api-nvidia-com": {
+        "baseUrl": "https://integrate.api.nvidia.com/v1",
+        "apiKey": "nvapi-111111111111111111111111111111111QZ5YCAs0twHUvY1XlmasoL1DR",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen/qwen3.5-397b-a17b",
+            "name": "Qwen 3.5 397B (NVIDIA)",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "z-ai/glm4.7",
+            "name": "GLM 4.7 (NVIDIA)",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 16384
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"
+      },
+      "models": {
+        "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b": {
+          "alias": "qwen3.5",
+          "params": {
+            "contextTokens": 128000
+          }
+        },
+        "custom-integrate-api-nvidia-com/z-ai/glm4.7": {
+          "alias": "glm4.7",
+          "params": {
+            "contextTokens": 128000
+          }
+        }
+      },
+      "workspace": "/home/liu/.openclaw/workspace",
+      "contextTokens": 64000,
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "3m",
+        "keepLastAssistants": 2,
+        "softTrimRatio": 0.25,
+        "hardClearRatio": 0.4,
+        "minPrunableToolChars": 30000,
+        "tools": {
+          "allow": [
+            "Bash",
+            "Read",
+            "Grep",
+            "Glob"
+          ]
+        },
+        "softTrim": {
+          "maxChars": 3000,
+          "headChars": 1000,
+          "tailChars": 1000
+        },
+        "hardClear": {
+          "enabled": true,
+          "placeholder": "[Old content cleared]"
+        }
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "reserveTokensFloor": 10000,
+        "maxHistoryShare": 0.3,
+        "memoryFlush": {
+          "enabled": true,
+          "softThresholdTokens": 6000
+        }
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "messages": {
+    "groupChat": {
+      "historyLimit": 5
+    },
+    "ackReactionScope": "group-mentions",
+    "tts": {
+      "auto": "tagged",
+      "provider": "edge",
+      "edge": {
+        "voice": "zh-CN-XiaoxiaoNeural",
+        "lang": "zh-CN",
+        "outputFormat": "ogg-48khz-16bit-mono-opus"
+      },
+      "maxTextLength": 4000,
+      "timeoutMs": 30000
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "YOUR_DISCORD_BOT_TOKEN_HERE",
+      "groupPolicy": "allowlist",
+      "dmHistoryLimit": 5,
+      "guilds": {
+        "1467004974801223884": {
+          "channels": {
+            "1467004975526969357": {
+              "allow": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "oc_gw_7f3a9b2e4d1c8f5a6b0e3d9c2a1f4b8e"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "pnpm"
+    }
+  },
+  "plugins": {
+    "entries": {
+      "discord": {
+        "enabled": true
+      }
+    }
+  }
+}
