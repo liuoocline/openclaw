@@ -15,6 +15,6 @@ export declare function mergeConsecutiveUserTurns(previous: Extract<AgentMessage
 /**
  * Validates and fixes conversation turn sequences for Anthropic API.
  * Anthropic requires strict alternating user→assistant pattern.
- * Merges consecutive user messages together.
+ * Merges consecutive user messages together AND consecutive assistant messages.
  */
 export declare function validateAnthropicTurns(messages: AgentMessage[]): AgentMessage[];

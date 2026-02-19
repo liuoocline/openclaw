@@ -1,38 +1,43 @@
-import { a as resolveOAuthDir, i as resolveGatewayPort, n as resolveConfigPath, s as resolveStateDir, t as STATE_DIR, u as resolveRequiredHomeDir } from "./paths-rb94mUrR.js";
-import { A as classifySessionKeyShape, B as resolveThreadParentSessionKey, D as buildAgentMainSessionKey, E as DEFAULT_MAIN_KEY, F as resolveThreadSessionKeys, I as sanitizeAgentId, L as isAcpSessionKey, M as normalizeAgentId, N as normalizeMainKey, O as buildAgentPeerSessionKey, P as resolveAgentIdFromSessionKey, R as isSubagentSessionKey, S as resolveOpenClawPackageRoot, T as DEFAULT_AGENT_ID, b as filterBootstrapFilesForSession, c as resolveDefaultAgentId, f as DEFAULT_AGENT_WORKSPACE_DIR, i as resolveAgentModelFallbacksOverride, j as normalizeAccountId$3, k as buildGroupHistoryKey, l as resolveSessionAgentId, n as resolveAgentConfig, o as resolveAgentSkillsFilter, p as DEFAULT_BOOTSTRAP_FILENAME, r as resolveAgentDir, s as resolveAgentWorkspaceDir, t as listAgentIds, u as resolveSessionAgentIds, w as DEFAULT_ACCOUNT_ID$1, x as loadWorkspaceBootstrapFiles, y as ensureAgentWorkspace, z as parseAgentSessionKey } from "./agent-scope-Dpav7C-i.js";
-import { $ as colorize, A as isPlainObject, B as shortenHomeInString, C as CONFIG_DIR, D as ensureDir$3, G as truncateUtf16Safe, H as sleep, J as logVerbose, K as danger, L as resolveJidToE164, M as isSelfChatMode, N as jidToE164, O as escapeRegExp, P as normalizeE164, Q as warn, R as resolveUserPath, S as setActivePluginRegistry, T as clampInt, U as sliceUtf16Safe, V as shortenHomePath, W as toWhatsappJid, X as shouldLogVerbose, Y as setVerbose, Z as success, _ as normalizeAnyChannelId, a as logDebug, b as getActivePluginRegistry, c as logWarn, d as clearActiveProgressLine, et as isRich, f as registerActiveProgressLine, h as CHAT_CHANNEL_ORDER, i as spawnWithFallback, it as normalizeLogLevel, j as isRecord, k as formatTerminalLink, l as createSubsystemLogger, n as runExec, nt as getChildLogger, o as logError, p as unregisterActiveProgressLine, q as info, r as formatSpawnError, s as logInfo, t as runCommandWithTimeout, tt as theme, u as defaultRuntime, v as normalizeChannelId, w as clamp, x as requireActivePluginRegistry, z as safeParseJson } from "./exec-Bas1hoSJ.js";
-import { B as resolveOpenClawAgentDir, C as getShellPathFromLoginShell, F as resolveApiKeyForProfile, G as DEFAULT_PROVIDER, H as resolveAuthProfileDisplayLabel, I as listProfilesForProvider, L as markAuthProfileGood, M as isProfileInCooldown, N as markAuthProfileFailure, O as isTruthyEnvValue, P as markAuthProfileUsed, R as ensureAuthProfileStore, S as resolveModelAuthMode, T as resolveShellEnvFallbackTimeoutMs, U as DEFAULT_CONTEXT_TOKENS, V as normalizeSecretInput, W as DEFAULT_MODEL, _ as getApiKeyForModel, a as modelKey, b as resolveApiKeyForProvider, c as resolveConfiguredModelRef, d as resolveThinkingDefault, f as normalizeGoogleModelId, i as isCliProvider, j as resolveAuthProfileOrder, k as parseBooleanValue$1, l as resolveDefaultModelForAgent, n as buildConfiguredAllowlistKeys, o as normalizeProviderId, r as buildModelAliasIndex, t as buildAllowedModelSet, u as resolveModelRefFromString, v as getCustomProviderApiKey, x as resolveEnvApiKey, y as requireApiKey, z as resolveAuthStorePathForDisplay } from "./model-selection-DlV6wnTr.js";
-import { a as saveJsonFile, i as loadJsonFile } from "./github-copilot-token-wCk9Fg_E.js";
-import { n as resolveCliName, t as formatCliCommand } from "./command-format-CFzL448l.js";
-import { A as loadWebMedia, B as chunkTextWithMode, C as parseInlineDirectives$1, D as chunkMarkdownIR, E as fetchWithTimeout, F as resolveMarkdownTableMode, G as parseFenceSpans, H as resolveTextChunkLimit, I as chunkByNewline, J as isSilentReplyText, K as HEARTBEAT_TOKEN, L as chunkMarkdownText, M as MediaFetchError, N as fetchRemoteMedia, O as markdownToIR, P as fetchWithSsrFGuard, R as chunkMarkdownTextWithMode, S as splitMediaFromOutput, T as wrapFetchWithAbortSignal, U as findFenceSpanAt, V as resolveChunkMode, W as isSafeFenceBreak, _ as buildTargetResolverSignature, a as applyReplyThreading, b as throwIfAborted, c as shouldSuppressMessagingToolReplies, d as sendMessageSignal, f as sendReadReceiptSignal, g as streamSignalEvents, h as signalRpcRequest, i as applyReplyTagsToPayload, j as loadWebMediaRaw, k as markdownToIRWithMeta, l as createReplyToModeFilterForChannel, m as signalCheck, o as filterMessagingToolDuplicates, p as sendTypingSignal, q as SILENT_REPLY_TOKEN, r as normalizeReplyPayloadsForDelivery, s as isRenderablePayload, t as deliverOutboundPayloads, u as resolveReplyToMode, v as normalizeChannelTargetInput, w as resolveFetch, x as parseReplyDirectives, y as normalizeTargetForProvider, z as chunkText } from "./deliver-NrOXO9Jx.js";
-import { $ as updateSessionStore, $t as expandToolGroups, A as isCloudCodeAssistFormatError, An as getChannelPlugin, At as getImageMetadata, B as parseImageDimensionError, Bn as resolveSlackAccount, C as BILLING_ERROR_USER_MESSAGE, Cn as isGifMedia, Ct as resolveConversationLabel, D as getApiErrorPayloadFingerprint, Dn as mediaKindFromMime, Dt as resolveBrowserConfig, E as formatRawAssistantErrorForUi, Et as registerBrowserRoutes, F as isJsonParseError, Fn as listEnabledTelegramAccounts, Ft as saveMediaBuffer, G as resolveSandboxRuntimeStatus, Gn as resolveDiscordAccount, Gt as resolvePluginSkillDirs, H as sanitizeUserFacingText, Hn as resolveSlackBotToken, Ht as buildWorkspaceSkillSnapshot, I as isLikelyContextOverflowError, In as listTelegramAccountIds, It as SsrFBlockedError, J as loadSessionStore, Jt as resolveSandboxConfigForAgent, K as appendAssistantMessageToSessionTranscript, Kn as normalizeDiscordToken, Kt as applySkillEnvOverrides, L as isRateLimitAssistantError, Ln as resolveTelegramAccount, M as isContextOverflowError, Mn as normalizeChannelId$1, N as isFailoverAssistantError, Nn as isWhatsAppGroupJid, Nt as resizeToJpeg, O as isAuthAssistantError, On as listEnabledSignalAccounts, Ot as resolveProfile, P as isFailoverErrorMessage, Pn as normalizeWhatsAppTarget, Pt as getMediaDir, Q as updateLastRoute, Qt as expandPolicyWithPluginGroups, R as isRawApiErrorPayload, Rn as resolveTelegramToken, S as isGoogleModelApi, Sn as isAudioFileName, St as resolveIMessageAccount, T as formatAssistantErrorText, Tn as MAX_IMAGE_BYTES, Tt as createBrowserRouteContext, U as ensureSandboxWorkspaceForSession, Un as normalizeChatType, Ut as loadWorkspaceSkillEntries, V as parseImageSizeError, Vn as resolveSlackAppToken, Vt as buildWorkspaceSkillCommandSpecs, W as resolveSandboxContext, Wn as listEnabledDiscordAccounts, Wt as resolveSkillsPromptForRun, X as recordSessionMetaFromInbound, Xt as buildPluginToolGroups, Y as readSessionUpdatedAt, Yt as applyOwnerOnlyToolPolicy, Z as saveSessionStore, Zt as collectExplicitAllowlist, _ as sanitizeSessionMessagesImages, _n as GATEWAY_CLIENT_NAMES, _t as getChannelDock, a as formatXHighModelHint, an as resolveBootstrapMaxChars, at as mergeDeliveryContext, b as downgradeOpenAIReasoningBlocks, bn as getFileExtension, bt as resolveChannelGroupRequireMention, c as normalizeReasoningLevel, cn as isDeliverableMessageChannel, ct as resolveSessionKey$1, d as normalizeVerboseLevel, dn as listDeliverableMessageChannels, dt as resolveSessionResetPolicy, en as normalizeToolName, et as updateSessionStoreEntry, f as resolveResponseUsageMode, fn as normalizeMessageChannel, ft as resolveSessionResetType, g as normalizeTextForComparison, gn as GATEWAY_CLIENT_MODES, gt as deriveSessionMetaPatch, h as isMessagingToolDuplicateNormalized, hn as GATEWAY_CLIENT_IDS, ht as resolveMainSessionKey, i as formatThinkingLevels, in as ensureSessionHeader, it as deliveryContextKey, j as isCompactionFailureError, jn as listChannelPlugins, k as isBillingAssistantError, kn as resolveSignalAccount, l as normalizeThinkLevel, ln as isInternalMessageChannel, lt as evaluateSessionFreshness, mn as resolveMessageChannel, mt as DEFAULT_RESET_TRIGGERS, n as validateGeminiTurns, nn as stripPluginOnlyAllowlist, nt as resolveCacheTtlMs$1, o as listThinkingLevels, on as sanitizeGoogleTurnOrdering, ot as normalizeDeliveryContext, p as supportsXHighThinking, pn as resolveGatewayMessageChannel, pt as resolveThreadFlag, qt as applySkillEnvOverridesFromSnapshot, r as pickFallbackThinkingLevel, rn as buildBootstrapContextFiles, rt as deliveryContextFromSession, s as normalizeElevatedLevel, sn as INTERNAL_MESSAGE_CHANNEL, st as normalizeSessionDeliveryFields, t as validateAnthropicTurns, tn as resolveToolProfilePolicy, tt as isCacheEnabled, u as normalizeUsageDisplay, un as isMarkdownCapableMessageChannel, ut as resolveChannelResetConfig, v as sanitizeImageBlocks, vn as detectMime, vt as listChannelDocks, w as classifyFailoverReason, wn as kindFromMime, wt as resolveGroupSessionKey, x as isAntigravityClaude, xn as imageMimeFromFormat, xt as resolveChannelGroupToolsPolicy, y as sanitizeToolResultImages, yn as extensionForMime, yt as resolveChannelGroupPolicy, z as isTimeoutErrorMessage, zn as listBindings } from "./pi-embedded-helpers-DkMQ5cRh.js";
-import { A as resolveWhatsAppAccount, C as unsetConfigOverride, D as unsetConfigValueAtPath, E as setConfigValueAtPath, F as readWebSelfId, M as logWebSelfId, N as logoutWeb, O as resolveAgentMaxConcurrent, S as setConfigOverride, T as parseConfigPath, _ as normalizePluginsConfig, a as validateConfigObjectWithPlugins, b as getConfigOverrides, c as normalizeTelegramCommandName, d as parseDurationMs, f as validateJsonSchemaValue, i as writeConfigFile, j as getWebAuthAgeMs, k as VERSION, l as resolveTelegramCustomCommands, m as discoverOpenClawPlugins, n as readConfigFileSnapshot, p as loadPluginManifestRegistry, r as resolveConfigSnapshotHash, s as TELEGRAM_COMMAND_NAME_PATTERN, t as loadConfig, u as isSafeExecutableValue, v as resolveEnableState, w as getConfigValueAtPath, x as resetConfigOverrides, y as resolveMemorySlotDecision, z as webAuthExists } from "./config-CQt4vGxI.js";
-import { n as discoverModels, t as discoverAuthStorage } from "./pi-model-discovery-EhM2JAQo.js";
-import { C as DEFAULT_AI_SNAPSHOT_MAX_CHARS, _ as rawDataToString, b as pickPrimaryTailnetIPv4, h as ensureChromeExtensionRelayServer, y as pickPrimaryLanIPv4 } from "./chrome-CQd_MVOA.js";
-import { n as formatErrorMessage, r as formatUncaughtError, t as extractErrorCode } from "./errors-dpUbQseI.js";
-import { a as resolveStorePath, i as resolveSessionTranscriptsDirForAgent, n as resolveSessionFilePath, r as resolveSessionTranscriptPath } from "./paths-uoGO2aiO.js";
-import { t as emitSessionTranscriptUpdate } from "./transcript-events-BrkSiEN9.js";
-import { _ as stripThinkingTagsFromText, a as decodeDataUrl, c as extractAssistantText$1, d as extractThinkingFromTaggedText, f as formatReasoningMessage, g as stripMinimaxToolCallXml, h as stripDowngradedToolCallText, i as coerceImageModelConfig, l as extractAssistantThinking, m as promoteThinkingTagsToBlocks, o as resolveProviderVisionModelFromConfig, p as inferToolMetaFromArgs, r as coerceImageAssistantText, s as minimaxUnderstandImage, t as describeImageWithModel, u as extractThinkingFromTaggedStream, v as resolveToolDisplay, y as ensureOpenClawModelsJson } from "./image-B2in9uyw.js";
-import { i as resolveMemorySearchConfig, n as resolveRetryConfig, r as retryAsync } from "./manager-BsdlwsL5.js";
-import { c as listMemoryFiles, l as normalizeExtraMemoryPaths } from "./sqlite-CpqIbY4-.js";
-import { t as redactSensitiveText } from "./redact-BrXLgslJ.js";
-import { a as formatError$1, i as createWaSocket, n as startWebLoginWithQr, o as getStatusCode$1, r as waitForWebLogin, s as waitForWaConnection } from "./login-qr-BJChByHH.js";
+import { a as resolveOAuthDir, i as resolveGatewayPort, n as resolveConfigPath, s as resolveStateDir, t as STATE_DIR, u as resolveRequiredHomeDir } from "./paths-BZtyHNCi.js";
+import { _ as resolveThreadParentSessionKey, a as buildAgentPeerSessionKey, c as normalizeAccountId$3, d as resolveAgentIdFromSessionKey, f as resolveThreadSessionKeys, g as parseAgentSessionKey, h as isSubagentSessionKey, i as buildAgentMainSessionKey, l as normalizeAgentId, m as isAcpSessionKey, n as DEFAULT_AGENT_ID, o as buildGroupHistoryKey, p as sanitizeAgentId, r as DEFAULT_MAIN_KEY, s as classifySessionKeyShape, t as DEFAULT_ACCOUNT_ID$1, u as normalizeMainKey } from "./session-key-nXYQSv-a.js";
+import { A as shouldLogVerbose, C as truncateUtf16Safe, D as logVerbose, F as theme, I as getChildLogger, M as warn, N as colorize, P as isRich, S as toWhatsappJid, T as info, V as normalizeLogLevel, _ as safeParseJson, a as ensureDir$3, b as sleep, c as isPlainObject, d as jidToE164, f as normalizeE164, g as resolveUserPath, h as resolveJidToE164, j as success, k as setVerbose, l as isRecord, n as clamp, o as escapeRegExp, r as clampInt, s as formatTerminalLink, t as CONFIG_DIR, u as isSelfChatMode, v as shortenHomeInString, w as danger, x as sliceUtf16Safe, y as shortenHomePath } from "./utils-dp_OM900.js";
+import { C as setActivePluginRegistry, S as requireActivePluginRegistry, a as logDebug, c as logWarn, d as clearActiveProgressLine, f as registerActiveProgressLine, h as CHAT_CHANNEL_ORDER, i as spawnWithFallback, l as createSubsystemLogger, n as runExec, o as logError, p as unregisterActiveProgressLine, r as formatSpawnError, s as logInfo, t as runCommandWithTimeout, u as defaultRuntime, v as normalizeAnyChannelId, x as getActivePluginRegistry, y as normalizeChannelId } from "./exec-CiH_vkWn.js";
+import { S as resolveOpenClawPackageRoot, b as filterBootstrapFilesForSession, c as resolveDefaultAgentId, f as DEFAULT_AGENT_WORKSPACE_DIR, i as resolveAgentModelFallbacksOverride, l as resolveSessionAgentId, n as resolveAgentConfig, o as resolveAgentSkillsFilter, p as DEFAULT_BOOTSTRAP_FILENAME, r as resolveAgentDir, s as resolveAgentWorkspaceDir, t as listAgentIds, u as resolveSessionAgentIds, x as loadWorkspaceBootstrapFiles, y as ensureAgentWorkspace } from "./agent-scope-Dp8sREli.js";
+import { A as chunkMarkdownIR, B as chunkMarkdownText, C as throwIfAborted, D as resolveFetch, E as parseInlineDirectives$1, F as MediaFetchError, G as resolveTextChunkLimit, H as chunkText, I as fetchRemoteMedia, J as parseFenceSpans, K as findFenceSpanAt, L as fetchWithSsrFGuard, M as markdownToIRWithMeta, N as loadWebMedia, O as wrapFetchWithAbortSignal, P as loadWebMediaRaw, R as resolveMarkdownTableMode, S as normalizeTargetForProvider, T as splitMediaFromOutput, U as chunkTextWithMode, V as chunkMarkdownTextWithMode, W as resolveChunkMode, X as SILENT_REPLY_TOKEN, Y as HEARTBEAT_TOKEN, Z as isSilentReplyText, _ as signalCheck, b as buildTargetResolverSignature, c as applyReplyThreading, d as shouldSuppressMessagingToolReplies, f as createReplyToModeFilterForChannel, g as sendTypingSignal, h as sendReadReceiptSignal, j as markdownToIR, k as fetchWithTimeout, l as filterMessagingToolDuplicates, m as sendMessageSignal, o as normalizeReplyPayloadsForDelivery, p as resolveReplyToMode, q as isSafeFenceBreak, s as applyReplyTagsToPayload, t as deliverOutboundPayloads, u as isRenderablePayload, v as signalRpcRequest, w as parseReplyDirectives, x as normalizeChannelTargetInput, y as streamSignalEvents, z as chunkByNewline } from "./deliver-DYbEJx0g.js";
+import { $ as updateSessionStoreEntry, $t as expandPolicyWithPluginGroups, A as isCloudCodeAssistFormatError, An as listEnabledSignalAccounts, B as parseImageDimensionError, Bn as resolveTelegramToken, C as BILLING_ERROR_USER_MESSAGE, Cn as imageMimeFromFormat, Ct as resolveIMessageAccount, D as getApiErrorPayloadFingerprint, Dn as MAX_IMAGE_BYTES, Dt as registerBrowserRoutes, E as formatRawAssistantErrorForUi, En as kindFromMime, Et as createBrowserRouteContext, F as isJsonParseError, Fn as isWhatsAppGroupJid, Ft as getMediaDir, G as resolveSandboxRuntimeStatus, Gn as normalizeChatType, Gt as resolveSkillsPromptForRun, H as sanitizeUserFacingText, Hn as resolveSlackAccount, Ht as buildWorkspaceSkillCommandSpecs, I as isLikelyContextOverflowError, In as normalizeWhatsAppTarget, It as saveMediaBuffer, J as loadSessionStore, Jn as normalizeDiscordToken, Jt as applySkillEnvOverridesFromSnapshot, K as appendAssistantMessageToSessionTranscript, Kn as listEnabledDiscordAccounts, Kt as resolvePluginSkillDirs, L as isRateLimitAssistantError, Ln as listEnabledTelegramAccounts, Lt as SsrFBlockedError, M as isContextOverflowError, Mn as getChannelPlugin, N as isFailoverAssistantError, Nn as listChannelPlugins, O as isAuthAssistantError, Ot as resolveBrowserConfig, P as isFailoverErrorMessage, Pn as normalizeChannelId$1, Pt as resizeToJpeg, Q as updateSessionStore, Qt as collectExplicitAllowlist, R as isRawApiErrorPayload, Rn as listTelegramAccountIds, S as isGoogleModelApi, Sn as getFileExtension, St as resolveChannelGroupToolsPolicy, T as formatAssistantErrorText, Tn as isGifMedia, Tt as resolveGroupSessionKey, U as ensureSandboxWorkspaceForSession, Un as resolveSlackAppToken, Ut as buildWorkspaceSkillSnapshot, V as parseImageSizeError, Vn as listBindings, W as resolveSandboxContext, Wn as resolveSlackBotToken, Wt as loadWorkspaceSkillEntries, X as recordSessionMetaFromInbound, Xt as applyOwnerOnlyToolPolicy, Y as readSessionUpdatedAt, Yt as resolveSandboxConfigForAgent, Z as updateLastRoute, Zt as buildPluginToolGroups, _ as sanitizeSessionMessagesImages, _n as GATEWAY_CLIENT_IDS, _t as deriveSessionMetaPatch, a as formatXHighModelHint, an as ensureSessionHeader, at as normalizeDeliveryContext, b as downgradeOpenAIReasoningBlocks, bn as detectMime, bt as resolveChannelGroupPolicy, c as normalizeReasoningLevel, cn as INTERNAL_MESSAGE_CHANNEL, ct as resolveSessionKey$1, d as normalizeVerboseLevel, dn as isInternalMessageChannel, dt as resolveSessionResetPolicy, en as expandToolGroups, et as isCacheEnabled, f as resolveResponseUsageMode, fn as isMarkdownCapableMessageChannel, ft as resolveSessionResetType, g as normalizeTextForComparison, gn as resolveMessageChannel, gt as resolveMainSessionKey, h as isMessagingToolDuplicateNormalized, hn as resolveGatewayMessageChannel, i as formatThinkingLevels, in as buildBootstrapContextFiles, it as mergeDeliveryContext, j as isCompactionFailureError, jn as resolveSignalAccount, jt as getImageMetadata, k as isBillingAssistantError, kn as mediaKindFromMime, kt as resolveProfile, l as normalizeThinkLevel, ln as isDeliverableMessageChannel, lt as evaluateSessionFreshness, mn as normalizeMessageChannel, mt as DEFAULT_RESET_TRIGGERS, n as validateGeminiTurns, nn as resolveToolProfilePolicy, nt as deliveryContextFromSession, o as listThinkingLevels, on as resolveBootstrapMaxChars, ot as normalizeSessionDeliveryFields, p as supportsXHighThinking, pn as listDeliverableMessageChannels, pt as resolveThreadFlag, qn as resolveDiscordAccount, qt as applySkillEnvOverrides, r as pickFallbackThinkingLevel, rn as stripPluginOnlyAllowlist, rt as deliveryContextKey, s as normalizeElevatedLevel, sn as sanitizeGoogleTurnOrdering, t as validateAnthropicTurns, tn as normalizeToolName, tt as resolveCacheTtlMs$1, u as normalizeUsageDisplay, ut as resolveChannelResetConfig, v as sanitizeImageBlocks, vn as GATEWAY_CLIENT_MODES, vt as getChannelDock, w as classifyFailoverReason, wn as isAudioFileName, wt as resolveConversationLabel, x as isAntigravityClaude, xn as extensionForMime, xt as resolveChannelGroupRequireMention, y as sanitizeToolResultImages, yn as GATEWAY_CLIENT_NAMES, yt as listChannelDocks, z as isTimeoutErrorMessage, zn as resolveTelegramAccount } from "./pi-embedded-helpers-DS3PAFLP.js";
+import { t as parseBooleanValue$1 } from "./boolean-M-esQJt6.js";
+import { C as normalizeProviderId, D as resolveModelRefFromString, E as resolveDefaultModelForAgent, F as DEFAULT_MODEL, I as DEFAULT_PROVIDER, L as resolveAuthProfileDisplayLabel, O as resolveThinkingDefault, P as DEFAULT_CONTEXT_TOKENS, R as normalizeSecretInput, S as modelKey, T as resolveConfiguredModelRef, V as resolveShellEnvFallbackTimeoutMs, W as isTruthyEnvValue, _ as resolveOpenClawAgentDir, a as resolveEnvApiKey, b as buildModelAliasIndex, c as resolveAuthProfileOrder, d as markAuthProfileUsed, f as resolveApiKeyForProfile, g as resolveAuthStorePathForDisplay, h as ensureAuthProfileStore, i as resolveApiKeyForProvider, k as normalizeGoogleModelId, l as isProfileInCooldown, m as markAuthProfileGood, n as getCustomProviderApiKey, o as resolveModelAuthMode, p as listProfilesForProvider, r as requireApiKey, t as getApiKeyForModel, u as markAuthProfileFailure, v as buildAllowedModelSet, x as isCliProvider, y as buildConfiguredAllowlistKeys, z as getShellPathFromLoginShell } from "./model-auth-BqjMkNFs.js";
+import { n as resolveCliName, t as formatCliCommand } from "./command-format-BUxhT1xL.js";
+import { A as logoutWeb, C as setConfigValueAtPath, D as resolveWhatsAppAccount, E as VERSION, I as webAuthExists, M as readWebSelfId, O as getWebAuthAgeMs, S as parseConfigPath, T as resolveAgentMaxConcurrent, _ as getConfigOverrides, a as validateConfigObjectWithPlugins, b as unsetConfigOverride, c as normalizeTelegramCommandName, d as validateJsonSchemaValue, f as loadPluginManifestRegistry, g as resolveMemorySlotDecision, h as resolveEnableState, i as writeConfigFile, k as logWebSelfId, l as resolveTelegramCustomCommands, m as normalizePluginsConfig, n as readConfigFileSnapshot, p as discoverOpenClawPlugins, r as resolveConfigSnapshotHash, s as TELEGRAM_COMMAND_NAME_PATTERN, t as loadConfig, u as isSafeExecutableValue, v as resetConfigOverrides, w as unsetConfigValueAtPath, x as getConfigValueAtPath, y as setConfigOverride } from "./config-ethqi73X.js";
+import { a as saveJsonFile, i as loadJsonFile } from "./github-copilot-token-C9IJh2Pn.js";
+import { n as discoverModels, t as discoverAuthStorage } from "./pi-model-discovery-DzFOAbQt.js";
+import { a as createInternalHookEvent, c as triggerInternalHook, i as withNormalizedTimestamp, n as resolveUserTimeFormat, r as resolveUserTimezone, s as registerInternalHook, t as formatUserTime } from "./date-time-c6HTX6IW.js";
+import { t as parseDurationMs } from "./parse-duration-De_tAQSe.js";
+import { C as DEFAULT_AI_SNAPSHOT_MAX_CHARS, _ as rawDataToString, b as pickPrimaryTailnetIPv4, h as ensureChromeExtensionRelayServer, y as pickPrimaryLanIPv4 } from "./chrome-3G45nnOm.js";
+import { n as formatErrorMessage, r as formatUncaughtError, t as extractErrorCode } from "./errors-D3tYRJWG.js";
+import { a as resolveStorePath, i as resolveSessionTranscriptsDirForAgent, n as resolveSessionFilePath, r as resolveSessionTranscriptPath } from "./paths-MnZaxqPw.js";
+import { t as emitSessionTranscriptUpdate } from "./transcript-events-BlIONGVn.js";
+import { _ as stripThinkingTagsFromText, a as decodeDataUrl, c as extractAssistantText$1, d as extractThinkingFromTaggedText, f as formatReasoningMessage, g as stripMinimaxToolCallXml, h as stripDowngradedToolCallText, i as coerceImageModelConfig, l as extractAssistantThinking, m as promoteThinkingTagsToBlocks, o as resolveProviderVisionModelFromConfig, p as inferToolMetaFromArgs, r as coerceImageAssistantText, s as minimaxUnderstandImage, t as describeImageWithModel, u as extractThinkingFromTaggedStream, v as resolveToolDisplay, y as ensureOpenClawModelsJson } from "./image-CdiF52wS.js";
+import { i as resolveMemorySearchConfig, n as resolveRetryConfig, r as retryAsync } from "./manager-D2Ndphg3.js";
+import { c as listMemoryFiles, l as normalizeExtraMemoryPaths } from "./sqlite-Bwo2rASR.js";
+import { t as redactSensitiveText } from "./redact-BRmQPYDR.js";
+import { a as formatError$1, i as createWaSocket, n as startWebLoginWithQr, o as getStatusCode$1, r as waitForWebLogin, s as waitForWaConnection } from "./login-qr-BVeOFfNW.js";
 import { createRequire } from "node:module";
-import * as path$1 from "node:path";
-import path from "node:path";
-import fs, { constants, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from "node:fs";
+import * as fs$2 from "node:fs/promises";
+import fs from "node:fs/promises";
 import * as os$1 from "node:os";
 import os, { homedir, tmpdir } from "node:os";
-import * as fs$2 from "node:fs/promises";
-import fs$1 from "node:fs/promises";
-import { execFile, execSync, spawn, spawnSync } from "node:child_process";
+import * as path$1 from "node:path";
+import path from "node:path";
+import fs$1, { constants, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from "node:fs";
+import { execFile, spawn, spawnSync } from "node:child_process";
 import { inspect, promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import { CURRENT_SESSION_VERSION, SessionManager, SettingsManager, codingTools, createAgentSession, createEditTool, createReadTool, createWriteTool, estimateTokens, readTool } from "@mariozechner/pi-coding-agent";
+import { complete, completeSimple, streamSimple } from "@mariozechner/pi-ai";
+import { EdgeTTS } from "node-edge-tts";
 import lockfile from "proper-lockfile";
 import crypto, { X509Certificate, randomUUID } from "node:crypto";
-import { complete, completeSimple, streamSimple } from "@mariozechner/pi-ai";
-import { CURRENT_SESSION_VERSION, SessionManager, SettingsManager, codingTools, createAgentSession, createEditTool, createReadTool, createWriteTool, estimateTokens, readTool } from "@mariozechner/pi-coding-agent";
-import { EdgeTTS } from "node-edge-tts";
 import AjvPkg from "ajv";
 import { createServer } from "node:http";
 import { ProxyAgent, fetch as fetch$1 } from "undici";
@@ -61,81 +66,6 @@ import { run, sequentialize } from "@grammyjs/runner";
 import { apiThrottler } from "@grammyjs/transformer-throttler";
 import { EventEmitter } from "node:events";
 
-//#region src/agents/identity.ts
-const DEFAULT_ACK_REACTION = "👀";
-function resolveAgentIdentity(cfg, agentId) {
-	return resolveAgentConfig(cfg, agentId)?.identity;
-}
-function resolveAckReaction(cfg, agentId) {
-	const configured = cfg.messages?.ackReaction;
-	if (configured !== void 0) return configured.trim();
-	return resolveAgentIdentity(cfg, agentId)?.emoji?.trim() || DEFAULT_ACK_REACTION;
-}
-function resolveIdentityNamePrefix(cfg, agentId) {
-	const name = resolveAgentIdentity(cfg, agentId)?.name?.trim();
-	if (!name) return;
-	return `[${name}]`;
-}
-/** Returns just the identity name (without brackets) for template context. */
-function resolveIdentityName(cfg, agentId) {
-	return resolveAgentIdentity(cfg, agentId)?.name?.trim() || void 0;
-}
-function resolveMessagePrefix(cfg, agentId, opts) {
-	const configured = opts?.configured ?? cfg.messages?.messagePrefix;
-	if (configured !== void 0) return configured;
-	if (opts?.hasAllowFrom === true) return "";
-	return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[openclaw]";
-}
-/** Helper to extract a channel config value by dynamic key. */
-function getChannelConfig(cfg, channel) {
-	const value = cfg.channels?.[channel];
-	return typeof value === "object" && value !== null ? value : void 0;
-}
-function resolveResponsePrefix(cfg, agentId, opts) {
-	if (opts?.channel && opts?.accountId) {
-		const accountPrefix = (getChannelConfig(cfg, opts.channel)?.accounts)?.[opts.accountId]?.responsePrefix;
-		if (accountPrefix !== void 0) {
-			if (accountPrefix === "auto") return resolveIdentityNamePrefix(cfg, agentId);
-			return accountPrefix;
-		}
-	}
-	if (opts?.channel) {
-		const channelPrefix = getChannelConfig(cfg, opts.channel)?.responsePrefix;
-		if (channelPrefix !== void 0) {
-			if (channelPrefix === "auto") return resolveIdentityNamePrefix(cfg, agentId);
-			return channelPrefix;
-		}
-	}
-	const configured = cfg.messages?.responsePrefix;
-	if (configured !== void 0) {
-		if (configured === "auto") return resolveIdentityNamePrefix(cfg, agentId);
-		return configured;
-	}
-}
-function resolveEffectiveMessagesConfig(cfg, agentId, opts) {
-	return {
-		messagePrefix: resolveMessagePrefix(cfg, agentId, {
-			hasAllowFrom: opts?.hasAllowFrom,
-			fallback: opts?.fallbackMessagePrefix
-		}),
-		responsePrefix: resolveResponsePrefix(cfg, agentId, {
-			channel: opts?.channel,
-			accountId: opts?.accountId
-		})
-	};
-}
-function resolveHumanDelayConfig(cfg, agentId) {
-	const defaults = cfg.agents?.defaults?.humanDelay;
-	const overrides = resolveAgentConfig(cfg, agentId)?.humanDelay;
-	if (!defaults && !overrides) return;
-	return {
-		mode: overrides?.mode ?? defaults?.mode,
-		minMs: overrides?.minMs ?? defaults?.minMs,
-		maxMs: overrides?.maxMs ?? defaults?.maxMs
-	};
-}
-
-//#endregion
 //#region src/auto-reply/heartbeat.ts
 const HEARTBEAT_PROMPT = "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.";
 const DEFAULT_HEARTBEAT_ACK_MAX_CHARS = 300;
@@ -2191,75 +2121,6 @@ function isReasoningTagProvider(provider) {
 }
 
 //#endregion
-//#region src/hooks/internal-hooks.ts
-/** Registry of hook handlers by event key */
-const handlers$1 = /* @__PURE__ */ new Map();
-/**
-* Register a hook handler for a specific event type or event:action combination
-*
-* @param eventKey - Event type (e.g., 'command') or specific action (e.g., 'command:new')
-* @param handler - Function to call when the event is triggered
-*
-* @example
-* ```ts
-* // Listen to all command events
-* registerInternalHook('command', async (event) => {
-*   console.log('Command:', event.action);
-* });
-*
-* // Listen only to /new commands
-* registerInternalHook('command:new', async (event) => {
-*   await saveSessionToMemory(event);
-* });
-* ```
-*/
-function registerInternalHook(eventKey, handler) {
-	if (!handlers$1.has(eventKey)) handlers$1.set(eventKey, []);
-	handlers$1.get(eventKey).push(handler);
-}
-/**
-* Trigger a hook event
-*
-* Calls all handlers registered for:
-* 1. The general event type (e.g., 'command')
-* 2. The specific event:action combination (e.g., 'command:new')
-*
-* Handlers are called in registration order. Errors are caught and logged
-* but don't prevent other handlers from running.
-*
-* @param event - The event to trigger
-*/
-async function triggerInternalHook(event) {
-	const typeHandlers = handlers$1.get(event.type) ?? [];
-	const specificHandlers = handlers$1.get(`${event.type}:${event.action}`) ?? [];
-	const allHandlers = [...typeHandlers, ...specificHandlers];
-	if (allHandlers.length === 0) return;
-	for (const handler of allHandlers) try {
-		await handler(event);
-	} catch (err) {
-		console.error(`Hook error [${event.type}:${event.action}]:`, err instanceof Error ? err.message : String(err));
-	}
-}
-/**
-* Create a hook event with common fields filled in
-*
-* @param type - The event type
-* @param action - The action within that type
-* @param sessionKey - The session key
-* @param context - Additional context
-*/
-function createInternalHookEvent(type, action, sessionKey, context = {}) {
-	return {
-		type,
-		action,
-		sessionKey,
-		context,
-		timestamp: /* @__PURE__ */ new Date(),
-		messages: []
-	};
-}
-
-//#endregion
 //#region src/agents/bootstrap-hooks.ts
 async function applyBootstrapHookOverrides(params) {
 	const sessionKey = params.sessionKey ?? params.sessionId ?? "unknown";
@@ -2358,120 +2219,12 @@ function logListActionsError(pluginId, err) {
 }
 
 //#endregion
-//#region src/agents/date-time.ts
-let cachedTimeFormat;
-function resolveUserTimezone(configured) {
-	const trimmed = configured?.trim();
-	if (trimmed) try {
-		new Intl.DateTimeFormat("en-US", { timeZone: trimmed }).format(/* @__PURE__ */ new Date());
-		return trimmed;
-	} catch {}
-	return Intl.DateTimeFormat().resolvedOptions().timeZone?.trim() || "UTC";
-}
-function resolveUserTimeFormat(preference) {
-	if (preference === "12" || preference === "24") return preference;
-	if (cachedTimeFormat) return cachedTimeFormat;
-	cachedTimeFormat = detectSystemTimeFormat() ? "24" : "12";
-	return cachedTimeFormat;
-}
-function normalizeTimestamp(raw) {
-	if (raw == null) return;
-	let timestampMs;
-	if (raw instanceof Date) timestampMs = raw.getTime();
-	else if (typeof raw === "number" && Number.isFinite(raw)) timestampMs = raw < 0xe8d4a51000 ? Math.round(raw * 1e3) : Math.round(raw);
-	else if (typeof raw === "string") {
-		const trimmed = raw.trim();
-		if (!trimmed) return;
-		if (/^\d+(\.\d+)?$/.test(trimmed)) {
-			const num = Number(trimmed);
-			if (Number.isFinite(num)) if (trimmed.includes(".")) timestampMs = Math.round(num * 1e3);
-			else if (trimmed.length >= 13) timestampMs = Math.round(num);
-			else timestampMs = Math.round(num * 1e3);
-		} else {
-			const parsed = Date.parse(trimmed);
-			if (!Number.isNaN(parsed)) timestampMs = parsed;
-		}
-	}
-	if (timestampMs === void 0 || !Number.isFinite(timestampMs)) return;
-	return {
-		timestampMs,
-		timestampUtc: new Date(timestampMs).toISOString()
-	};
-}
-function withNormalizedTimestamp(value, rawTimestamp) {
-	const normalized = normalizeTimestamp(rawTimestamp);
-	if (!normalized) return value;
-	return {
-		...value,
-		timestampMs: typeof value.timestampMs === "number" && Number.isFinite(value.timestampMs) ? value.timestampMs : normalized.timestampMs,
-		timestampUtc: typeof value.timestampUtc === "string" && value.timestampUtc.trim() ? value.timestampUtc : normalized.timestampUtc
-	};
-}
-function detectSystemTimeFormat() {
-	if (process.platform === "darwin") try {
-		const result = execSync("defaults read -g AppleICUForce24HourTime 2>/dev/null", {
-			encoding: "utf8",
-			timeout: 500
-		}).trim();
-		if (result === "1") return true;
-		if (result === "0") return false;
-	} catch {}
-	if (process.platform === "win32") try {
-		const result = execSync("powershell -Command \"(Get-Culture).DateTimeFormat.ShortTimePattern\"", {
-			encoding: "utf8",
-			timeout: 1e3
-		}).trim();
-		if (result.startsWith("H")) return true;
-		if (result.startsWith("h")) return false;
-	} catch {}
-	try {
-		const sample = new Date(2e3, 0, 1, 13, 0);
-		return new Intl.DateTimeFormat(void 0, { hour: "numeric" }).format(sample).includes("13");
-	} catch {
-		return false;
-	}
-}
-function ordinalSuffix(day) {
-	if (day >= 11 && day <= 13) return "th";
-	switch (day % 10) {
-		case 1: return "st";
-		case 2: return "nd";
-		case 3: return "rd";
-		default: return "th";
-	}
-}
-function formatUserTime(date, timeZone, format) {
-	const use24Hour = format === "24";
-	try {
-		const parts = new Intl.DateTimeFormat("en-US", {
-			timeZone,
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-			hour: use24Hour ? "2-digit" : "numeric",
-			minute: "2-digit",
-			hourCycle: use24Hour ? "h23" : "h12"
-		}).formatToParts(date);
-		const map = {};
-		for (const part of parts) if (part.type !== "literal") map[part.type] = part.value;
-		if (!map.weekday || !map.year || !map.month || !map.day || !map.hour || !map.minute) return;
-		const dayNum = parseInt(map.day, 10);
-		const suffix = ordinalSuffix(dayNum);
-		const timePart = use24Hour ? `${map.hour}:${map.minute}` : `${map.hour}:${map.minute} ${map.dayPeriod ?? ""}`.trim();
-		return `${map.weekday}, ${map.month} ${dayNum}${suffix}, ${map.year} — ${timePart}`;
-	} catch {
-		return;
-	}
-}
-
-//#endregion
 //#region src/agents/docs-path.ts
 async function resolveOpenClawDocsPath(params) {
 	const workspaceDir = params.workspaceDir?.trim();
 	if (workspaceDir) {
 		const workspaceDocs = path.join(workspaceDir, "docs");
-		if (fs.existsSync(workspaceDocs)) return workspaceDocs;
+		if (fs$1.existsSync(workspaceDocs)) return workspaceDocs;
 	}
 	const packageRoot = await resolveOpenClawPackageRoot({
 		cwd: params.cwd,
@@ -2480,7 +2233,7 @@ async function resolveOpenClawDocsPath(params) {
 	});
 	if (!packageRoot) return null;
 	const packageDocs = path.join(packageRoot, "docs");
-	return fs.existsSync(packageDocs) ? packageDocs : null;
+	return fs$1.existsSync(packageDocs) ? packageDocs : null;
 }
 
 //#endregion
@@ -3251,6 +3004,81 @@ function createPluginRegistry(registryParams) {
 }
 
 //#endregion
+//#region src/agents/identity.ts
+const DEFAULT_ACK_REACTION = "👀";
+function resolveAgentIdentity(cfg, agentId) {
+	return resolveAgentConfig(cfg, agentId)?.identity;
+}
+function resolveAckReaction(cfg, agentId) {
+	const configured = cfg.messages?.ackReaction;
+	if (configured !== void 0) return configured.trim();
+	return resolveAgentIdentity(cfg, agentId)?.emoji?.trim() || DEFAULT_ACK_REACTION;
+}
+function resolveIdentityNamePrefix(cfg, agentId) {
+	const name = resolveAgentIdentity(cfg, agentId)?.name?.trim();
+	if (!name) return;
+	return `[${name}]`;
+}
+/** Returns just the identity name (without brackets) for template context. */
+function resolveIdentityName(cfg, agentId) {
+	return resolveAgentIdentity(cfg, agentId)?.name?.trim() || void 0;
+}
+function resolveMessagePrefix(cfg, agentId, opts) {
+	const configured = opts?.configured ?? cfg.messages?.messagePrefix;
+	if (configured !== void 0) return configured;
+	if (opts?.hasAllowFrom === true) return "";
+	return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[openclaw]";
+}
+/** Helper to extract a channel config value by dynamic key. */
+function getChannelConfig(cfg, channel) {
+	const value = cfg.channels?.[channel];
+	return typeof value === "object" && value !== null ? value : void 0;
+}
+function resolveResponsePrefix(cfg, agentId, opts) {
+	if (opts?.channel && opts?.accountId) {
+		const accountPrefix = (getChannelConfig(cfg, opts.channel)?.accounts)?.[opts.accountId]?.responsePrefix;
+		if (accountPrefix !== void 0) {
+			if (accountPrefix === "auto") return resolveIdentityNamePrefix(cfg, agentId);
+			return accountPrefix;
+		}
+	}
+	if (opts?.channel) {
+		const channelPrefix = getChannelConfig(cfg, opts.channel)?.responsePrefix;
+		if (channelPrefix !== void 0) {
+			if (channelPrefix === "auto") return resolveIdentityNamePrefix(cfg, agentId);
+			return channelPrefix;
+		}
+	}
+	const configured = cfg.messages?.responsePrefix;
+	if (configured !== void 0) {
+		if (configured === "auto") return resolveIdentityNamePrefix(cfg, agentId);
+		return configured;
+	}
+}
+function resolveEffectiveMessagesConfig(cfg, agentId, opts) {
+	return {
+		messagePrefix: resolveMessagePrefix(cfg, agentId, {
+			hasAllowFrom: opts?.hasAllowFrom,
+			fallback: opts?.fallbackMessagePrefix
+		}),
+		responsePrefix: resolveResponsePrefix(cfg, agentId, {
+			channel: opts?.channel,
+			accountId: opts?.accountId
+		})
+	};
+}
+function resolveHumanDelayConfig(cfg, agentId) {
+	const defaults = cfg.agents?.defaults?.humanDelay;
+	const overrides = resolveAgentConfig(cfg, agentId)?.humanDelay;
+	if (!defaults && !overrides) return;
+	return {
+		mode: overrides?.mode ?? defaults?.mode,
+		minMs: overrides?.minMs ?? defaults?.minMs,
+		maxMs: overrides?.maxMs ?? defaults?.maxMs
+	};
+}
+
+//#endregion
 //#region src/utils/shell-argv.ts
 function splitShellArgs(raw) {
 	const tokens = [];
@@ -3488,7 +3316,7 @@ async function getMemorySearchManager(params) {
 		const cached = QMD_MANAGER_CACHE.get(cacheKey);
 		if (cached) return { manager: cached };
 		try {
-			const { QmdMemoryManager } = await import("./qmd-manager-C48QzrRe.js");
+			const { QmdMemoryManager } = await import("./qmd-manager-CEwp3el1.js");
 			const primary = await QmdMemoryManager.create({
 				cfg: params.cfg,
 				agentId: params.agentId,
@@ -3498,7 +3326,7 @@ async function getMemorySearchManager(params) {
 				const wrapper = new FallbackMemoryManager({
 					primary,
 					fallbackFactory: async () => {
-						const { MemoryIndexManager } = await import("./manager-BsdlwsL5.js").then((n) => n.t);
+						const { MemoryIndexManager } = await import("./manager-D2Ndphg3.js").then((n) => n.t);
 						return await MemoryIndexManager.get(params);
 					}
 				}, () => QMD_MANAGER_CACHE.delete(cacheKey));
@@ -3511,7 +3339,7 @@ async function getMemorySearchManager(params) {
 		}
 	}
 	try {
-		const { MemoryIndexManager } = await import("./manager-BsdlwsL5.js").then((n) => n.t);
+		const { MemoryIndexManager } = await import("./manager-D2Ndphg3.js").then((n) => n.t);
 		return { manager: await MemoryIndexManager.get(params) };
 	} catch (err) {
 		return {
@@ -3752,7 +3580,7 @@ async function imageResult(params) {
 	}, params.label);
 }
 async function imageResultFromFile(params) {
-	const buf = await fs$1.readFile(params.path);
+	const buf = await fs.readFile(params.path);
 	const mimeType = await detectMime({ buffer: buf.slice(0, 256) }) ?? "image/png";
 	return await imageResult({
 		label: params.label,
@@ -5722,7 +5550,7 @@ function shouldHandleTextCommands(params) {
 const DEFAULT_DIR = path.join(STATE_DIR, "identity");
 const DEFAULT_FILE$1 = path.join(DEFAULT_DIR, "device.json");
 function ensureDir$2(filePath) {
-	fs.mkdirSync(path.dirname(filePath), { recursive: true });
+	fs$1.mkdirSync(path.dirname(filePath), { recursive: true });
 }
 const ED25519_SPKI_PREFIX = Buffer.from("302a300506032b6570032100", "hex");
 function base64UrlEncode(buf) {
@@ -5758,8 +5586,8 @@ function generateIdentity() {
 }
 function loadOrCreateDeviceIdentity(filePath = DEFAULT_FILE$1) {
 	try {
-		if (fs.existsSync(filePath)) {
-			const raw = fs.readFileSync(filePath, "utf8");
+		if (fs$1.existsSync(filePath)) {
+			const raw = fs$1.readFileSync(filePath, "utf8");
 			const parsed = JSON.parse(raw);
 			if (parsed?.version === 1 && typeof parsed.deviceId === "string" && typeof parsed.publicKeyPem === "string" && typeof parsed.privateKeyPem === "string") {
 				const derivedId = fingerprintPublicKey(parsed.publicKeyPem);
@@ -5768,9 +5596,9 @@ function loadOrCreateDeviceIdentity(filePath = DEFAULT_FILE$1) {
 						...parsed,
 						deviceId: derivedId
 					};
-					fs.writeFileSync(filePath, `${JSON.stringify(updated, null, 2)}\n`, { mode: 384 });
+					fs$1.writeFileSync(filePath, `${JSON.stringify(updated, null, 2)}\n`, { mode: 384 });
 					try {
-						fs.chmodSync(filePath, 384);
+						fs$1.chmodSync(filePath, 384);
 					} catch {}
 					return {
 						deviceId: derivedId,
@@ -5795,9 +5623,9 @@ function loadOrCreateDeviceIdentity(filePath = DEFAULT_FILE$1) {
 		privateKeyPem: identity.privateKeyPem,
 		createdAtMs: Date.now()
 	};
-	fs.writeFileSync(filePath, `${JSON.stringify(stored, null, 2)}\n`, { mode: 384 });
+	fs$1.writeFileSync(filePath, `${JSON.stringify(stored, null, 2)}\n`, { mode: 384 });
 	try {
-		fs.chmodSync(filePath, 384);
+		fs$1.chmodSync(filePath, 384);
 	} catch {}
 	return identity;
 }
@@ -5820,7 +5648,7 @@ function normalizeFingerprint(input) {
 const execFileAsync = promisify(execFile);
 async function fileExists$1(filePath) {
 	try {
-		await fs$1.access(filePath);
+		await fs.access(filePath);
 		return true;
 	} catch {
 		return false;
@@ -5847,8 +5675,8 @@ async function generateSelfSignedCert(params) {
 		"-subj",
 		"/CN=openclaw-gateway"
 	]);
-	await fs$1.chmod(params.keyPath, 384).catch(() => {});
-	await fs$1.chmod(params.certPath, 384).catch(() => {});
+	await fs.chmod(params.keyPath, 384).catch(() => {});
+	await fs.chmod(params.certPath, 384).catch(() => {});
 	params.log?.info?.(`gateway tls: generated self-signed cert at ${shortenHomeInString(params.certPath)}`);
 }
 async function loadGatewayTlsRuntime(cfg, log) {
@@ -5886,9 +5714,9 @@ async function loadGatewayTlsRuntime(cfg, log) {
 		error: "gateway tls: cert/key missing"
 	};
 	try {
-		const cert = await fs$1.readFile(certPath, "utf8");
-		const key = await fs$1.readFile(keyPath, "utf8");
-		const ca = caPath ? await fs$1.readFile(caPath, "utf8") : void 0;
+		const cert = await fs.readFile(certPath, "utf8");
+		const key = await fs.readFile(keyPath, "utf8");
+		const ca = caPath ? await fs.readFile(caPath, "utf8") : void 0;
 		const fingerprintSha256 = normalizeFingerprint(new X509Certificate(cert).fingerprint256 ?? "");
 		if (!fingerprintSha256) return {
 			enabled: false,
@@ -5944,8 +5772,8 @@ function normalizeScopes(scopes) {
 }
 function readStore(filePath) {
 	try {
-		if (!fs.existsSync(filePath)) return null;
-		const raw = fs.readFileSync(filePath, "utf8");
+		if (!fs$1.existsSync(filePath)) return null;
+		const raw = fs$1.readFileSync(filePath, "utf8");
 		const parsed = JSON.parse(raw);
 		if (parsed?.version !== 1 || typeof parsed.deviceId !== "string") return null;
 		if (!parsed.tokens || typeof parsed.tokens !== "object") return null;
@@ -5955,10 +5783,10 @@ function readStore(filePath) {
 	}
 }
 function writeStore(filePath, store) {
-	fs.mkdirSync(path.dirname(filePath), { recursive: true });
-	fs.writeFileSync(filePath, `${JSON.stringify(store, null, 2)}\n`, { mode: 384 });
+	fs$1.mkdirSync(path.dirname(filePath), { recursive: true });
+	fs$1.writeFileSync(filePath, `${JSON.stringify(store, null, 2)}\n`, { mode: 384 });
 	try {
-		fs.chmodSync(filePath, 384);
+		fs$1.chmodSync(filePath, 384);
 	} catch {}
 }
 function loadDeviceAuthToken(params) {
@@ -7555,6 +7383,9 @@ function registerAgentRunContext(runId, context) {
 	if (context.verboseLevel && existing.verboseLevel !== context.verboseLevel) existing.verboseLevel = context.verboseLevel;
 	if (context.isHeartbeat !== void 0 && existing.isHeartbeat !== context.isHeartbeat) existing.isHeartbeat = context.isHeartbeat;
 }
+function clearAgentRunContext(runId) {
+	runContextById.delete(runId);
+}
 function emitAgentEvent(event) {
 	const nextSeq = (seqByRun.get(event.runId) ?? 0) + 1;
 	seqByRun.set(event.runId, nextSeq);
@@ -9075,7 +8906,7 @@ async function routeReply(params) {
 	const resolvedReplyToId = replyToId ?? (channelId === "slack" && threadId != null && threadId !== "" ? String(threadId) : void 0);
 	const resolvedThreadId = channelId === "slack" ? null : threadId ?? null;
 	try {
-		const { deliverOutboundPayloads } = await import("./deliver-NrOXO9Jx.js").then((n) => n.n);
+		const { deliverOutboundPayloads } = await import("./deliver-DYbEJx0g.js").then((n) => n.n);
 		return {
 			ok: true,
 			messageId: (await deliverOutboundPayloads({
@@ -12404,7 +12235,7 @@ var MediaAttachmentCache = class {
 			const size = await this.ensureLocalStat(entry);
 			if (entry.resolvedPath) {
 				if (size !== void 0 && size > params.maxBytes) throw new MediaUnderstandingSkipError("maxBytes", `Attachment ${params.attachmentIndex + 1} exceeds maxBytes ${params.maxBytes}`);
-				const buffer = await fs$1.readFile(entry.resolvedPath);
+				const buffer = await fs.readFile(entry.resolvedPath);
 				entry.buffer = buffer;
 				entry.bufferMime = entry.bufferMime ?? entry.attachment.mime ?? await detectMime({
 					buffer,
@@ -12472,10 +12303,10 @@ var MediaAttachmentCache = class {
 		});
 		const extension = path.extname(bufferResult.fileName || "") || "";
 		const tmpPath = path.join(os.tmpdir(), `openclaw-media-${crypto.randomUUID()}${extension}`);
-		await fs$1.writeFile(tmpPath, bufferResult.buffer);
+		await fs.writeFile(tmpPath, bufferResult.buffer);
 		entry.tempPath = tmpPath;
 		entry.tempCleanup = async () => {
-			await fs$1.unlink(tmpPath).catch(() => {});
+			await fs.unlink(tmpPath).catch(() => {});
 		};
 		return {
 			path: tmpPath,
@@ -12513,7 +12344,7 @@ var MediaAttachmentCache = class {
 		if (!entry.resolvedPath) return;
 		if (entry.statSize !== void 0) return entry.statSize;
 		try {
-			const stat = await fs$1.stat(entry.resolvedPath);
+			const stat = await fs.stat(entry.resolvedPath);
 			if (!stat.isFile()) {
 				entry.resolvedPath = void 0;
 				return;
@@ -12602,7 +12433,7 @@ function formatAudioTranscripts(outputs) {
 //#region src/agents/model-catalog.ts
 let modelCatalogPromise = null;
 let hasLoggedModelCatalogError = false;
-const defaultImportPiSdk = () => import("./pi-model-discovery-EhM2JAQo.js").then((n) => n.r);
+const defaultImportPiSdk = () => import("./pi-model-discovery-DzFOAbQt.js").then((n) => n.r);
 let importPiSdk = defaultImportPiSdk;
 async function loadModelCatalog(params) {
 	if (params?.useCache === false) modelCatalogPromise = null;
@@ -12710,9 +12541,9 @@ function candidateBinaryNames(name) {
 }
 async function isExecutable(filePath) {
 	try {
-		if (!(await fs$1.stat(filePath)).isFile()) return false;
+		if (!(await fs.stat(filePath)).isFile()) return false;
 		if (process.platform === "win32") return true;
-		await fs$1.access(filePath, constants.X_OK);
+		await fs.access(filePath, constants.X_OK);
 		return true;
 	} catch {
 		return false;
@@ -12749,7 +12580,7 @@ async function hasBinary(name) {
 async function fileExists(filePath) {
 	if (!filePath) return false;
 	try {
-		await fs$1.stat(filePath);
+		await fs.stat(filePath);
 		return true;
 	} catch {
 		return false;
@@ -13064,7 +12895,7 @@ async function resolveCliOutput(params) {
 	const commandId = commandBase(params.command);
 	const fileOutput = commandId === "whisper-cli" ? resolveWhisperCppOutputPath(params.args) : commandId === "whisper" ? resolveWhisperOutputPath(params.args, params.mediaPath) : null;
 	if (fileOutput && await fileExists(fileOutput)) try {
-		const content = await fs$1.readFile(fileOutput, "utf8");
+		const content = await fs.readFile(fileOutput, "utf8");
 		if (content.trim()) return content.trim();
 	} catch {}
 	if (commandId === "gemini") {
@@ -13328,7 +13159,7 @@ async function runCliEntry(params) {
 		maxBytes,
 		timeoutMs
 	});
-	const outputDir = await fs$1.mkdtemp(path.join(os.tmpdir(), "openclaw-media-cli-"));
+	const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-media-cli-"));
 	const mediaPath = pathResult.path;
 	const outputBase = path.join(outputDir, path.parse(mediaPath).name);
 	const templCtx = {
@@ -13362,7 +13193,7 @@ async function runCliEntry(params) {
 			model: command
 		};
 	} finally {
-		await fs$1.rm(outputDir, {
+		await fs.rm(outputDir, {
 			recursive: true,
 			force: true
 		}).catch(() => {});
@@ -14658,7 +14489,7 @@ async function resolveSessionAuthProfileOverride(params) {
 const MODEL_CACHE = /* @__PURE__ */ new Map();
 (async () => {
 	try {
-		const { discoverAuthStorage, discoverModels } = await import("./pi-model-discovery-EhM2JAQo.js").then((n) => n.r);
+		const { discoverAuthStorage, discoverModels } = await import("./pi-model-discovery-DzFOAbQt.js").then((n) => n.r);
 		await ensureOpenClawModelsJson(loadConfig());
 		const agentDir = resolveOpenClawAgentDir();
 		const models = discoverModels(discoverAuthStorage(agentDir), agentDir).getAll();
@@ -14872,7 +14703,7 @@ async function createModelSelectionState(params) {
 		}
 	}
 	if (sessionEntry && sessionStore && sessionKey && sessionEntry.authProfileOverride) {
-		const { ensureAuthProfileStore } = await import("./model-selection-DlV6wnTr.js").then((n) => n.A);
+		const { ensureAuthProfileStore } = await import("./model-auth-BqjMkNFs.js").then((n) => n.s);
 		const profile = ensureAuthProfileStore(void 0, { allowKeychainPrompt: false }).profiles[sessionEntry.authProfileOverride];
 		const providerKey = normalizeProviderId(provider);
 		if (!profile || normalizeProviderId(profile.provider) !== providerKey) await clearSessionAuthProfileOverride({
@@ -15997,8 +15828,8 @@ function listSkillCommandsForAgents(params) {
 	const visitedDirs = /* @__PURE__ */ new Set();
 	for (const agentId of agentIds) {
 		const workspaceDir = resolveAgentWorkspaceDir(params.cfg, agentId);
-		if (!fs.existsSync(workspaceDir)) continue;
-		const canonicalDir = fs.realpathSync(workspaceDir);
+		if (!fs$1.existsSync(workspaceDir)) continue;
+		const canonicalDir = fs$1.realpathSync(workspaceDir);
 		if (visitedDirs.has(canonicalDir)) continue;
 		visitedDirs.add(canonicalDir);
 		const commands = buildWorkspaceSkillCommandSpecs(workspaceDir, {
@@ -16678,7 +16509,7 @@ function resolveAllowFromPath(channel, env = process.env) {
 }
 async function readJsonFile(filePath, fallback) {
 	try {
-		const parsed = safeParseJson(await fs.promises.readFile(filePath, "utf-8"));
+		const parsed = safeParseJson(await fs$1.promises.readFile(filePath, "utf-8"));
 		if (parsed == null) return {
 			value: fallback,
 			exists: true
@@ -16700,18 +16531,18 @@ async function readJsonFile(filePath, fallback) {
 }
 async function writeJsonFile(filePath, value) {
 	const dir = path.dirname(filePath);
-	await fs.promises.mkdir(dir, {
+	await fs$1.promises.mkdir(dir, {
 		recursive: true,
 		mode: 448
 	});
 	const tmp = path.join(dir, `${path.basename(filePath)}.${crypto.randomUUID()}.tmp`);
-	await fs.promises.writeFile(tmp, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf-8" });
-	await fs.promises.chmod(tmp, 384);
-	await fs.promises.rename(tmp, filePath);
+	await fs$1.promises.writeFile(tmp, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf-8" });
+	await fs$1.promises.chmod(tmp, 384);
+	await fs$1.promises.rename(tmp, filePath);
 }
 async function ensureJsonFile(filePath, fallback) {
 	try {
-		await fs.promises.access(filePath);
+		await fs$1.promises.access(filePath);
 	} catch {
 		await writeJsonFile(filePath, fallback);
 	}
@@ -18039,7 +17870,7 @@ function mergeLegacyAgent(current, legacy) {
 }
 function ensureDir$1(filePath) {
 	const dir = path.dirname(filePath);
-	fs.mkdirSync(dir, { recursive: true });
+	fs$1.mkdirSync(dir, { recursive: true });
 }
 function coerceAllowlistEntries(allowlist) {
 	if (!Array.isArray(allowlist) || allowlist.length === 0) return Array.isArray(allowlist) ? allowlist : void 0;
@@ -18109,11 +17940,11 @@ function generateToken() {
 function loadExecApprovals() {
 	const filePath = resolveExecApprovalsPath();
 	try {
-		if (!fs.existsSync(filePath)) return normalizeExecApprovals({
+		if (!fs$1.existsSync(filePath)) return normalizeExecApprovals({
 			version: 1,
 			agents: {}
 		});
-		const raw = fs.readFileSync(filePath, "utf8");
+		const raw = fs$1.readFileSync(filePath, "utf8");
 		const parsed = JSON.parse(raw);
 		if (parsed?.version !== 1) return normalizeExecApprovals({
 			version: 1,
@@ -18130,9 +17961,9 @@ function loadExecApprovals() {
 function saveExecApprovals(file) {
 	const filePath = resolveExecApprovalsPath();
 	ensureDir$1(filePath);
-	fs.writeFileSync(filePath, `${JSON.stringify(file, null, 2)}\n`, { mode: 384 });
+	fs$1.writeFileSync(filePath, `${JSON.stringify(file, null, 2)}\n`, { mode: 384 });
 	try {
-		fs.chmodSync(filePath, 384);
+		fs$1.chmodSync(filePath, 384);
 	} catch {}
 }
 function ensureExecApprovals() {
@@ -18203,8 +18034,8 @@ function resolveExecApprovalsFromFile(params) {
 }
 function isExecutableFile(filePath) {
 	try {
-		if (!fs.statSync(filePath).isFile()) return false;
-		if (process.platform !== "win32") fs.accessSync(filePath, fs.constants.X_OK);
+		if (!fs$1.statSync(filePath).isFile()) return false;
+		if (process.platform !== "win32") fs$1.accessSync(filePath, fs$1.constants.X_OK);
 		return true;
 	} catch {
 		return false;
@@ -18242,7 +18073,7 @@ function normalizeMatchTarget(value) {
 }
 function tryRealpath(value) {
 	try {
-		return fs.realpathSync(value);
+		return fs$1.realpathSync(value);
 	} catch {
 		return null;
 	}
@@ -18651,7 +18482,7 @@ function isPathLikeToken(value) {
 }
 function defaultFileExists(filePath) {
 	try {
-		return fs.existsSync(filePath);
+		return fs$1.existsSync(filePath);
 	} catch {
 		return false;
 	}
@@ -19096,7 +18927,7 @@ async function assertNoSymlink(relative, root) {
 	for (const part of parts) {
 		current = path.join(current, part);
 		try {
-			if ((await fs$1.lstat(current)).isSymbolicLink()) throw new Error(`Symlink not allowed in sandbox path: ${current}`);
+			if ((await fs.lstat(current)).isSymbolicLink()) throw new Error(`Symlink not allowed in sandbox path: ${current}`);
 		} catch (err) {
 			if (err.code === "ENOENT") return;
 			throw err;
@@ -19114,7 +18945,7 @@ function resolvePowerShellPath() {
 	const systemRoot = process.env.SystemRoot || process.env.WINDIR;
 	if (systemRoot) {
 		const candidate = path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
-		if (fs.existsSync(candidate)) return candidate;
+		if (fs$1.existsSync(candidate)) return candidate;
 	}
 	return "powershell.exe";
 }
@@ -19152,7 +18983,7 @@ function resolveShellFromPath(name) {
 	for (const entry of entries) {
 		const candidate = path.join(entry, name);
 		try {
-			fs.accessSync(candidate, fs.constants.X_OK);
+			fs$1.accessSync(candidate, fs$1.constants.X_OK);
 			return candidate;
 		} catch {}
 	}
@@ -19261,7 +19092,7 @@ async function resolveSandboxWorkdir(params) {
 			cwd: process.cwd(),
 			root: params.sandbox.workspaceDir
 		});
-		if (!(await fs$1.stat(resolved.resolved)).isDirectory()) throw new Error("workdir is not a directory");
+		if (!(await fs.stat(resolved.resolved)).isDirectory()) throw new Error("workdir is not a directory");
 		const relative = resolved.relative ? resolved.relative.split(path.sep).join(path.posix.sep) : "";
 		const containerWorkdir = relative ? path.posix.join(params.sandbox.containerWorkdir, relative) : params.sandbox.containerWorkdir;
 		return {
@@ -21468,10 +21299,10 @@ const resolveGitHead = (startDir) => {
 	for (let i = 0; i < 12; i += 1) {
 		const gitPath = path.join(current, ".git");
 		try {
-			const stat = fs.statSync(gitPath);
+			const stat = fs$1.statSync(gitPath);
 			if (stat.isDirectory()) return path.join(gitPath, "HEAD");
 			if (stat.isFile()) {
-				const match = fs.readFileSync(gitPath, "utf-8").match(/gitdir:\s*(.+)/i);
+				const match = fs$1.readFileSync(gitPath, "utf-8").match(/gitdir:\s*(.+)/i);
 				if (match?.[1]) {
 					const resolved = path.resolve(current, match[1].trim());
 					return path.join(resolved, "HEAD");
@@ -21529,7 +21360,7 @@ const resolveCommitHash = (options = {}) => {
 			cachedCommit = null;
 			return cachedCommit;
 		}
-		const head = fs.readFileSync(headPath, "utf-8").trim();
+		const head = fs$1.readFileSync(headPath, "utf-8").trim();
 		if (!head) {
 			cachedCommit = null;
 			return cachedCommit;
@@ -21537,7 +21368,7 @@ const resolveCommitHash = (options = {}) => {
 		if (head.startsWith("ref:")) {
 			const ref = head.replace(/^ref:\s*/i, "").trim();
 			const refPath = path.resolve(path.dirname(headPath), ref);
-			cachedCommit = formatCommit(fs.readFileSync(refPath, "utf-8").trim());
+			cachedCommit = formatCommit(fs$1.readFileSync(refPath, "utf-8").trim());
 			return cachedCommit;
 		}
 		cachedCommit = formatCommit(head);
@@ -21634,9 +21465,9 @@ const formatQueueDetails = (queue) => {
 const readUsageFromSessionLog = (sessionId, sessionEntry) => {
 	if (!sessionId) return;
 	const logPath = resolveSessionFilePath(sessionId, sessionEntry);
-	if (!fs.existsSync(logPath)) return;
+	if (!fs$1.existsSync(logPath)) return;
 	try {
-		const lines = fs.readFileSync(logPath, "utf-8").split(/\n+/);
+		const lines = fs$1.readFileSync(logPath, "utf-8").split(/\n+/);
 		let input = 0;
 		let output = 0;
 		let promptTokens = 0;
@@ -22641,7 +22472,7 @@ function resolveRepoRoot(params) {
 	const configured = params.config?.agents?.defaults?.repoRoot?.trim();
 	if (configured) try {
 		const resolved = path.resolve(configured);
-		if (fs.statSync(resolved).isDirectory()) return resolved;
+		if (fs$1.statSync(resolved).isDirectory()) return resolved;
 	} catch {}
 	const candidates = [params.workspaceDir, params.cwd].map((value) => value?.trim()).filter(Boolean);
 	const seen = /* @__PURE__ */ new Set();
@@ -22658,7 +22489,7 @@ function findGitRoot(startDir) {
 	for (let i = 0; i < 12; i += 1) {
 		const gitPath = path.join(current, ".git");
 		try {
-			const stat = fs.statSync(gitPath);
+			const stat = fs$1.statSync(gitPath);
 			if (stat.isDirectory() || stat.isFile()) return current;
 		} catch {}
 		const parent = path.dirname(current);
@@ -23551,8 +23382,8 @@ function resolveZaiApiKey() {
 	}
 	try {
 		const authPath = path.join(os.homedir(), ".pi", "agent", "auth.json");
-		if (!fs.existsSync(authPath)) return;
-		const data = JSON.parse(fs.readFileSync(authPath, "utf-8"));
+		if (!fs$1.existsSync(authPath)) return;
+		const data = JSON.parse(fs$1.readFileSync(authPath, "utf-8"));
 		return data["z-ai"]?.access || data.zai?.access;
 	} catch {
 		return;
@@ -25201,7 +25032,7 @@ const applyCostTotal = (totals, costTotal) => {
 	totals.totalCost += costTotal;
 };
 async function scanTranscriptFile(params) {
-	const fileStream = fs.createReadStream(params.filePath, { encoding: "utf-8" });
+	const fileStream = fs$1.createReadStream(params.filePath, { encoding: "utf-8" });
 	const rl = readline.createInterface({
 		input: fileStream,
 		crlfDelay: Infinity
@@ -25261,10 +25092,10 @@ async function loadCostUsageSummary(params) {
 	const dailyMap = /* @__PURE__ */ new Map();
 	const totals = emptyTotals();
 	const sessionsDir = resolveSessionTranscriptsDirForAgent(params?.agentId);
-	const entries = await fs.promises.readdir(sessionsDir, { withFileTypes: true }).catch(() => []);
+	const entries = await fs$1.promises.readdir(sessionsDir, { withFileTypes: true }).catch(() => []);
 	const files = (await Promise.all(entries.filter((entry) => entry.isFile() && entry.name.endsWith(".jsonl")).map(async (entry) => {
 		const filePath = path.join(sessionsDir, entry.name);
-		const stats = await fs.promises.stat(filePath).catch(() => null);
+		const stats = await fs$1.promises.stat(filePath).catch(() => null);
 		if (!stats) return null;
 		if (stats.mtimeMs < sinceTime) return null;
 		return filePath;
@@ -25297,7 +25128,7 @@ async function loadCostUsageSummary(params) {
 }
 async function loadSessionCostSummary(params) {
 	const sessionFile = params.sessionFile ?? (params.sessionId ? resolveSessionFilePath(params.sessionId, params.sessionEntry) : void 0);
-	if (!sessionFile || !fs.existsSync(sessionFile)) return null;
+	if (!sessionFile || !fs$1.existsSync(sessionFile)) return null;
 	const totals = emptyTotals();
 	let firstActivity;
 	let lastActivity;
@@ -28412,7 +28243,7 @@ function createCanvasTool() {
 					});
 				}
 				case "a2ui_push": {
-					const jsonl = typeof params.jsonl === "string" && params.jsonl.trim() ? params.jsonl : typeof params.jsonlPath === "string" && params.jsonlPath.trim() ? await fs$1.readFile(params.jsonlPath.trim(), "utf8") : "";
+					const jsonl = typeof params.jsonl === "string" && params.jsonl.trim() ? params.jsonl : typeof params.jsonlPath === "string" && params.jsonlPath.trim() ? await fs.readFile(params.jsonlPath.trim(), "utf8") : "";
 					if (!jsonl.trim()) throw new Error("jsonl or jsonlPath required");
 					await invoke("canvas.a2ui.pushJSONL", { jsonl });
 					return jsonResult({ ok: true });
@@ -29049,12 +28880,12 @@ function resolveRestartSentinelPath(env = process.env) {
 }
 async function writeRestartSentinel(payload, env = process.env) {
 	const filePath = resolveRestartSentinelPath(env);
-	await fs$1.mkdir(path.dirname(filePath), { recursive: true });
+	await fs.mkdir(path.dirname(filePath), { recursive: true });
 	const data = {
 		version: 1,
 		payload
 	};
-	await fs$1.writeFile(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
+	await fs.writeFile(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
 	return filePath;
 }
 
@@ -29681,7 +29512,7 @@ async function resolveSandboxedImagePath(params) {
 		const candidateRel = path.join("media", "inbound", name);
 		const candidateAbs = path.join(params.sandboxRoot, candidateRel);
 		try {
-			await fs$1.stat(candidateAbs);
+			await fs.stat(candidateAbs);
 		} catch {
 			throw err;
 		}
@@ -33873,7 +33704,7 @@ function listExistingAgentIdsFromDisk() {
 	const root = resolveStateDir();
 	const agentsDir = path.join(root, "agents");
 	try {
-		return fs.readdirSync(agentsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => normalizeAgentId(entry.name)).filter(Boolean);
+		return fs$1.readdirSync(agentsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => normalizeAgentId(entry.name)).filter(Boolean);
 	} catch {
 		return [];
 	}
@@ -37329,18 +37160,18 @@ function appendImagePathsToPrompt(prompt, paths) {
 	return `${trimmed}${trimmed ? "\n\n" : ""}${paths.join("\n")}`;
 }
 async function writeCliImages(images) {
-	const tempDir = await fs$1.mkdtemp(path.join(os.tmpdir(), "openclaw-cli-images-"));
+	const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cli-images-"));
 	const paths = [];
 	for (let i = 0; i < images.length; i += 1) {
 		const image = images[i];
 		const ext = resolveImageExtension(image.mimeType);
 		const filePath = path.join(tempDir, `image-${i + 1}.${ext}`);
 		const buffer = Buffer.from(image.data, "base64");
-		await fs$1.writeFile(filePath, buffer, { mode: 384 });
+		await fs.writeFile(filePath, buffer, { mode: 384 });
 		paths.push(filePath);
 	}
 	const cleanup = async () => {
-		await fs$1.rm(tempDir, {
+		await fs.rm(tempDir, {
 			recursive: true,
 			force: true
 		});
@@ -38327,7 +38158,7 @@ async function runAgentTurnWithFallback(params) {
 				if (corruptedSessionId) {
 					const transcriptPath = resolveSessionTranscriptPath(corruptedSessionId);
 					try {
-						fs.unlinkSync(transcriptPath);
+						fs$1.unlinkSync(transcriptPath);
 					} catch {}
 				}
 				delete params.activeSessionStore[sessionKey];
@@ -39103,7 +38934,7 @@ async function runReplyAgent(params) {
 			if (resolved) transcriptCandidates.add(resolved);
 			transcriptCandidates.add(resolveSessionTranscriptPath(prevSessionId, agentId));
 			for (const candidate of transcriptCandidates) try {
-				fs.unlinkSync(candidate);
+				fs$1.unlinkSync(candidate);
 			} catch {}
 		}
 		return true;
@@ -39844,7 +39675,7 @@ async function deliverSessionMaintenanceWarning(params) {
 		return;
 	}
 	try {
-		const { deliverOutboundPayloads } = await import("./deliver-NrOXO9Jx.js").then((n) => n.n);
+		const { deliverOutboundPayloads } = await import("./deliver-DYbEJx0g.js").then((n) => n.n);
 		await deliverOutboundPayloads({
 			cfg: params.cfg,
 			channel,
@@ -39863,7 +39694,7 @@ async function deliverSessionMaintenanceWarning(params) {
 //#region src/auto-reply/reply/session.ts
 function forkSessionFromParent(params) {
 	const parentSessionFile = resolveSessionFilePath(params.parentEntry.sessionId, params.parentEntry);
-	if (!parentSessionFile || !fs.existsSync(parentSessionFile)) return null;
+	if (!parentSessionFile || !fs$1.existsSync(parentSessionFile)) return null;
 	try {
 		const manager = SessionManager.open(parentSessionFile);
 		const leafId = manager.getLeafId();
@@ -39887,7 +39718,7 @@ function forkSessionFromParent(params) {
 			cwd: manager.getCwd(),
 			parentSession: parentSessionFile
 		};
-		fs.writeFileSync(sessionFile, `${JSON.stringify(header)}\n`, "utf-8");
+		fs$1.writeFileSync(sessionFile, `${JSON.stringify(header)}\n`, "utf-8");
 		return {
 			sessionId,
 			sessionFile
@@ -40155,7 +39986,7 @@ async function stageSandboxMedia(params) {
 	};
 	try {
 		const destDir = sandbox ? path.join(effectiveWorkspaceDir, "media", "inbound") : effectiveWorkspaceDir;
-		await fs$1.mkdir(destDir, { recursive: true });
+		await fs.mkdir(destDir, { recursive: true });
 		const usedNames = /* @__PURE__ */ new Set();
 		const staged = /* @__PURE__ */ new Map();
 		for (const raw of rawPaths) {
@@ -40187,7 +40018,7 @@ async function stageSandboxMedia(params) {
 			usedNames.add(fileName);
 			const dest = path.join(destDir, fileName);
 			if (ctx.MediaRemoteHost) await scpFile(ctx.MediaRemoteHost, source, dest);
-			else await fs$1.copyFile(source, dest);
+			else await fs.copyFile(source, dest);
 			const stagedPath = sandbox ? path.posix.join("media", "inbound", fileName) : dest;
 			staged.set(source, stagedPath);
 		}
@@ -44821,8 +44652,8 @@ async function describeStickerImage(params) {
 	const { provider, model } = resolved;
 	logVerbose(`telegram: describing sticker with ${provider}/${model}`);
 	try {
-		const buffer = await fs$1.readFile(imagePath);
-		const { describeImageWithModel } = await import("./image-B2in9uyw.js").then((n) => n.n);
+		const buffer = await fs.readFile(imagePath);
+		const { describeImageWithModel } = await import("./image-CdiF52wS.js").then((n) => n.n);
 		return (await describeImageWithModel({
 			buffer,
 			fileName: "sticker.webp",
@@ -45179,7 +45010,7 @@ function createWhatsAppLoginTool() {
 			force: Type.Optional(Type.Boolean())
 		}),
 		execute: async (_toolCallId, args) => {
-			const { startWebLoginWithQr, waitForWebLogin } = await import("./login-qr-BJChByHH.js").then((n) => n.t);
+			const { startWebLoginWithQr, waitForWebLogin } = await import("./login-qr-BVeOFfNW.js").then((n) => n.t);
 			if ((args?.action ?? "start") === "wait") {
 				const result = await waitForWebLogin({ timeoutMs: typeof args.timeoutMs === "number" ? args.timeoutMs : void 0 });
 				return {
@@ -47707,7 +47538,7 @@ function formatExtraPaths(workspaceDir, extraPaths) {
 }
 async function checkReadableFile(pathname) {
 	try {
-		await fs$1.access(pathname, fs.constants.R_OK);
+		await fs.access(pathname, fs$1.constants.R_OK);
 		return { exists: true };
 	} catch (err) {
 		const code = err.code;
@@ -47724,7 +47555,7 @@ async function scanSessionFiles(agentId) {
 	try {
 		return {
 			source: "sessions",
-			totalFiles: (await fs$1.readdir(sessionsDir, { withFileTypes: true })).filter((entry) => entry.isFile() && entry.name.endsWith(".jsonl")).length,
+			totalFiles: (await fs.readdir(sessionsDir, { withFileTypes: true })).filter((entry) => entry.isFile() && entry.name.endsWith(".jsonl")).length,
 			issues
 		};
 	} catch (err) {
@@ -47756,7 +47587,7 @@ async function scanMemoryFiles(workspaceDir, extraPaths = []) {
 	if (alt.issue) issues.push(alt.issue);
 	const resolvedExtraPaths = normalizeExtraMemoryPaths(workspaceDir, extraPaths);
 	for (const extraPath of resolvedExtraPaths) try {
-		if ((await fs$1.lstat(extraPath)).isSymbolicLink()) continue;
+		if ((await fs.lstat(extraPath)).isSymbolicLink()) continue;
 		const extraCheck = await checkReadableFile(extraPath);
 		if (extraCheck.issue) issues.push(extraCheck.issue);
 	} catch (err) {
@@ -47766,7 +47597,7 @@ async function scanMemoryFiles(workspaceDir, extraPaths = []) {
 	}
 	let dirReadable = null;
 	try {
-		await fs$1.access(memoryDir, fs.constants.R_OK);
+		await fs.access(memoryDir, fs$1.constants.R_OK);
 		dirReadable = true;
 	} catch (err) {
 		const code = err.code;
@@ -52220,7 +52051,7 @@ async function detectBinary(name) {
 	if (!isSafeExecutableValue(name)) return false;
 	const resolved = name.startsWith("~") ? resolveUserPath(name) : name;
 	if (path.isAbsolute(resolved) || resolved.startsWith(".") || resolved.includes("/") || resolved.includes("\\")) try {
-		await fs$1.access(resolved);
+		await fs.access(resolved);
 		return true;
 	} catch {
 		return false;
@@ -52454,7 +52285,7 @@ function normalizeAllowList$1(list) {
 async function detectRemoteHostFromCliPath(cliPath) {
 	try {
 		const expanded = cliPath.startsWith("~") ? cliPath.replace(/^~/, process.env.HOME ?? "") : cliPath;
-		const content = await fs$1.readFile(expanded, "utf8");
+		const content = await fs.readFile(expanded, "utf8");
 		const userHostMatch = content.match(/\bssh\b[^\n]*?\s+([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+)/);
 		if (userHostMatch) return userHostMatch[1];
 		return content.match(/\bssh\b[^\n]*?\s+([a-zA-Z][a-zA-Z0-9._-]*)\s+\S*\bimsg\b/)?.[1];
@@ -52978,7 +52809,7 @@ const DEFAULT_ACCOUNT_ID = "default";
 function readFileIfExists(filePath) {
 	if (!filePath) return;
 	try {
-		return fs.readFileSync(filePath, "utf-8").trim();
+		return fs$1.readFileSync(filePath, "utf-8").trim();
 	} catch {
 		return;
 	}
@@ -53538,7 +53369,7 @@ async function downloadLineMedia(messageId, channelAccessToken, maxBytes = 10 * 
 	const tempDir = os.tmpdir();
 	const fileName = `line-media-${messageId}-${Date.now()}${ext}`;
 	const filePath = path.join(tempDir, fileName);
-	await fs.promises.writeFile(filePath, buffer);
+	await fs$1.promises.writeFile(filePath, buffer);
 	logVerbose(`line: downloaded media ${messageId} to ${filePath} (${buffer.length} bytes)`);
 	return {
 		path: filePath,
@@ -61410,7 +61241,7 @@ function safeParseState(raw) {
 async function readTelegramUpdateOffset(params) {
 	const filePath = resolveTelegramUpdateOffsetPath(params.accountId, params.env);
 	try {
-		return safeParseState(await fs$1.readFile(filePath, "utf-8"))?.lastUpdateId ?? null;
+		return safeParseState(await fs.readFile(filePath, "utf-8"))?.lastUpdateId ?? null;
 	} catch (err) {
 		if (err.code === "ENOENT") return null;
 		return null;
@@ -61419,7 +61250,7 @@ async function readTelegramUpdateOffset(params) {
 async function writeTelegramUpdateOffset(params) {
 	const filePath = resolveTelegramUpdateOffsetPath(params.accountId, params.env);
 	const dir = path.dirname(filePath);
-	await fs$1.mkdir(dir, {
+	await fs.mkdir(dir, {
 		recursive: true,
 		mode: 448
 	});
@@ -61428,9 +61259,9 @@ async function writeTelegramUpdateOffset(params) {
 		version: STORE_VERSION,
 		lastUpdateId: params.updateId
 	};
-	await fs$1.writeFile(tmp, `${JSON.stringify(payload, null, 2)}\n`, { encoding: "utf-8" });
-	await fs$1.chmod(tmp, 384);
-	await fs$1.rename(tmp, filePath);
+	await fs.writeFile(tmp, `${JSON.stringify(payload, null, 2)}\n`, { encoding: "utf-8" });
+	await fs.chmod(tmp, 384);
+	await fs.rename(tmp, filePath);
 }
 
 //#endregion
@@ -61919,7 +61750,7 @@ const resolvePluginSdkAlias = () => {
 			const srcCandidate = path.join(cursor, "src", "plugin-sdk", "index.ts");
 			const distCandidate = path.join(cursor, "dist", "plugin-sdk", "index.js");
 			const orderedCandidates = isTest ? [distCandidate, srcCandidate] : [distCandidate];
-			for (const candidate of orderedCandidates) if (fs.existsSync(candidate)) return candidate;
+			for (const candidate of orderedCandidates) if (fs$1.existsSync(candidate)) return candidate;
 			const parent = path.dirname(cursor);
 			if (parent === cursor) break;
 			cursor = parent;
@@ -62328,7 +62159,7 @@ function resolvePluginTools(params) {
 //#endregion
 //#region src/agents/apply-patch-update.ts
 async function applyUpdateHunk(filePath, chunks) {
-	const originalLines = (await fs$1.readFile(filePath, "utf8").catch((err) => {
+	const originalLines = (await fs.readFile(filePath, "utf8").catch((err) => {
 		throw new Error(`Failed to read file to update ${filePath}: ${err}`);
 	})).split("\n");
 	if (originalLines.length > 0 && originalLines[originalLines.length - 1] === "") originalLines.pop();
@@ -62500,13 +62331,13 @@ async function applyPatch(input, options) {
 		if (hunk.kind === "add") {
 			const target = await resolvePatchPath(hunk.path, options);
 			await ensureDir(target.resolved);
-			await fs$1.writeFile(target.resolved, hunk.contents, "utf8");
+			await fs.writeFile(target.resolved, hunk.contents, "utf8");
 			recordSummary(summary, seen, "added", target.display);
 			continue;
 		}
 		if (hunk.kind === "delete") {
 			const target = await resolvePatchPath(hunk.path, options);
-			await fs$1.rm(target.resolved);
+			await fs.rm(target.resolved);
 			recordSummary(summary, seen, "deleted", target.display);
 			continue;
 		}
@@ -62515,11 +62346,11 @@ async function applyPatch(input, options) {
 		if (hunk.movePath) {
 			const moveTarget = await resolvePatchPath(hunk.movePath, options);
 			await ensureDir(moveTarget.resolved);
-			await fs$1.writeFile(moveTarget.resolved, applied, "utf8");
-			await fs$1.rm(target.resolved);
+			await fs.writeFile(moveTarget.resolved, applied, "utf8");
+			await fs.rm(target.resolved);
 			recordSummary(summary, seen, "modified", moveTarget.display);
 		} else {
-			await fs$1.writeFile(target.resolved, applied, "utf8");
+			await fs.writeFile(target.resolved, applied, "utf8");
 			recordSummary(summary, seen, "modified", target.display);
 		}
 	}
@@ -62543,7 +62374,7 @@ function formatSummary(summary) {
 async function ensureDir(filePath) {
 	const parent = path.dirname(filePath);
 	if (!parent || parent === ".") return;
-	await fs$1.mkdir(parent, { recursive: true });
+	await fs.mkdir(parent, { recursive: true });
 }
 async function resolvePatchPath(filePath, options) {
 	if (options.sandboxRoot) {
@@ -63783,7 +63614,7 @@ async function repairSessionFileIfNeeded(params) {
 	};
 	let content;
 	try {
-		content = await fs$1.readFile(sessionFile, "utf-8");
+		content = await fs.readFile(sessionFile, "utf-8");
 	} catch (err) {
 		if (err?.code === "ENOENT") return {
 			repaired: false,
@@ -63831,15 +63662,15 @@ async function repairSessionFileIfNeeded(params) {
 	const backupPath = `${sessionFile}.bak-${process.pid}-${Date.now()}`;
 	const tmpPath = `${sessionFile}.repair-${process.pid}-${Date.now()}.tmp`;
 	try {
-		const stat = await fs$1.stat(sessionFile).catch(() => null);
-		await fs$1.writeFile(backupPath, content, "utf-8");
-		if (stat) await fs$1.chmod(backupPath, stat.mode);
-		await fs$1.writeFile(tmpPath, cleaned, "utf-8");
-		if (stat) await fs$1.chmod(tmpPath, stat.mode);
-		await fs$1.rename(tmpPath, sessionFile);
+		const stat = await fs.stat(sessionFile).catch(() => null);
+		await fs.writeFile(backupPath, content, "utf-8");
+		if (stat) await fs.chmod(backupPath, stat.mode);
+		await fs.writeFile(tmpPath, cleaned, "utf-8");
+		if (stat) await fs.chmod(tmpPath, stat.mode);
+		await fs.rename(tmpPath, sessionFile);
 	} catch (err) {
 		try {
-			await fs$1.unlink(tmpPath);
+			await fs.unlink(tmpPath);
 		} catch (cleanupErr) {
 			params.warn?.(`session file repair cleanup failed: ${cleanupErr instanceof Error ? cleanupErr.message : "unknown error"} (${path.basename(tmpPath)})`);
 		}
@@ -64435,7 +64266,7 @@ function releaseAllLocksSync() {
 			if (typeof held.handle.close === "function") held.handle.close().catch(() => {});
 		} catch {}
 		try {
-			fs.rmSync(held.lockPath, { force: true });
+			fs$1.rmSync(held.lockPath, { force: true });
 		} catch {}
 		HELD_LOCKS.delete(sessionFile);
 	}
@@ -64465,7 +64296,7 @@ function registerCleanupHandlers() {
 }
 async function readLockPayload(lockPath) {
 	try {
-		const raw = await fs$1.readFile(lockPath, "utf8");
+		const raw = await fs.readFile(lockPath, "utf8");
 		const parsed = JSON.parse(raw);
 		if (typeof parsed.pid !== "number") return null;
 		if (typeof parsed.createdAt !== "string") return null;
@@ -64483,10 +64314,10 @@ async function acquireSessionWriteLock(params) {
 	const staleMs = params.staleMs ?? 1800 * 1e3;
 	const sessionFile = path.resolve(params.sessionFile);
 	const sessionDir = path.dirname(sessionFile);
-	await fs$1.mkdir(sessionDir, { recursive: true });
+	await fs.mkdir(sessionDir, { recursive: true });
 	let normalizedDir = sessionDir;
 	try {
-		normalizedDir = await fs$1.realpath(sessionDir);
+		normalizedDir = await fs.realpath(sessionDir);
 	} catch {}
 	const normalizedSessionFile = path.join(normalizedDir, path.basename(sessionFile));
 	const lockPath = `${normalizedSessionFile}.lock`;
@@ -64500,7 +64331,7 @@ async function acquireSessionWriteLock(params) {
 			if (current.count > 0) return;
 			HELD_LOCKS.delete(normalizedSessionFile);
 			await current.handle.close();
-			await fs$1.rm(current.lockPath, { force: true });
+			await fs.rm(current.lockPath, { force: true });
 		} };
 	}
 	const startedAt = Date.now();
@@ -64508,7 +64339,7 @@ async function acquireSessionWriteLock(params) {
 	while (Date.now() - startedAt < timeoutMs) {
 		attempt += 1;
 		try {
-			const handle = await fs$1.open(lockPath, "wx");
+			const handle = await fs.open(lockPath, "wx");
 			await handle.writeFile(JSON.stringify({
 				pid: process.pid,
 				createdAt: (/* @__PURE__ */ new Date()).toISOString()
@@ -64525,7 +64356,7 @@ async function acquireSessionWriteLock(params) {
 				if (current.count > 0) return;
 				HELD_LOCKS.delete(normalizedSessionFile);
 				await current.handle.close();
-				await fs$1.rm(current.lockPath, { force: true });
+				await fs.rm(current.lockPath, { force: true });
 			} };
 		} catch (err) {
 			if (err.code !== "EEXIST") throw err;
@@ -64534,7 +64365,7 @@ async function acquireSessionWriteLock(params) {
 			const stale = !Number.isFinite(createdAt) || Date.now() - createdAt > staleMs;
 			const alive = payload?.pid ? isAlive(payload.pid) : false;
 			if (stale || !alive) {
-				await fs$1.rm(lockPath, { force: true });
+				await fs.rm(lockPath, { force: true });
 				continue;
 			}
 			const delay = Math.min(1e3, 50 * attempt);
@@ -65238,7 +65069,7 @@ async function prewarmSessionFile(sessionFile) {
 	if (!isSessionManagerCacheEnabled()) return;
 	if (isSessionManagerCached(sessionFile)) return;
 	try {
-		const handle = await fs$1.open(sessionFile, "r");
+		const handle = await fs.open(sessionFile, "r");
 		try {
 			const buffer = Buffer$1.alloc(4096);
 			await handle.read(buffer, 0, buffer.length, 0);
@@ -65424,7 +65255,7 @@ async function compactEmbeddedPiSessionDirect(params) {
 		if (!apiKeyInfo.apiKey) {
 			if (apiKeyInfo.mode !== "aws-sdk") throw new Error(`No API key resolved for provider "${model.provider}" (auth mode: ${apiKeyInfo.mode}).`);
 		} else if (model.provider === "github-copilot") {
-			const { resolveCopilotApiToken } = await import("./github-copilot-token-wCk9Fg_E.js").then((n) => n.n);
+			const { resolveCopilotApiToken } = await import("./github-copilot-token-C9IJh2Pn.js").then((n) => n.n);
 			const copilotToken = await resolveCopilotApiToken({ githubToken: apiKeyInfo.apiKey });
 			authStorage.setRuntimeApiKey(model.provider, copilotToken.token);
 		} else authStorage.setRuntimeApiKey(model.provider, apiKeyInfo.apiKey);
@@ -65435,7 +65266,7 @@ async function compactEmbeddedPiSessionDirect(params) {
 			reason: describeUnknownError(err)
 		};
 	}
-	await fs$1.mkdir(resolvedWorkspace, { recursive: true });
+	await fs.mkdir(resolvedWorkspace, { recursive: true });
 	const sandboxSessionKey = params.sessionKey?.trim() || params.sessionId;
 	const sandbox = await resolveSandboxContext({
 		config: params.config,
@@ -65443,7 +65274,7 @@ async function compactEmbeddedPiSessionDirect(params) {
 		workspaceDir: resolvedWorkspace
 	});
 	const effectiveWorkspace = sandbox?.enabled ? sandbox.workspaceAccess === "rw" ? resolvedWorkspace : sandbox.workspaceDir : resolvedWorkspace;
-	await fs$1.mkdir(effectiveWorkspace, { recursive: true });
+	await fs.mkdir(effectiveWorkspace, { recursive: true });
 	await ensureSessionHeader({
 		sessionFile: params.sessionFile,
 		sessionId: params.sessionId,
@@ -65823,12 +65654,12 @@ function getWriter$1(filePath) {
 	const existing = writers$1.get(filePath);
 	if (existing) return existing;
 	const dir = path.dirname(filePath);
-	const ready = fs$1.mkdir(dir, { recursive: true }).catch(() => void 0);
+	const ready = fs.mkdir(dir, { recursive: true }).catch(() => void 0);
 	let queue = Promise.resolve();
 	const writer = {
 		filePath,
 		write: (line) => {
-			queue = queue.then(() => ready).then(() => fs$1.appendFile(filePath, line, "utf8")).catch(() => void 0);
+			queue = queue.then(() => ready).then(() => fs.appendFile(filePath, line, "utf8")).catch(() => void 0);
 		}
 	};
 	writers$1.set(filePath, writer);
@@ -65970,12 +65801,12 @@ function getWriter(filePath) {
 	const existing = writers.get(filePath);
 	if (existing) return existing;
 	const dir = path.dirname(filePath);
-	const ready = fs$1.mkdir(dir, { recursive: true }).catch(() => void 0);
+	const ready = fs.mkdir(dir, { recursive: true }).catch(() => void 0);
 	let queue = Promise.resolve();
 	const writer = {
 		filePath,
 		write: (line) => {
-			queue = queue.then(() => ready).then(() => fs$1.appendFile(filePath, line, "utf8")).catch(() => void 0);
+			queue = queue.then(() => ready).then(() => fs.appendFile(filePath, line, "utf8")).catch(() => void 0);
 		}
 	};
 	writers.set(filePath, writer);
@@ -66449,11 +66280,11 @@ function appendRawStream(payload) {
 	if (!rawStreamReady) {
 		rawStreamReady = true;
 		try {
-			fs.mkdirSync(path.dirname(RAW_STREAM_PATH), { recursive: true });
+			fs$1.mkdirSync(path.dirname(RAW_STREAM_PATH), { recursive: true });
 		} catch {}
 	}
 	try {
-		fs.promises.appendFile(RAW_STREAM_PATH, `${JSON.stringify(payload)}\n`);
+		fs$1.promises.appendFile(RAW_STREAM_PATH, `${JSON.stringify(payload)}\n`);
 	} catch {}
 }
 
@@ -67587,7 +67418,7 @@ async function prepareSessionManagerForRun(params) {
 		return;
 	}
 	if (params.hadSessionFile && header && !hasAssistant) {
-		await fs$1.writeFile(params.sessionFile, "", "utf-8");
+		await fs.writeFile(params.sessionFile, "", "utf-8");
 		sm.fileEntries = [header];
 		sm.byId?.clear?.();
 		sm.labelsById?.clear?.();
@@ -67751,7 +67582,7 @@ async function loadImageFromRef(ref, workspaceDir, options) {
 			return null;
 		}
 		if (ref.type === "path") try {
-			await fs$1.stat(targetPath);
+			await fs.stat(targetPath);
 		} catch {
 			log$2.debug(`Native image: file not found: ${targetPath}`);
 			return null;
@@ -67921,7 +67752,7 @@ async function runEmbeddedAttempt(params) {
 	const prevCwd = process.cwd();
 	const runAbortController = new AbortController();
 	log$2.debug(`embedded run start: runId=${params.runId} sessionId=${params.sessionId} provider=${params.provider} model=${params.modelId} thinking=${params.thinkLevel} messageChannel=${params.messageChannel ?? params.messageProvider ?? "unknown"}`);
-	await fs$1.mkdir(resolvedWorkspace, { recursive: true });
+	await fs.mkdir(resolvedWorkspace, { recursive: true });
 	const sandboxSessionKey = params.sessionKey?.trim() || params.sessionId;
 	const sandbox = await resolveSandboxContext({
 		config: params.config,
@@ -67929,7 +67760,7 @@ async function runEmbeddedAttempt(params) {
 		workspaceDir: resolvedWorkspace
 	});
 	const effectiveWorkspace = sandbox?.enabled ? sandbox.workspaceAccess === "rw" ? resolvedWorkspace : sandbox.workspaceDir : resolvedWorkspace;
-	await fs$1.mkdir(effectiveWorkspace, { recursive: true });
+	await fs.mkdir(effectiveWorkspace, { recursive: true });
 	let restoreSkillEnv;
 	process.chdir(effectiveWorkspace);
 	try {
@@ -68148,7 +67979,7 @@ async function runEmbeddedAttempt(params) {
 				sessionFile: params.sessionFile,
 				warn: (message) => log$2.warn(message)
 			});
-			const hadSessionFile = await fs$1.stat(params.sessionFile).then(() => true).catch(() => false);
+			const hadSessionFile = await fs.stat(params.sessionFile).then(() => true).catch(() => false);
 			const transcriptPolicy = resolveTranscriptPolicy({
 				modelApi: params.model?.api,
 				provider: params.provider,
@@ -68740,7 +68571,7 @@ async function runEmbeddedPiAgent(params) {
 				return;
 			}
 			if (model.provider === "github-copilot") {
-				const { resolveCopilotApiToken } = await import("./github-copilot-token-wCk9Fg_E.js").then((n) => n.n);
+				const { resolveCopilotApiToken } = await import("./github-copilot-token-C9IJh2Pn.js").then((n) => n.n);
 				const copilotToken = await resolveCopilotApiToken({ githubToken: apiKeyInfo.apiKey });
 				authStorage.setRuntimeApiKey(model.provider, copilotToken.token);
 			} else authStorage.setRuntimeApiKey(model.provider, apiKeyInfo.apiKey);
@@ -68798,7 +68629,7 @@ async function runEmbeddedPiAgent(params) {
 		try {
 			while (true) {
 				attemptedThinking.add(thinkLevel);
-				await fs$1.mkdir(resolvedWorkspace, { recursive: true });
+				await fs.mkdir(resolvedWorkspace, { recursive: true });
 				const prompt = provider === "anthropic" ? scrubAnthropicRefusalMagic(params.prompt) : params.prompt;
 				const attempt = await runEmbeddedAttempt({
 					sessionId: params.sessionId,
@@ -69164,4 +68995,4 @@ async function runEmbeddedPiAgent(params) {
 }
 
 //#endregion
-export { DEFAULT_MODEL, DEFAULT_PROVIDER, ensureAgentWorkspace, loadSessionStore, resolveAgentDir, resolveAgentIdentity, resolveAgentTimeoutMs, resolveAgentWorkspaceDir, resolveSessionFilePath, resolveStorePath, resolveThinkingDefault, runEmbeddedPiAgent, saveSessionStore };
+export { clearAgentRunContext as C, sendMessageSlack as D, sendMessageWhatsApp as E, AGENT_LANE_NESTED as S, registerAgentRunContext as T, clearSessionAuthProfileOverride as _, getCliSessionId as a, loadModelCatalog as b, resolveOutboundTarget as c, deriveSessionTotalTokens as d, hasNonzeroUsage as f, lookupContextTokens as g, getSkillsSnapshotVersion as h, sendMessageDiscord as i, resolveSessionDeliveryTarget as l, getRemoteSkillEligibility as m, sendMessageIMessage as n, setCliSessionId as o, resolveSendPolicy as p, sendMessageTelegram as r, runCliAgent as s, runEmbeddedPiAgent as t, runWithModelFallback as u, applyModelOverrideToSessionEntry as v, emitAgentEvent as w, resolveAgentTimeoutMs as x, applyVerboseOverride as y };
