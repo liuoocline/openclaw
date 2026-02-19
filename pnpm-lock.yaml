@@ -1535,16 +1535,16 @@ packages:
     resolution: {integrity: sha512-faGUlTcXka5l7rv0lP3K3vGW/ejRuOS24RR2aSFWREUQqzjgdsuWNo/IiPqL3kWRGt6Ahl2+qcDAwtdeWeuGUw==}
     hasBin: true
 
-  '@mariozechner/pi-agent-core@0.52.9':
-    resolution: {integrity: sha512-x6OxWN5QnZGfK5TU822Xgcy5QeN3ZGIBaZiZISRI64BZYj5ENc40j4T+fbeRnAsrEkJoMC1Him8ixw68PRTovQ==}
+  '@mariozechner/pi-agent-core@0.52.10':
+    resolution: {integrity: sha512-rTM3ug6rMuDFbQINympIIV9CW3Z8ONyBSehsoDNWtdXTWNA7Nzpx3mAYsA91B856HM0Zbl45UBNRN1YHDeaFTg==}
     engines: {node: '>=20.0.0'}
 
   '@mariozechner/pi-agent-core@file:pi-mono/packages/agent':
     resolution: {directory: pi-mono/packages/agent, type: directory}
     engines: {node: '>=20.0.0'}
 
-  '@mariozechner/pi-ai@0.52.9':
-    resolution: {integrity: sha512-sCdIVw7iomWcaEnVUFwq9e69Dat0ZCy/+XGkTtroY8H+GxHmDKUCrJV/yMpu8Jq9Oof11yCo7F/Vco7dvYCLZg==}
+  '@mariozechner/pi-ai@0.52.10':
+    resolution: {integrity: sha512-dgV5emMbDoz0GGyDy6CjY+RcW/PqwQvUzqAehjDUj1M+3b7+fIB7E2WKZQKvjYIY79qTvAIyrdEmIs2BQX+enA==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -1558,8 +1558,8 @@ packages:
     engines: {node: '>=20.0.0'}
     hasBin: true
 
-  '@mariozechner/pi-tui@0.52.9':
-    resolution: {integrity: sha512-YHVZLRz9ULVlubRi51P1AQj7oOb+caiTv/HsNa7r587ale8kLNBx2Sa99fRWuFhNPu+SniwVi4pgqvkrWAcd/w==}
+  '@mariozechner/pi-tui@0.52.10':
+    resolution: {integrity: sha512-j0re5FXzznkrzC7BOc1fb+DUWYetRZAVSUbdZoxa6S5S7amxmIJzbSNCgKBaF1ZyY40jp+B5Z4W60Qc7Pn1rxA==}
     engines: {node: '>=20.0.0'}
 
   '@mariozechner/pi-tui@file:pi-mono/packages/tui':
@@ -7162,9 +7162,9 @@ snapshots:
       std-env: 3.10.0
       yoctocolors: 2.1.2
 
-  '@mariozechner/pi-agent-core@0.52.9(ws@8.19.0)(zod@4.3.6)':
+  '@mariozechner/pi-agent-core@0.52.10(ws@8.19.0)(zod@4.3.6)':
     dependencies:
-      '@mariozechner/pi-ai': 0.52.9(ws@8.19.0)(zod@4.3.6)
+      '@mariozechner/pi-ai': 0.52.10(ws@8.19.0)(zod@4.3.6)
     transitivePeerDependencies:
       - '@modelcontextprotocol/sdk'
       - aws-crt
@@ -7176,7 +7176,7 @@ snapshots:
 
   '@mariozechner/pi-agent-core@file:pi-mono/packages/agent(ws@8.19.0)(zod@4.3.6)':
     dependencies:
-      '@mariozechner/pi-ai': 0.52.9(ws@8.19.0)(zod@4.3.6)
+      '@mariozechner/pi-ai': 0.52.10(ws@8.19.0)(zod@4.3.6)
     transitivePeerDependencies:
       - '@modelcontextprotocol/sdk'
       - aws-crt
@@ -7186,7 +7186,7 @@ snapshots:
       - ws
       - zod
 
-  '@mariozechner/pi-ai@0.52.9(ws@8.19.0)(zod@4.3.6)':
+  '@mariozechner/pi-ai@0.52.10(ws@8.19.0)(zod@4.3.6)':
     dependencies:
       '@anthropic-ai/sdk': 0.73.0(zod@4.3.6)
       '@aws-sdk/client-bedrock-runtime': 3.989.0
@@ -7237,9 +7237,9 @@ snapshots:
   '@mariozechner/pi-coding-agent@file:pi-mono/packages/coding-agent(ws@8.19.0)(zod@4.3.6)':
     dependencies:
       '@mariozechner/jiti': 2.6.5
-      '@mariozechner/pi-agent-core': 0.52.9(ws@8.19.0)(zod@4.3.6)
-      '@mariozechner/pi-ai': 0.52.9(ws@8.19.0)(zod@4.3.6)
-      '@mariozechner/pi-tui': 0.52.9
+      '@mariozechner/pi-agent-core': 0.52.10(ws@8.19.0)(zod@4.3.6)
+      '@mariozechner/pi-ai': 0.52.10(ws@8.19.0)(zod@4.3.6)
+      '@mariozechner/pi-tui': 0.52.10
       '@silvia-odwyer/photon-node': 0.3.4
       chalk: 5.6.2
       cli-highlight: 2.1.11
@@ -7263,7 +7263,7 @@ snapshots:
       - ws
       - zod
 
-  '@mariozechner/pi-tui@0.52.9':
+  '@mariozechner/pi-tui@0.52.10':
     dependencies:
       '@types/mime-types': 2.1.4
       chalk: 5.6.2
