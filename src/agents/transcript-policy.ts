@@ -117,7 +117,8 @@ export function resolveTranscriptPolicy(params: {
     normalizeAntigravityThinkingBlocks,
     applyGoogleTurnOrdering: !isOpenAi && isGoogle,
     validateGeminiTurns: !isOpenAi && isGoogle,
-    validateAnthropicTurns: !isOpenAi && isAnthropic,
+    // Enable role validation for OpenAI-compatible APIs (including NVIDIA) to fix "Unexpected message role" errors
+    validateAnthropicTurns: isOpenAi || (!isOpenAi && isAnthropic),
     allowSyntheticToolResults: !isOpenAi && (isGoogle || isAnthropic),
   };
 }

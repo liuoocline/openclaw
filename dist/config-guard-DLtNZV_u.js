@@ -1,103 +1,52 @@
-#!/usr/bin/env node
-import { g as resolveStateDir, i as isNixMode, m as resolveOAuthDir, o as resolveConfigPath, r as STATE_DIR, u as resolveGatewayPort } from "./paths-DVBShlw6.js";
-import { D as info, E as danger, I as colorize, L as isRich, M as setVerbose, R as theme, S as normalizeChatChannelId, c as defaultRuntime, h as DEFAULT_CHAT_CHANNEL, l as restoreTerminalState, r as enableConsoleCapture, s as visibleWidth, v as getChatChannelMeta } from "./subsystem-DPnkvS73.js";
-import { C as shortenHomePath, E as toWhatsappJid, S as shortenHomeInString, b as resolveUserPath, h as normalizeE164, n as assertWebChannel, v as resolveHomeDir } from "./utils-BTaR--Ln.js";
-import "./pi-embedded-helpers-3VNdf0Et.js";
-import { Ct as formatControlUiSshHint, D as runMessageAction, Et as moveToTrash, Ft as waitForGatewayReachable, I as CHANNEL_MESSAGE_ACTION_NAMES, Mt as resolveControlUiLinks, Ot as openUrl, P as formatTargetDisplay, St as ensureWorkspaceAndSessions, Tt as handleReset, Wr as applyTemplate, an as registerMemoryCli, at as CHANNEL_TARGETS_DESCRIPTION, br as lookupContextTokens, ht as resolveCommitHash, jt as randomToken, kr as installUnhandledRejectionHandler, on as runMemoryStatus, ot as CHANNEL_TARGET_DESCRIPTION, sn as monitorWebChannel, t as getReplyFromConfig, un as waitForever, vt as DEFAULT_WORKSPACE, xt as detectBrowserOpenSupport, yt as applyWizardMetadata } from "./reply-Cb7UHA2y.js";
-import { l as normalizeAgentId, n as DEFAULT_AGENT_ID, t as DEFAULT_ACCOUNT_ID } from "./session-key-BWxPj0z_.js";
-import { n as runExec, t as runCommandWithTimeout } from "./exec-DFOtZbI0.js";
-import { c as resolveDefaultAgentId, f as DEFAULT_AGENT_WORKSPACE_DIR, h as DEFAULT_IDENTITY_FILENAME, r as resolveAgentDir, s as resolveAgentWorkspaceDir, t as listAgentIds, w as resolveDefaultAgentWorkspaceDir, x as ensureAgentWorkspace } from "./agent-scope-DnyDZ5RH.js";
-import { Dt as DEFAULT_MODEL, Et as DEFAULT_CONTEXT_TOKENS, H as resolveEnvApiKey, Ot as DEFAULT_PROVIDER, St as normalizeSecretInput, at as resolveApiKeyForProfile, d as resolveConfiguredModelRef, et as resolveAuthProfileOrder, ht as ensureAuthProfileStore, mt as upsertAuthProfile, s as normalizeProviderId, vt as resolveAuthStorePath, xt as normalizeOptionalSecretInput } from "./model-selection-DbsbOAoh.js";
-import "./github-copilot-token-BW-SEg7E.js";
-import { n as replaceCliName, r as resolveCliName, t as formatCliCommand } from "./command-format-ChfKqObn.js";
-import { t as parseBooleanValue } from "./boolean-BgXe2hyu.js";
-import { r as normalizeEnv, t as isTruthyEnvValue } from "./env-B5YXooWp.js";
-import { M as VERSION, N as loadDotEnv, c as writeConfigFile, g as parseDurationMs, i as loadConfig, o as readConfigFileSnapshot, r as createConfigIO } from "./config-Bj2eDa02.js";
-import "./manifest-registry-DyMRD3rY.js";
-import { n as listChannelPlugins, r as normalizeChannelId, t as getChannelPlugin } from "./plugins-CQw3z3Nw.js";
-import { D as resolveSessionKey, E as deriveSessionKey, d as loadSessionStore, m as saveSessionStore } from "./sandbox-qt49csTr.js";
-import "./image-D96d4B3O.js";
-import "./pi-model-discovery-CV2V1HHz.js";
-import { c as describePortOwner, l as ensurePortAvailable, s as PortInUseError, u as handlePortError } from "./chrome-COabMr6f.js";
-import "./skills-_eKGrw9z.js";
-import "./routes-BrWrBk2R.js";
-import { r as formatUncaughtError } from "./errors-B0eT3jVv.js";
-import { n as movePathToTrash } from "./server-context-39mkstUs.js";
-import { h as GATEWAY_CLIENT_NAMES, l as normalizeMessageChannel, m as GATEWAY_CLIENT_MODES } from "./message-channel-CHRYQtAM.js";
-import "./logging-BzvBIA3Y.js";
-import "./accounts-MyAvfCVH.js";
-import { a as resolveSessionTranscriptsDirForAgent, i as resolveSessionTranscriptsDir, o as resolveStorePath } from "./paths-Bkhd_qY8.js";
-import "./redact-DAKeu7PA.js";
-import "./tool-display-DNOVCI6J.js";
-import "./deliver-E0WzWBsL.js";
-import "./dispatcher-BfXtm4Dl.js";
-import "./manager-C-jXr9ks.js";
-import "./sqlite-cSdsHVEw.js";
-import "./tui-formatters-CJZ4Trrr.js";
-import "./client-C0gQ7hrj.js";
-import { i as randomIdempotencyKey, n as callGateway } from "./call-CM25qgxz.js";
-import { n as formatTimeAgo } from "./format-relative-Db7eqEu8.js";
-import "./login-qr-CJ__cE3-.js";
-import "./pairing-store-BpPUNzmB.js";
-import { t as formatDocsLink } from "./links-Dg90NTyF.js";
-import { n as runCommandWithRuntime } from "./cli-utils-R-ECs5cY.js";
-import { n as withProgress } from "./progress-COzt9PNY.js";
-import "./pi-tools.policy-gG96mWwA.js";
-import { n as stylePromptMessage, r as stylePromptTitle, t as stylePromptHint } from "./prompt-style-DjZDxcFg.js";
-import "./pairing-labels-xImhiJax.js";
-import "./session-cost-usage-PvyVZz-g.js";
-import "./control-service-BDgF-FZ0.js";
-import "./channel-selection-DPV9hvY8.js";
-import { t as createDefaultDeps } from "./deps-C8kWOxx9.js";
-import { l as ensureBinary, u as promptYesNo } from "./tailscale-DzJUWmKf.js";
-import { t as isMainModule } from "./is-main-WWuz28Ip.js";
-import { t as ensureOpenClawCliOnPath } from "./path-env-Nq83EHH9.js";
-import { a as gatewayInstallErrorHint, g as assertSupportedRuntime, i as buildGatewayInstallPlan, r as isGatewayDaemonRuntime, t as DEFAULT_GATEWAY_DAEMON_RUNTIME } from "./daemon-runtime-DwQFvDXZ.js";
-import { a as buildAgentSummaries, c as loadAgentIdentity, f as parseIdentityMarkdown, i as applyAgentConfig, l as pruneAgentConfig, n as statusCommand, o as findAgentEntryIndex, s as listAgentEntries, t as runOnboardingWizard, u as identityHasValues } from "./onboarding-DgtWeNT2.js";
-import { t as resolveChannelDefaultAccountId } from "./helpers-C89IG08W.js";
-import { n as logConfigUpdated, t as formatConfigPath } from "./logging-CNq0UUgf.js";
-import "./note-DVO1KLaW.js";
-import { t as WizardCancelledError } from "./prompts--d-6l5Ln.js";
-import { t as createClackPrompter } from "./clack-prompter-BkNZ4Xdw.js";
-import { _ as promptAuthChoiceGrouped, f as warnIfModelConfigLooksOff, g as applyGoogleGeminiModelDefault, h as upsertSharedEnvVar, m as applyOpenAIConfig, p as applyAuthChoice } from "./onboard-skills-pnaYRn2l.js";
-import { $ as setMinimaxApiKey, C as applyMoonshotConfig, D as applyOpenrouterConfig, F as applyVeniceConfig, L as applyVercelAiGatewayConfig, N as applyTogetherConfig, Q as setKimiCodingApiKey, U as applyZaiConfig, V as applyXiaomiConfig, X as setCloudflareAiGatewayConfig, Y as setAnthropicApiKey, Z as setGeminiApiKey, _t as validateAnthropicSetupToken, at as setTogetherApiKey, ct as setXaiApiKey, et as setMoonshotApiKey, f as applyOpencodeZenConfig, g as applyMinimaxConfig, gt as buildTokenProfileId, it as setSyntheticApiKey, j as applySyntheticConfig, k as applyQianfanConfig, lt as setXiaomiApiKey, m as applyMinimaxApiConfig, nt as setOpenrouterApiKey, ot as setVeniceApiKey, rt as setQianfanApiKey, st as setVercelAiGatewayApiKey, tt as setOpencodeZenApiKey, ut as setZaiApiKey, v as applyAuthProfileConfig, w as applyMoonshotConfigCn, x as applyKimiCodeConfig, y as applyCloudflareAiGatewayConfig, z as applyXaiConfig } from "./github-copilot-auth-X9IuDjee.js";
-import { n as setupChannels } from "./onboard-channels-B9gItgLG.js";
-import "./plugin-auto-enable-D5ye7QnB.js";
-import "./archive-CXhvR9nU.js";
-import "./skill-scanner-DrVEHfC6.js";
-import "./installs-CXGV291R.js";
-import { l as healthCommand } from "./health-format-4AxWr6gI.js";
-import "./update-runner-DG77pPlF.js";
-import "./auth-DkjJ3pm-.js";
-import "./audit-Dn2cBl2x.js";
-import { t as renderTable } from "./table-Bb9gAVIp.js";
-import "./skills-status-Ck0CCFZG.js";
-import { t as resolveGatewayService } from "./service-DOlJdIqe.js";
-import { r as isSystemdUserServiceAvailable } from "./systemd-Pa7LURHB.js";
-import "./service-audit-VDRrWefh.js";
-import "./node-service-DQ-tiSie.js";
-import "./channels-status-issues-BN1ICfdy.js";
-import { c as registerSubCliCommands, d as getPositiveIntFlagValue, f as getVerboseFlag, l as getCommandPath, m as hasHelpOrVersion, p as hasFlag, u as getFlagValue } from "./completion-cli-Cm6XA38u.js";
-import { n as callGatewayFromCli, t as addGatewayClientOptions } from "./gateway-rpc-dHFK02Kk.js";
-import { t as formatHelpExamples } from "./help-format-aiW76js8.js";
-import { a as createOutboundSendDeps, n as resolveSessionKeyForRequest, t as agentCommand } from "./agent-DGlytOcv.js";
-import { i as hasExplicitOptions, n as resolveCliChannelOptions, r as ensurePluginRegistryLoaded } from "./channel-options-D_eYuUBq.js";
-import { n as parsePositiveIntOrUndefined, t as collectOption } from "./helpers-CRzoyyXS.js";
-import { i as CONFIGURE_WIZARD_SECTIONS, n as configureCommand, r as configureCommandWithSections } from "./configure-L49iv3w0.js";
-import { n as ensureSystemdUserLingerNonInteractive } from "./systemd-linger-6_naJcJp.js";
-import "./widearea-dns-BgYasW6m.js";
-import "./auth-health-DjT4fUpw.js";
-import { n as loadAndMaybeMigrateDoctorConfig, t as doctorCommand } from "./doctor-axmexDWu.js";
-import "./hooks-status-lHWrY64E.js";
-import "./tui-Ci5pYrj5.js";
-import process$1 from "node:process";
-import { fileURLToPath } from "node:url";
-import fs from "node:fs";
+import { $ as DEFAULT_CHAT_CHANNEL, B as resolveConfigPath, C as setVerbose, D as colorize, J as resolveOAuthDir, L as STATE_DIR, O as isRich, R as isNixMode, W as resolveGatewayPort, X as resolveStateDir, a as parseBooleanValue, f as visibleWidth, k as theme, m as restoreTerminalState, nt as getChatChannelMeta, ot as normalizeChatChannelId, p as defaultRuntime, v as danger, y as info } from "./entry.js";
+import { Ct as DEFAULT_CONTEXT_TOKENS, N as resolveConfiguredModelRef, Tt as DEFAULT_PROVIDER, _ as ensureAuthProfileStore, b as resolveAuthStorePath, ft as normalizeOptionalSecretInput, g as upsertAuthProfile, k as normalizeProviderId, n as resolveAuthProfileOrder, pt as normalizeSecretInput, s as resolveApiKeyForProfile, ut as resolveEnvApiKey, wt as DEFAULT_MODEL } from "./auth-profiles-FJ3VY25a.js";
+import { t as formatCliCommand } from "./command-format-ayFsmwwz.js";
+import { l as normalizeAgentId, n as DEFAULT_AGENT_ID, t as DEFAULT_ACCOUNT_ID } from "./session-key-DVvxnFKg.js";
+import { S as shortenHomePath, _ as resolveHomeDir, x as shortenHomeInString, y as resolveUserPath } from "./utils-Dk86IbEs.js";
+import { t as runCommandWithTimeout } from "./exec-B8JKbXKW.js";
+import { c as resolveDefaultAgentId, f as DEFAULT_AGENT_WORKSPACE_DIR, h as DEFAULT_IDENTITY_FILENAME, r as resolveAgentDir, s as resolveAgentWorkspaceDir, t as listAgentIds, w as resolveDefaultAgentWorkspaceDir, x as ensureAgentWorkspace } from "./agent-scope-D3me2AZa.js";
+import { c as writeConfigFile, g as parseDurationMs, i as loadConfig, o as readConfigFileSnapshot, r as createConfigIO } from "./config-fCnPoWjU.js";
+import { n as movePathToTrash } from "./server-context-lyNcqJYD.js";
+import { i as randomIdempotencyKey, n as callGateway } from "./call-CD2IZCHT.js";
+import { h as GATEWAY_CLIENT_NAMES, l as normalizeMessageChannel, m as GATEWAY_CLIENT_MODES } from "./message-channel-BlgPSDAh.js";
+import { t as formatDocsLink } from "./links-7M-j83As.js";
+import { n as listChannelPlugins, r as normalizeChannelId, t as getChannelPlugin } from "./plugins-B7F0Ly9G.js";
+import { D as runMemoryStatus, Dn as CHANNEL_MESSAGE_ACTION_NAMES, E as registerMemoryCli, Tn as formatTargetDisplay, Xn as CHANNEL_TARGETS_DESCRIPTION, Zn as CHANNEL_TARGET_DESCRIPTION, _ as randomToken, _n as runMessageAction, a as applyWizardMetadata, c as ensureWorkspaceAndSessions, d as handleReset, f as moveToTrash, i as DEFAULT_WORKSPACE, l as formatControlUiSshHint, m as openUrl, mn as lookupContextTokens, pn as resolveCommitHash, s as detectBrowserOpenSupport, v as resolveControlUiLinks, x as waitForGatewayReachable } from "./loader-DEOEK8Lq.js";
+import { n as withProgress } from "./progress-Da1ehW-x.js";
+import { n as stylePromptMessage, r as stylePromptTitle, t as stylePromptHint } from "./prompt-style-Dc0C5HC9.js";
+import { t as WizardCancelledError } from "./prompts-CXLLIBwP.js";
+import { t as createClackPrompter } from "./clack-prompter-DuBVnTKy.js";
+import { t as resolveChannelDefaultAccountId } from "./helpers-DdwqKAAS.js";
+import { n as setupChannels } from "./onboard-channels-D-yDFCIN.js";
+import { a as resolveSessionTranscriptsDirForAgent, i as resolveSessionTranscriptsDir, o as resolveStorePath } from "./paths-IivnSNkP.js";
+import { d as loadSessionStore } from "./sandbox-CPZiaKcS.js";
+import { n as formatTimeAgo } from "./format-relative-79_Y1n2Y.js";
+import { n as runCommandWithRuntime } from "./cli-utils-PlLcDZlM.js";
+import { n as ensurePluginRegistryLoaded, t as hasExplicitOptions } from "./command-options-C_HoNuft.js";
+import { l as getVerboseFlag, o as getFlagValue, r as registerSubCliCommands, s as getPositiveIntFlagValue, u as hasFlag } from "./register.subclis-CO3gm7nc.js";
+import { n as parsePositiveIntOrUndefined, t as collectOption } from "./helpers-CQI-5xS9.js";
+import { n as callGatewayFromCli, t as addGatewayClientOptions } from "./gateway-rpc-D6LrkcSA.js";
+import { t as createDefaultDeps } from "./deps-2pqyAsWa.js";
+import { a as gatewayInstallErrorHint, h as assertSupportedRuntime, i as buildGatewayInstallPlan, r as isGatewayDaemonRuntime, t as DEFAULT_GATEWAY_DAEMON_RUNTIME } from "./daemon-runtime-CMqH8BUE.js";
+import { t as resolveGatewayService } from "./service-DDPRbf8a.js";
+import { r as isSystemdUserServiceAvailable } from "./systemd-BEWwfwn0.js";
+import { t as renderTable } from "./table-cCoGqLsk.js";
+import { d as warnIfModelConfigLooksOff, f as applyAuthChoice, g as promptAuthChoiceGrouped, h as applyGoogleGeminiModelDefault, m as upsertSharedEnvVar, p as applyOpenAIConfig } from "./onboard-skills-CJKr4toF.js";
+import { l as healthCommand } from "./health-format-DjWkWOfk.js";
+import { $ as setMinimaxApiKey, C as applyMoonshotConfig, D as applyOpenrouterConfig, F as applyVeniceConfig, L as applyVercelAiGatewayConfig, N as applyTogetherConfig, Q as setKimiCodingApiKey, U as applyZaiConfig, V as applyXiaomiConfig, X as setCloudflareAiGatewayConfig, Y as setAnthropicApiKey, Z as setGeminiApiKey, _t as validateAnthropicSetupToken, at as setTogetherApiKey, ct as setXaiApiKey, et as setMoonshotApiKey, f as applyOpencodeZenConfig, g as applyMinimaxConfig, gt as buildTokenProfileId, it as setSyntheticApiKey, j as applySyntheticConfig, k as applyQianfanConfig, lt as setXiaomiApiKey, m as applyMinimaxApiConfig, nt as setOpenrouterApiKey, ot as setVeniceApiKey, rt as setQianfanApiKey, st as setVercelAiGatewayApiKey, tt as setOpencodeZenApiKey, ut as setZaiApiKey, v as applyAuthProfileConfig, w as applyMoonshotConfigCn, x as applyKimiCodeConfig, y as applyCloudflareAiGatewayConfig, z as applyXaiConfig } from "./github-copilot-auth--BV0IsRg.js";
+import { n as logConfigUpdated, t as formatConfigPath } from "./logging-DuK6YXuK.js";
+import { a as findAgentEntryIndex, c as pruneAgentConfig, d as parseIdentityMarkdown, f as runOnboardingWizard, i as buildAgentSummaries, l as identityHasValues, o as listAgentEntries, r as applyAgentConfig, s as loadAgentIdentity, t as statusCommand } from "./status-a5tvN0Zv.js";
+import { a as createOutboundSendDeps, n as resolveSessionKeyForRequest, t as agentCommand } from "./agent-BYaV47s5.js";
+import { t as formatHelpExamples } from "./help-format-CUnac_bT.js";
+import { i as CONFIGURE_WIZARD_SECTIONS, n as configureCommand, r as configureCommandWithSections } from "./configure-BCV27Hz1.js";
+import { n as ensureSystemdUserLingerNonInteractive } from "./systemd-linger-CDo2UbHM.js";
+import { n as loadAndMaybeMigrateDoctorConfig, t as doctorCommand } from "./doctor-BDiRiD76.js";
 import path from "node:path";
+import fs from "node:fs";
 import JSON5 from "json5";
 import fs$1 from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import { cancel, confirm, isCancel, multiselect, select } from "@clack/prompts";
-import { Command } from "commander";
 
 //#region src/commands/agents.bindings.ts
 function bindingMatchKey(match) {
@@ -2833,7 +2782,7 @@ async function loadValidConfig() {
 }
 function registerConfigCli(program) {
 	const cmd = program.command("config").description("Config helpers (get/set/unset). Run without subcommand for the wizard.").addHelpText("after", () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/config", "docs.openclaw.ai/cli/config")}\n`).option("--section <section>", "Configure wizard sections (repeatable). Use with no subcommand.", (value, previous) => [...previous, value], []).action(async (opts) => {
-		const { CONFIGURE_WIZARD_SECTIONS, configureCommand, configureCommandWithSections } = await import("./configure-L49iv3w0.js").then((n) => n.t);
+		const { CONFIGURE_WIZARD_SECTIONS, configureCommand, configureCommandWithSections } = await import("./configure-BCV27Hz1.js").then((n) => n.t);
 		const sections = Array.isArray(opts.section) ? opts.section.map((value) => typeof value === "string" ? value.trim() : "").filter(Boolean) : [];
 		if (sections.length === 0) {
 			await configureCommand(defaultRuntime);
@@ -5474,17 +5423,12 @@ function registerProgramCommands(program, ctx, argv = process.argv) {
 		argv
 	});
 }
-
-//#endregion
-//#region src/cli/program/context.ts
-function createProgramContext() {
-	const channelOptions = resolveCliChannelOptions();
-	return {
-		programVersion: VERSION,
-		channelOptions,
-		messageChannelOptions: channelOptions.join("|"),
-		agentChannelOptions: ["last", ...channelOptions].join("|")
-	};
+function findRoutedCommand(path) {
+	for (const entry of commandRegistry) {
+		if (!entry.routes) continue;
+		for (const route of entry.routes) if (route.match(path)) return route;
+	}
+	return null;
 }
 
 //#endregion
@@ -5778,53 +5722,6 @@ function hasEmittedCliBanner() {
 }
 
 //#endregion
-//#region src/cli/program/help.ts
-const CLI_NAME = resolveCliName();
-const EXAMPLES = [
-	["openclaw channels login --verbose", "Link personal WhatsApp Web and show QR + connection logs."],
-	["openclaw message send --target +15555550123 --message \"Hi\" --json", "Send via your web session and print JSON result."],
-	["openclaw gateway --port 18789", "Run the WebSocket Gateway locally."],
-	["openclaw --dev gateway", "Run a dev Gateway (isolated state/config) on ws://127.0.0.1:19001."],
-	["openclaw gateway --force", "Kill anything bound to the default gateway port, then start it."],
-	["openclaw gateway ...", "Gateway control via WebSocket."],
-	["openclaw agent --to +15555550123 --message \"Run summary\" --deliver", "Talk directly to the agent using the Gateway; optionally send the WhatsApp reply."],
-	["openclaw message send --channel telegram --target @mychat --message \"Hi\"", "Send via your Telegram bot."]
-];
-function configureProgramHelp(program, ctx) {
-	program.name(CLI_NAME).description("").version(ctx.programVersion).option("--dev", "Dev profile: isolate state under ~/.openclaw-dev, default gateway port 19001, and shift derived ports (browser/canvas)").option("--profile <name>", "Use a named profile (isolates OPENCLAW_STATE_DIR/OPENCLAW_CONFIG_PATH under ~/.openclaw-<name>)");
-	program.option("--no-color", "Disable ANSI colors", false);
-	program.configureHelp({
-		sortSubcommands: true,
-		sortOptions: true,
-		optionTerm: (option) => theme.option(option.flags),
-		subcommandTerm: (cmd) => theme.command(cmd.name())
-	});
-	program.configureOutput({
-		writeOut: (str) => {
-			const colored = str.replace(/^Usage:/gm, theme.heading("Usage:")).replace(/^Options:/gm, theme.heading("Options:")).replace(/^Commands:/gm, theme.heading("Commands:"));
-			process.stdout.write(colored);
-		},
-		writeErr: (str) => process.stderr.write(str),
-		outputError: (str, write) => write(theme.error(str))
-	});
-	if (process.argv.includes("-V") || process.argv.includes("--version") || process.argv.includes("-v")) {
-		console.log(ctx.programVersion);
-		process.exit(0);
-	}
-	program.addHelpText("beforeAll", () => {
-		if (hasEmittedCliBanner()) return "";
-		const rich = isRich();
-		return `\n${formatCliBannerLine(ctx.programVersion, { richTty: rich })}\n`;
-	});
-	const fmtExamples = EXAMPLES.map(([cmd, desc]) => `  ${theme.command(replaceCliName(cmd, CLI_NAME))}\n    ${theme.muted(desc)}`).join("\n");
-	program.addHelpText("afterAll", ({ command }) => {
-		if (command !== program) return "";
-		const docs = formatDocsLink("/cli", "docs.openclaw.ai/cli");
-		return `\n${theme.heading("Examples:")}\n${fmtExamples}\n\n${theme.muted("Docs:")} ${docs}\n`;
-	});
-}
-
-//#endregion
 //#region src/cli/program/config-guard.ts
 const ALLOWED_INVALID_COMMANDS = new Set([
 	"doctor",
@@ -5885,70 +5782,4 @@ async function ensureConfigReady(params) {
 }
 
 //#endregion
-//#region src/cli/program/preaction.ts
-function setProcessTitleForCommand(actionCommand) {
-	let current = actionCommand;
-	while (current.parent && current.parent.parent) current = current.parent;
-	const name = current.name();
-	const cliName = resolveCliName();
-	if (!name || name === cliName) return;
-	process.title = `${cliName}-${name}`;
-}
-const PLUGIN_REQUIRED_COMMANDS = new Set([
-	"message",
-	"channels",
-	"directory"
-]);
-function registerPreActionHooks(program, programVersion) {
-	program.hook("preAction", async (_thisCommand, actionCommand) => {
-		setProcessTitleForCommand(actionCommand);
-		const argv = process.argv;
-		if (hasHelpOrVersion(argv)) return;
-		const commandPath = getCommandPath(argv, 2);
-		if (!(isTruthyEnvValue(process.env.OPENCLAW_HIDE_BANNER) || commandPath[0] === "update" || commandPath[0] === "completion" || commandPath[0] === "plugins" && commandPath[1] === "update")) emitCliBanner(programVersion);
-		const verbose = getVerboseFlag(argv, { includeDebug: true });
-		setVerbose(verbose);
-		if (!verbose) process.env.NODE_NO_WARNINGS ??= "1";
-		if (commandPath[0] === "doctor" || commandPath[0] === "completion") return;
-		await ensureConfigReady({
-			runtime: defaultRuntime,
-			commandPath
-		});
-		if (PLUGIN_REQUIRED_COMMANDS.has(commandPath[0])) ensurePluginRegistryLoaded();
-	});
-}
-
-//#endregion
-//#region src/cli/program/build-program.ts
-function buildProgram() {
-	const program = new Command();
-	const ctx = createProgramContext();
-	const argv = process.argv;
-	configureProgramHelp(program, ctx);
-	registerPreActionHooks(program, ctx.programVersion);
-	registerProgramCommands(program, ctx, argv);
-	return program;
-}
-
-//#endregion
-//#region src/index.ts
-loadDotEnv({ quiet: true });
-normalizeEnv();
-ensureOpenClawCliOnPath();
-enableConsoleCapture();
-assertSupportedRuntime();
-const program = buildProgram();
-if (isMainModule({ currentFile: fileURLToPath(import.meta.url) })) {
-	installUnhandledRejectionHandler();
-	process$1.on("uncaughtException", (error) => {
-		console.error("[openclaw] Uncaught exception:", formatUncaughtError(error));
-		process$1.exit(1);
-	});
-	program.parseAsync(process$1.argv).catch((err) => {
-		console.error("[openclaw] CLI failed:", formatUncaughtError(err));
-		process$1.exit(1);
-	});
-}
-
-//#endregion
-export { PortInUseError, applyTemplate, assertWebChannel, createDefaultDeps, deriveSessionKey, describePortOwner, ensureBinary, ensurePortAvailable, getReplyFromConfig, handlePortError, loadConfig, loadSessionStore, monitorWebChannel, normalizeE164, promptYesNo, resolveSessionKey, resolveStorePath, runCommandWithTimeout, runExec, saveSessionStore, toWhatsappJid, waitForever };
+export { findRoutedCommand as a, hasEmittedCliBanner as i, emitCliBanner as n, registerProgramCommands as o, formatCliBannerLine as r, ensureConfigReady as t };

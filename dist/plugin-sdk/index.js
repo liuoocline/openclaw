@@ -5,7 +5,7 @@ import path from "node:path";
 import fs, { createWriteStream, existsSync, readFileSync, statSync } from "node:fs";
 import os, { homedir } from "node:os";
 import { Logger } from "tslog";
-import json5 from "json5";
+import JSON5 from "json5";
 import chalk, { Chalk } from "chalk";
 import fs$1 from "node:fs/promises";
 import { execFile, execFileSync, spawn } from "node:child_process";
@@ -2327,7 +2327,7 @@ function readLoggingConfig() {
 	try {
 		if (!fs.existsSync(configPath)) return;
 		const raw = fs.readFileSync(configPath, "utf-8");
-		const logging = json5.parse(raw)?.logging;
+		const logging = JSON5.parse(raw)?.logging;
 		if (!logging || typeof logging !== "object" || Array.isArray(logging)) return;
 		return logging;
 	} catch {
@@ -8577,7 +8577,7 @@ var IncludeProcessor = class IncludeProcessor {
 };
 const defaultResolver = {
 	readFile: (p) => fs.readFileSync(p, "utf-8"),
-	parseJson: (raw) => json5.parse(raw)
+	parseJson: (raw) => JSON5.parse(raw)
 };
 /**
 * Resolves all $include directives in a parsed config object.
@@ -11292,7 +11292,7 @@ function resolveConfigPathForDeps(deps) {
 function normalizeDeps(overrides = {}) {
 	return {
 		fs: overrides.fs ?? fs,
-		json5: overrides.json5 ?? json5,
+		json5: overrides.json5 ?? JSON5,
 		env: overrides.env ?? process.env,
 		homedir: overrides.homedir ?? (() => resolveRequiredHomeDir(overrides.env ?? process.env, os.homedir)),
 		configPath: overrides.configPath ?? "",
@@ -11303,11 +11303,11 @@ function maybeLoadDotEnvForConfig(env) {
 	if (env !== process.env) return;
 	loadDotEnv({ quiet: true });
 }
-function parseConfigJson5(raw, json5$1 = json5) {
+function parseConfigJson5(raw, json5 = JSON5) {
 	try {
 		return {
 			ok: true,
-			parsed: json5$1.parse(raw)
+			parsed: json5.parse(raw)
 		};
 	} catch (err) {
 		return {
@@ -11821,7 +11821,7 @@ function loadSessionStore(storePath, opts = {}) {
 	let mtimeMs = getFileMtimeMs(storePath);
 	try {
 		const raw = fs.readFileSync(storePath, "utf-8");
-		const parsed = json5.parse(raw);
+		const parsed = JSON5.parse(raw);
 		if (isSessionStoreRecord(parsed)) store = parsed;
 		mtimeMs = getFileMtimeMs(storePath) ?? mtimeMs;
 	} catch {}

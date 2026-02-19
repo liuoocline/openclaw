@@ -1,42 +1,21 @@
-import "../../paths-BZtyHNCi.js";
-import { d as resolveAgentIdFromSessionKey, l as normalizeAgentId, u as normalizeMainKey } from "../../session-key-nXYQSv-a.js";
-import "../../utils-dp_OM900.js";
-import { g as DEFAULT_CHAT_CHANNEL, l as createSubsystemLogger, u as defaultRuntime } from "../../exec-CiH_vkWn.js";
-import { a as resolveAgentModelPrimary, i as resolveAgentModelFallbacksOverride, o as resolveAgentSkillsFilter, r as resolveAgentDir, s as resolveAgentWorkspaceDir, t as listAgentIds, y as ensureAgentWorkspace } from "../../agent-scope-Dp8sREli.js";
-import { X as SILENT_REPLY_TOKEN, a as normalizeOutboundPayloadsForJson, i as normalizeOutboundPayloads, m as sendMessageSignal, r as formatOutboundPayloadLog, t as deliverOutboundPayloads } from "../../deliver-g2ixrwFA.js";
-import { C as clearAgentRunContext, D as sendMessageSlack, E as sendMessageWhatsApp, S as AGENT_LANE_NESTED, T as registerAgentRunContext, _ as clearSessionAuthProfileOverride, a as getCliSessionId, b as loadModelCatalog, c as resolveOutboundTarget, d as deriveSessionTotalTokens, f as hasNonzeroUsage, g as lookupContextTokens, h as getSkillsSnapshotVersion, i as sendMessageDiscord, l as resolveSessionDeliveryTarget, m as getRemoteSkillEligibility, n as sendMessageIMessage, o as setCliSessionId, p as resolveSendPolicy, r as sendMessageTelegram, s as runCliAgent, t as runEmbeddedPiAgent, u as runWithModelFallback, v as applyModelOverrideToSessionEntry, w as emitAgentEvent, x as resolveAgentTimeoutMs, y as applyVerboseOverride } from "../../pi-embedded-eT7dW6Gb.js";
-import { J as loadSessionStore, Mn as getChannelPlugin, Pn as normalizeChannelId, Q as updateSessionStore, Ut as buildWorkspaceSkillSnapshot, a as formatXHighModelHint, cn as INTERNAL_MESSAGE_CHANNEL, ct as resolveSessionKey, d as normalizeVerboseLevel, dn as isInternalMessageChannel, dt as resolveSessionResetPolicy, ft as resolveSessionResetType, gn as resolveMessageChannel, gt as resolveMainSessionKey, ht as resolveExplicitAgentSessionKey, i as formatThinkingLevels, l as normalizeThinkLevel, ln as isDeliverableMessageChannel, lt as evaluateSessionFreshness, mn as normalizeMessageChannel, p as supportsXHighThinking, st as normalizeAccountId, un as isGatewayMessageChannel, ut as resolveChannelResetConfig } from "../../pi-embedded-helpers-CIQZ3oAR.js";
-import "../../boolean-M-esQJt6.js";
-import { F as DEFAULT_MODEL, I as DEFAULT_PROVIDER, O as resolveThinkingDefault, P as DEFAULT_CONTEXT_TOKENS, S as modelKey, T as resolveConfiguredModelRef, h as ensureAuthProfileStore, v as buildAllowedModelSet, x as isCliProvider } from "../../model-auth-BqjMkNFs.js";
-import { t as formatCliCommand } from "../../command-format-BUxhT1xL.js";
-import { t as loadConfig } from "../../config-ethqi73X.js";
-import "../../github-copilot-token-C9IJh2Pn.js";
-import "../../pi-model-discovery-DzFOAbQt.js";
-import "../../chrome-CxRJz4ZD.js";
-import "../../frontmatter-xwTm0734.js";
-import { a as resolveStorePath, n as resolveSessionFilePath } from "../../paths-MnZaxqPw.js";
-import "../../image-BISOmGwv.js";
-import "../../manager-D2Ndphg3.js";
-import "../../sqlite-Bwo2rASR.js";
-import "../../redact-BRmQPYDR.js";
-import "../../login-qr-BVeOFfNW.js";
-import fs from "node:fs/promises";
-import path from "node:path";
+import { $ as DEFAULT_CHAT_CHANNEL, p as defaultRuntime } from "./entry.js";
+import { C as buildAllowedModelSet, Ct as DEFAULT_CONTEXT_TOKENS, D as isCliProvider, L as resolveThinkingDefault, N as resolveConfiguredModelRef, O as modelKey, Tt as DEFAULT_PROVIDER, _ as ensureAuthProfileStore, wt as DEFAULT_MODEL } from "./auth-profiles-FJ3VY25a.js";
+import { t as formatCliCommand } from "./command-format-ayFsmwwz.js";
+import { d as resolveAgentIdFromSessionKey, l as normalizeAgentId, u as normalizeMainKey } from "./session-key-DVvxnFKg.js";
+import { a as resolveAgentModelPrimary, i as resolveAgentModelFallbacksOverride, o as resolveAgentSkillsFilter, r as resolveAgentDir, s as resolveAgentWorkspaceDir, t as listAgentIds, x as ensureAgentWorkspace } from "./agent-scope-D3me2AZa.js";
+import { i as loadConfig } from "./config-fCnPoWjU.js";
+import { a as isInternalMessageChannel, d as resolveMessageChannel, i as isGatewayMessageChannel, l as normalizeMessageChannel, n as isDeliverableMessageChannel, t as INTERNAL_MESSAGE_CHANNEL } from "./message-channel-BlgPSDAh.js";
+import { r as normalizeChannelId, t as getChannelPlugin } from "./plugins-B7F0Ly9G.js";
+import { Bt as resolveAgentTimeoutMs, Cn as resolveOutboundTarget, Gt as registerAgentRunContext, H as getCliSessionId, Ht as emitAgentEvent, J as getRemoteSkillEligibility, Jt as AGENT_LANE_NESTED, On as runWithModelFallback, Ot as runEmbeddedPiAgent, U as setCliSessionId, Vt as clearAgentRunContext, W as runCliAgent, Xt as applyModelOverrideToSessionEntry, Yt as loadModelCatalog, lt as clearSessionAuthProfileOverride, mn as lookupContextTokens, q as resolveSendPolicy, st as getSkillsSnapshotVersion, ut as applyVerboseOverride, wn as resolveSessionDeliveryTarget } from "./loader-DEOEK8Lq.js";
+import { n as resolveSessionFilePath, o as resolveStorePath } from "./paths-IivnSNkP.js";
+import { F as formatThinkingLevels, G as supportsXHighThinking, I as formatXHighModelHint, U as normalizeVerboseLevel, V as normalizeThinkLevel } from "./pi-embedded-helpers-D9alzJWB.js";
+import { a as normalizeOutboundPayloadsForJson, i as normalizeOutboundPayloads, r as formatOutboundPayloadLog, t as deliverOutboundPayloads } from "./deliver-CyfLu2tp.js";
+import { A as resolveSessionResetType, D as evaluateSessionFreshness, E as resolveSessionKey, F as resolveExplicitAgentSessionKey, O as resolveChannelResetConfig, T as normalizeAccountId, d as loadSessionStore, g as updateSessionStore, k as resolveSessionResetPolicy } from "./sandbox-CPZiaKcS.js";
+import { r as buildWorkspaceSkillSnapshot } from "./skills-Ccsv3IQq.js";
+import { l as deriveSessionTotalTokens, u as hasNonzeroUsage } from "./session-cost-usage-CcCEQNuc.js";
+import { t as createDefaultDeps } from "./deps-2pqyAsWa.js";
 import crypto from "node:crypto";
 
-//#region src/cli/deps.ts
-function createDefaultDeps() {
-	return {
-		sendMessageWhatsApp,
-		sendMessageTelegram,
-		sendMessageDiscord,
-		sendMessageSlack,
-		sendMessageSignal,
-		sendMessageIMessage
-	};
-}
-
-//#endregion
 //#region src/cli/outbound-send-deps.ts
 function createOutboundSendDeps(deps) {
 	return {
@@ -726,89 +705,4 @@ async function agentCommand(opts, runtime = defaultRuntime, deps = createDefault
 }
 
 //#endregion
-//#region src/gateway/boot.ts
-const log = createSubsystemLogger("gateway/boot");
-const BOOT_FILENAME = "BOOT.md";
-function buildBootPrompt(content) {
-	return [
-		"You are running a boot check. Follow BOOT.md instructions exactly.",
-		"",
-		"BOOT.md:",
-		content,
-		"",
-		"If BOOT.md asks you to send a message, use the message tool (action=send with channel + target).",
-		"Use the `target` field (not `to`) for message tool destinations.",
-		`After sending with the message tool, reply with ONLY: ${SILENT_REPLY_TOKEN}.`,
-		`If nothing needs attention, reply with ONLY: ${SILENT_REPLY_TOKEN}.`
-	].join("\n");
-}
-async function loadBootFile(workspaceDir) {
-	const bootPath = path.join(workspaceDir, BOOT_FILENAME);
-	try {
-		const trimmed = (await fs.readFile(bootPath, "utf-8")).trim();
-		if (!trimmed) return { status: "empty" };
-		return {
-			status: "ok",
-			content: trimmed
-		};
-	} catch (err) {
-		if (err.code === "ENOENT") return { status: "missing" };
-		throw err;
-	}
-}
-async function runBootOnce(params) {
-	const bootRuntime = {
-		log: () => {},
-		error: (message) => log.error(String(message)),
-		exit: defaultRuntime.exit
-	};
-	let result;
-	try {
-		result = await loadBootFile(params.workspaceDir);
-	} catch (err) {
-		const message = err instanceof Error ? err.message : String(err);
-		log.error(`boot: failed to read ${BOOT_FILENAME}: ${message}`);
-		return {
-			status: "failed",
-			reason: message
-		};
-	}
-	if (result.status === "missing" || result.status === "empty") return {
-		status: "skipped",
-		reason: result.status
-	};
-	const sessionKey = resolveMainSessionKey(params.cfg);
-	const message = buildBootPrompt(result.content ?? "");
-	try {
-		await agentCommand({
-			message,
-			sessionKey,
-			deliver: false
-		}, bootRuntime, params.deps);
-		return { status: "ran" };
-	} catch (err) {
-		const messageText = err instanceof Error ? err.message : String(err);
-		log.error(`boot: agent run failed: ${messageText}`);
-		return {
-			status: "failed",
-			reason: messageText
-		};
-	}
-}
-
-//#endregion
-//#region src/hooks/bundled/boot-md/handler.ts
-const runBootChecklist = async (event) => {
-	if (event.type !== "gateway" || event.action !== "startup") return;
-	const context = event.context ?? {};
-	if (!context.cfg || !context.workspaceDir) return;
-	const deps = context.deps ?? createDefaultDeps();
-	await runBootOnce({
-		cfg: context.cfg,
-		deps,
-		workspaceDir: context.workspaceDir
-	});
-};
-
-//#endregion
-export { runBootChecklist as default };
+export { createOutboundSendDeps as a, resolveAgentOutboundTarget as i, resolveSessionKeyForRequest as n, resolveAgentDeliveryPlan as r, agentCommand as t };
