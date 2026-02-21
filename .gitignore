@@ -121,3 +121,12 @@ dist/protocol.schema.json
 
 # Synthing
 **/.stfolder/
+
+# Deployment artifacts
+*.tar.gz
+
+# Windsurf IDE
+.windsurf/
+
+# Local workspace data
+workspace/

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.13",
-    "lastTouchedAt": "2026-02-19T04:07:40.568Z"
+    "lastTouchedVersion": "2026.2.18",
+    "lastTouchedAt": "2026-02-20T04:25:25.887Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-18T15:27:32.021Z",
@@ -21,17 +21,14 @@
     "providers": {
       "custom-integrate-api-nvidia-com": {
         "baseUrl": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "nvapi-111111111111111111111111111111111QZ5YCAs0twHUvY1XlmasoL1DR",
+        "apiKey": "nvapi-111111111111111111111111111111111111111111111111111111111111",
         "api": "openai-completions",
         "models": [
           {
             "id": "qwen/qwen3.5-397b-a17b",
             "name": "Qwen 3.5 397B (NVIDIA)",
             "reasoning": true,
-            "input": [
-              "text",
-              "image"
-            ],
+            "input": ["text", "image"],
             "cost": {
               "input": 0,
               "output": 0,
@@ -45,9 +42,35 @@
             "id": "z-ai/glm4.7",
             "name": "GLM 4.7 (NVIDIA)",
             "reasoning": true,
-            "input": [
-              "text"
-            ],
+            "input": ["text"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "z-ai/glm5",
+            "name": "GLM 5 (NVIDIA)",
+            "reasoning": true,
+            "input": ["text"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 205000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "moonshotai/kimi-k2.5",
+            "name": "Kimi K2.5 (NVIDIA)",
+            "reasoning": true,
+            "input": ["text", "image"],
             "cost": {
               "input": 0,
               "output": 0,
@@ -64,7 +87,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"
+        "primary": "custom-integrate-api-nvidia-com/z-ai/glm5"
       },
       "models": {
         "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b": {
@@ -75,6 +98,18 @@
         },
         "custom-integrate-api-nvidia-com/z-ai/glm4.7": {
           "alias": "glm4.7",
+          "params": {
+            "contextTokens": 128000
+          }
+        },
+        "custom-integrate-api-nvidia-com/z-ai/glm5": {
+          "alias": "glm5",
+          "params": {
+            "contextTokens": 205000
+          }
+        },
+        "custom-integrate-api-nvidia-com/moonshotai/kimi-k2.5": {
+          "alias": "kimi2.5",
           "params": {
             "contextTokens": 128000
           }
@@ -90,12 +125,7 @@
         "hardClearRatio": 0.4,
         "minPrunableToolChars": 30000,
         "tools": {
-          "allow": [
-            "Bash",
-            "Read",
-            "Grep",
-            "Glob"
-          ]
+          "allow": ["Bash", "Read", "Grep", "Glob"]
         },
         "softTrim": {
           "maxChars": 3000,
@@ -118,7 +148,7 @@
       },
       "maxConcurrent": 4,
       "subagents": {
-        "maxConcurrent": 8
+        "maxConcurrent": 2
       }
     }
   },
