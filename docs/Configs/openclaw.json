@@ -1,0 +1,240 @@
+{
+    "meta": {
+      "lastTouchedVersion": "2026.2.13",
+      "lastTouchedAt": "2026-02-17T02:07:40.383Z"
+    },
+    "wizard": {
+      "lastRunAt": "2026-02-14T14:22:39.568Z",
+      "lastRunVersion": "2026.2.13",
+      "lastRunCommand": "onboard",
+      "lastRunMode": "local"
+    },
+    "browser": {
+      "enabled": true,
+      "executablePath": "/usr/bin/google-chrome-stable",
+      "headless": true,
+      "noSandbox": true,
+      "defaultProfile": "openclaw"
+    },
+    "models": {
+      "mode": "merge",
+      "providers": {
+        "aiclient": {
+          "baseUrl": "http://127.0.0.1:3001/v1",
+          "apiKey": "sk-630f00e860d04b639f68a27140111f04",
+          "api": "openai-completions",
+          "models": [
+            {
+              "id": "claude-haiku-3-5",
+              "name": "Claude Sonnet 4.5",
+              "reasoning": true,
+              "input": [
+                "text"
+              ],
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0
+              },
+              "contextWindow": 64000,
+              "maxTokens": 8192
+            },
+            {
+              "id": "claude-opus-4-5",
+              "name": "Claude Opus 4.5",
+              "reasoning": true,
+              "input": [
+                "text"
+              ],
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0
+              },
+              "contextWindow": 64000,
+              "maxTokens": 8192
+            },
+            {
+              "id": "z-ai/glm4.7",
+              "name": "GLM 4.7",
+              "reasoning": true,
+              "input": [
+                "text"
+              ],
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0
+              },
+              "contextWindow": 128000,
+              "maxTokens": 8192
+            },
+            {
+              "id": "qwen/qwen3.5-397b-a17b",
+              "name": "Qwen 3.5 397B",
+              "reasoning": true,
+              "input": [
+                "text",
+                "image"
+              ],
+              "cost": {
+                "input": 0,
+                "output": 0,
+                "cacheRead": 0,
+                "cacheWrite": 0
+              },
+              "contextWindow": 128000,
+              "maxTokens": 8192
+            }
+          ]
+        }
+      }
+    },
+    "agents": {
+      "defaults": {
+        "model": {
+          "primary": "aiclient/qwen/qwen3.5-397b-a17b"
+        },
+        "models": {
+          "aiclient/claude-sonnet-4-5": {
+            "alias": "sonnet"
+          },
+          "aiclient/claude-opus-4-5": {
+            "alias": "opus"
+          },
+          "aiclient/z-ai/glm4.7": {
+            "alias": "glm",
+            "params": {
+              "contextTokens": 128000
+            }
+          },
+          "aiclient/qwen/qwen3.5-397b-a17b": {
+            "alias": "qwen",
+            "params": {
+              "contextTokens": 128000
+            }
+          }
+        },
+        "workspace": "/home/liu/.openclaw/workspace",
+        "contextTokens": 64000,
+        "contextPruning": {
+          "mode": "cache-ttl",
+          "ttl": "3m",
+          "keepLastAssistants": 2,
+          "softTrimRatio": 0.25,
+          "hardClearRatio": 0.4,
+          "minPrunableToolChars": 30000,
+          "tools": {
+            "allow": [
+              "Bash",
+              "Read",
+              "Grep",
+              "Glob"
+            ]
+          },
+          "softTrim": {
+            "maxChars": 3000,
+            "headChars": 1000,
+            "tailChars": 1000
+          },
+          "hardClear": {
+            "enabled": true,
+            "placeholder": "[Old content cleared]"
+          }
+        },
+        "compaction": {
+          "mode": "safeguard",
+          "reserveTokensFloor": 10000,
+          "maxHistoryShare": 0.3,
+          "memoryFlush": {
+            "enabled": true,
+            "softThresholdTokens": 6000
+          }
+        },
+        "maxConcurrent": 4,
+        "subagents": {
+          "maxConcurrent": 8
+        }
+      }
+    },
+    "messages": {
+      "groupChat": {
+        "historyLimit": 5
+      },
+      "ackReactionScope": "group-mentions",
+      "tts": {
+        "auto": "tagged",
+        "provider": "edge",
+        "edge": {
+          "voice": "zh-CN-XiaoxiaoNeural",
+          "lang": "zh-CN",
+          "outputFormat": "ogg-48khz-16bit-mono-opus"
+        },
+        "maxTextLength": 4000,
+        "timeoutMs": 30000
+      }
+    },
+    "commands": {
+      "native": "auto",
+      "nativeSkills": "auto"
+    },
+    "hooks": {
+      "internal": {
+        "enabled": true,
+        "entries": {
+          "command-logger": {
+            "enabled": true
+          },
+          "session-memory": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "channels": {
+      "discord": {
+        "enabled": true,
+        "token": "YOUR_DISCORD_BOT_TOKEN_HERE",
+        "groupPolicy": "allowlist",
+        "dmHistoryLimit": 5,
+        "guilds": {
+          "1467004974801223884": {
+            "channels": {
+              "1467004975526969357": {
+                "allow": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "gateway": {
+      "port": 18789,
+      "mode": "local",
+      "bind": "loopback",
+      "auth": {
+        "mode": "token",
+        "token": "oc_gw_7f3a9b2e4d1c8f5a6b0e3d9c2a1f4b8e"
+      },
+      "tailscale": {
+        "mode": "off",
+        "resetOnExit": false
+      }
+    },
+    "skills": {
+      "install": {
+        "nodeManager": "pnpm"
+      }
+    },
+    "plugins": {
+      "entries": {
+        "discord": {
+          "enabled": true
+        }
+      }
+    }
+  }
+  
