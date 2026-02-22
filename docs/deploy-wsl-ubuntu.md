@@ -167,6 +167,10 @@ openclaw config set channels.telegram.botToken "123456:ABC-DEF..."
 # 配置 Discord 频道（示例）
 openclaw config set channels.discord.enabled true
 openclaw config set channels.discord.token "your-discord-bot-token"
+
+# 调整历史消息限制（避免 context 溢出）
+openclaw config set channels.discord.dmHistoryLimit 15
+openclaw config set agents.defaults.compaction.maxHistoryShare 0.3
 ```
 
 配置文件位于：`~/.openclaw/openclaw.json`
