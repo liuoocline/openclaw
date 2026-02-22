@@ -34,11 +34,22 @@ sudo apt-get install -y git curl wget build-essential
 
 > 以下步骤在 Windows 开发机（有 openclaw 源码的机器）上执行。
 
-### 2.1 构建 openclaw
+### 2.1 构建 pi-mono（openclaw 依赖）
 
 ```powershell
 cd E:\CursorRules\openclaw
 
+# 构建 pi-mono 中 openclaw 需要的 4 个包（tui/ai/agent/coding-agent）
+# 跳过 mom/web-ui/pods（Windows 不兼容且 openclaw 不需要）
+.\scripts\build-pi-mono.ps1 -SkipGenerateModels
+
+# 重新链接依赖
+pnpm install
+```
+
+### 2.2 构建 openclaw
+
+```powershell
 # 1. 构建主代码
 npx tsdown
 
@@ -52,7 +63,7 @@ node --import tsx scripts/write-build-info.ts
 node --import tsx scripts/write-cli-compat.ts
 ```
 
-### 2.2 切换 package.json 为 npm 版本（打包前必须）
+### 2.3 切换 package.json 为 npm 版本（打包前必须）
 
 打包发布时，必须把 `file:` 引用改为 npm 版本号，否则目标机器无法解析本地路径。
 
@@ -64,13 +75,13 @@ node --import tsx scripts/write-cli-compat.ts
 #   "@mariozechner/pi-tui": "file:./pi-mono/packages/tui"
 #
 # 改为：
-#   "@mariozechner/pi-agent-core": "0.52.10"
-#   "@mariozechner/pi-ai": "0.52.10"
-#   "@mariozechner/pi-coding-agent": "0.52.10"
-#   "@mariozechner/pi-tui": "0.52.10"
+#   "@mariozechner/pi-agent-core": "0.54.0"
+#   "@mariozechner/pi-ai": "0.54.0"
+#   "@mariozechner/pi-coding-agent": "0.54.0"
+#   "@mariozechner/pi-tui": "0.54.0"
 ```
 
-### 2.3 打包 tgz
+### 2.4 打包 tgz
 
 ```powershell
 # 删除旧的 tgz（如果有）
@@ -83,7 +94,7 @@ npm pack --ignore-scripts
 Get-Item openclaw-*.tgz
 ```
 
-### 2.4 打包后恢复 package.json
+### 2.5 打包后恢复 package.json
 
 ```powershell
 # 将四个 pi-mono 包改回 file: 引用（用于本地开发）
