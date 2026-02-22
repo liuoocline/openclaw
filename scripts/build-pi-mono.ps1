@@ -11,10 +11,10 @@ $root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $piMono = Join-Path $root "pi-mono"
 
 $packages = @(
-    @{ Name = "tui";           Dir = "packages/tui";           Build = "tsgo -p tsconfig.build.json" },
-    @{ Name = "ai";            Dir = "packages/ai";            Build = if ($SkipGenerateModels) { "tsgo -p tsconfig.build.json" } else { "npm run build" } },
-    @{ Name = "agent";         Dir = "packages/agent";         Build = "tsgo -p tsconfig.build.json" },
-    @{ Name = "coding-agent";  Dir = "packages/coding-agent";  Build = "tsgo -p tsconfig.build.json" }
+    @{ Name = "tui"; Dir = "packages/tui"; Build = "tsgo -p tsconfig.build.json" },
+    @{ Name = "ai"; Dir = "packages/ai"; Build = if ($SkipGenerateModels) { "tsgo -p tsconfig.build.json" } else { "npm run build" } },
+    @{ Name = "agent"; Dir = "packages/agent"; Build = "tsgo -p tsconfig.build.json" },
+    @{ Name = "coding-agent"; Dir = "packages/coding-agent"; Build = "npm run build" }
 )
 
 Write-Host "Building pi-mono packages for openclaw..." -ForegroundColor Cyan
@@ -28,7 +28,8 @@ foreach ($pkg in $packages) {
         $cmd = $pkg.Build
         if ($cmd -eq "npm run build") {
             npm run build
-        } else {
+        }
+        else {
             npx $cmd.Split(" ")
         }
         if ($LASTEXITCODE -ne 0) {
@@ -36,7 +37,8 @@ foreach ($pkg in $packages) {
             exit 1
         }
         Write-Host "[$($pkg.Name)] OK" -ForegroundColor Green
-    } finally {
+    }
+    finally {
         Pop-Location
     }
 }
