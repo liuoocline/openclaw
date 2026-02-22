@@ -63,45 +63,22 @@ node --import tsx scripts/write-build-info.ts
 node --import tsx scripts/write-cli-compat.ts
 ```
 
-### 2.3 切换 package.json 为 npm 版本（打包前必须）
+### 2.3 打包（自动化脚本）
 
-打包发布时，必须把 `file:` 引用改为 npm 版本号，否则目标机器无法解析本地路径。
+使用 `pack-openclaw.ps1` 脚本自动完成打包。脚本会：
 
-```powershell
-# 在 package.json 中，将以下四行：
-#   "@mariozechner/pi-agent-core": "file:./pi-mono/packages/agent"
-#   "@mariozechner/pi-ai": "file:./pi-mono/packages/ai"
-#   "@mariozechner/pi-coding-agent": "file:./pi-mono/packages/coding-agent"
-#   "@mariozechner/pi-tui": "file:./pi-mono/packages/tui"
-#
-# 改为：
-#   "@mariozechner/pi-agent-core": "0.54.0"
-#   "@mariozechner/pi-ai": "0.54.0"
-#   "@mariozechner/pi-coding-agent": "0.54.0"
-#   "@mariozechner/pi-tui": "0.54.0"
-```
-
-### 2.4 打包 tgz
+1. 将 `file:` 引用临时改为 npm 版本号
+2. 运行 `npm pack` 生成 openclaw tgz
+3. 创建 `pi-mono-patch.tar.gz`（包含我们修改的 pi-mono dist 文件）
+4. 自动恢复 `package.json`
 
 ```powershell
-# 删除旧的 tgz（如果有）
-Remove-Item openclaw-*.tgz -ErrorAction SilentlyContinue
+# 如果已经完成 2.1 和 2.2 的构建，加 -SkipBuild
+.\scripts\pack-openclaw.ps1 -SkipBuild
 
-# 打包（跳过 prepack hook，因为 Windows bash 不兼容）
-npm pack --ignore-scripts
-
-# 验证生成的文件（约 16-17 MB）
-Get-Item openclaw-*.tgz
-```
-
-### 2.5 打包后恢复 package.json
-
-```powershell
-# 将四个 pi-mono 包改回 file: 引用（用于本地开发）
-#   "@mariozechner/pi-agent-core": "file:./pi-mono/packages/agent"
-#   "@mariozechner/pi-ai": "file:./pi-mono/packages/ai"
-#   "@mariozechner/pi-coding-agent": "file:./pi-mono/packages/coding-agent"
-#   "@mariozechner/pi-tui": "file:./pi-mono/packages/tui"
+# 输出两个文件：
+#   openclaw-VERSION.tgz       (~19 MB) - 标准 openclaw 包
+#   pi-mono-patch.tar.gz       (~2 MB)  - 修改过的 pi-mono 文件覆盖层
 ```
 
 ---
@@ -132,22 +109,53 @@ wget http://192.168.50.22:9876/openclaw-2026.2.13.tgz -O /tmp/openclaw-2026.2.13
 
 ## 四、目标机器安装
 
-### 4.1 安装 openclaw
+### 4.1 安装 openclaw（3 步）
 
 ```bash
-# 卸载旧版本（如果有）
-sudo npm uninstall -g openclaw 2>/dev/null
-# 如果之前用 pnpm 全局安装过，也要删除
-pnpm remove -g openclaw 2>/dev/null
+cd ~
 
-# 安装新版本
-sudo npm install -g /tmp/openclaw-2026.2.13.tgz
+# 步骤 1: 安装 openclaw（--ignore-scripts 跳过 native 模块编译）
+sudo rm -rf /usr/lib/node_modules/openclaw
+sudo npm install -g /tmp/openclaw-VERSION.tgz --ignore-scripts
 
-# 刷新 shell 缓存（重要！）
+# 步骤 2: 覆盖 pi-mono 修改文件（repairRoleOrdering、jsonrepair 等）
+sudo tar -xzf /tmp/pi-mono-patch.tar.gz -C /usr/lib/node_modules/openclaw/node_modules/
+
+# 步骤 3: 修复 ESM exports 兼容性（jiti 加载扩展插件需要 default 条件）
+cat > /tmp/patch-all-exports.js << 'SCRIPT'
+const fs = require("fs");
+const path = require("path");
+const nmDir = "/usr/lib/node_modules/openclaw/node_modules";
+let patched = 0;
+function walk(dir) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!e.isDirectory()) continue;
+    if (e.name.startsWith("@")) {
+      for (const s of fs.readdirSync(path.join(dir, e.name), { withFileTypes: true }))
+        if (s.isDirectory()) patch(path.join(dir, e.name, s.name));
+    } else patch(path.join(dir, e.name));
+  }
+}
+function patch(d) {
+  const f = path.join(d, "package.json");
+  try {
+    const p = JSON.parse(fs.readFileSync(f, "utf8"));
+    if (!p.exports || typeof p.exports !== "object") return;
+    let c = false;
+    for (const k of Object.keys(p.exports)) {
+      const e = p.exports[k];
+      if (typeof e === "object" && e !== null && e.import && !e.default) { e.default = e.import; c = true; }
+    }
+    if (c) { fs.writeFileSync(f, JSON.stringify(p, null, 2) + "\n"); patched++; }
+  } catch {}
+}
+walk(nmDir);
+console.log("Patched", patched, "packages");
+SCRIPT
+sudo node /tmp/patch-all-exports.js
+
+# 刷新 shell 缓存并验证
 hash -r
-
-# 验证
-which openclaw        # 应显示 /usr/bin/openclaw
 openclaw --version    # 应显示对应版本号
 ```
 
@@ -279,46 +287,36 @@ openclaw dashboard
 ### 在构建机器上
 
 ```powershell
-# 1. 拉取最新代码
 cd E:\CursorRules\openclaw
 git pull origin main
-
-# 2. 重新构建（参考 "二、构建机器打包" 步骤）
 pnpm install
-npx tsdown
-node scripts/ui.js build
-node --import tsx scripts/canvas-a2ui-copy.ts
-node --import tsx scripts/copy-hook-metadata.ts
-node --import tsx scripts/write-build-info.ts
-node --import tsx scripts/write-cli-compat.ts
 
-# 3. 切换 package.json 为 npm 版本
-# 4. 打包
-npm pack --ignore-scripts
+# 一键打包（构建 + 打包 + 生成 patch）
+.\scripts\pack-openclaw.ps1
 
-# 5. 恢复 package.json 为 file: 引用
-# 6. 启动临时 HTTP 服务传输
+# 或跳过构建（如果已经构建好了）
+.\scripts\pack-openclaw.ps1 -SkipBuild
+
+# 传输两个文件到目标机器
 ```
 
 ### 在目标机器上
 
 ```bash
-# 1. 下载新版本
-wget http://192.168.50.22:9876/openclaw-<新版本>.tgz -O /tmp/openclaw-new.tgz
+# 1. 停止服务
+pkill -9 -f openclaw-gateway || true
 
-# 2. 停止服务
-sudo systemctl stop openclaw-gateway
-# 或如果用 nohup：pkill -f "openclaw gateway"
+# 2. 安装 + overlay + patch（参考 4.1 的 3 步流程）
+cd ~
+sudo rm -rf /usr/lib/node_modules/openclaw
+sudo npm install -g /tmp/openclaw-VERSION.tgz --ignore-scripts
+sudo tar -xzf /tmp/pi-mono-patch.tar.gz -C /usr/lib/node_modules/openclaw/node_modules/
+sudo node /tmp/patch-all-exports.js
 
-# 3. 安装新版本
-sudo npm install -g /tmp/openclaw-new.tgz
+# 3. 验证 + 重启
 hash -r
-
-# 4. 验证
 openclaw --version
-
-# 5. 重启服务
-sudo systemctl start openclaw-gateway
+nohup openclaw gateway run --bind loopback --port 18789 --force > /tmp/openclaw-gateway.log 2>&1 &
 ```
 
 ---
