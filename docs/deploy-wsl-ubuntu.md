@@ -154,6 +154,10 @@ console.log("Patched", patched, "packages");
 SCRIPT
 sudo node /tmp/patch-all-exports.js
 
+# 步骤 4: 修复模板路径（resolveOpenClawPackageRoot 在 global install 下可能返回 null）
+mkdir -p ~/docs/reference
+sudo ln -sf /usr/lib/node_modules/openclaw/docs/reference/templates ~/docs/reference/templates
+
 # 刷新 shell 缓存并验证
 hash -r
 openclaw --version    # 应显示对应版本号
@@ -312,6 +316,7 @@ sudo rm -rf /usr/lib/node_modules/openclaw
 sudo npm install -g /tmp/openclaw-VERSION.tgz --ignore-scripts
 sudo tar -xzf /tmp/pi-mono-patch.tar.gz -C /usr/lib/node_modules/openclaw/node_modules/
 sudo node /tmp/patch-all-exports.js
+mkdir -p ~/docs/reference && sudo ln -sf /usr/lib/node_modules/openclaw/docs/reference/templates ~/docs/reference/templates
 
 # 3. 验证 + 重启
 hash -r
