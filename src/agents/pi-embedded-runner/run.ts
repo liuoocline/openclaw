@@ -714,6 +714,7 @@ export async function runEmbeddedPiAgent(
           agentDir,
         });
       };
+      let jsonParseRetried = false;
       try {
         let authRetryPending = false;
         // Hoisted so the retry-limit error path can use the most recent API total.
@@ -1121,9 +1122,14 @@ export async function runEmbeddedPiAgent(
                 },
               };
             }
-            // Handle JSON parse errors — not retryable, return immediately
+            // Handle JSON parse errors — retry once, then return error
             if (isJsonParseError(errorText)) {
-              log.warn(`JSON parse error detected: ${errorText.slice(0, 200)}`);
+              if (!jsonParseRetried) {
+                jsonParseRetried = true;
+                log.warn(`JSON parse error detected, retrying once: ${errorText.slice(0, 200)}`);
+                continue;
+              }
+              log.warn(`JSON parse error persists after retry: ${errorText.slice(0, 200)}`);
               return {
                 payloads: [
                   {
