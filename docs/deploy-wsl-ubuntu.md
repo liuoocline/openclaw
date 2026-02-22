@@ -109,7 +109,7 @@ wget http://192.168.50.22:9876/openclaw-2026.2.13.tgz -O /tmp/openclaw-2026.2.13
 
 ## 四、目标机器安装
 
-### 4.1 安装 openclaw（3 步）
+### 4.1 安装 openclaw（2 步）
 
 ```bash
 cd ~
@@ -121,47 +121,20 @@ sudo npm install -g /tmp/openclaw-VERSION.tgz --ignore-scripts
 # 步骤 2: 覆盖 pi-mono 修改文件（repairRoleOrdering、jsonrepair 等）
 sudo tar -xzf /tmp/pi-mono-patch.tar.gz -C /usr/lib/node_modules/openclaw/node_modules/
 
-# 步骤 3: 修复 ESM exports 兼容性（jiti 加载扩展插件需要 default 条件）
-cat > /tmp/patch-all-exports.js << 'SCRIPT'
-const fs = require("fs");
-const path = require("path");
-const nmDir = "/usr/lib/node_modules/openclaw/node_modules";
-let patched = 0;
-function walk(dir) {
-  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (!e.isDirectory()) continue;
-    if (e.name.startsWith("@")) {
-      for (const s of fs.readdirSync(path.join(dir, e.name), { withFileTypes: true }))
-        if (s.isDirectory()) patch(path.join(dir, e.name, s.name));
-    } else patch(path.join(dir, e.name));
-  }
-}
-function patch(d) {
-  const f = path.join(d, "package.json");
-  try {
-    const p = JSON.parse(fs.readFileSync(f, "utf8"));
-    if (!p.exports || typeof p.exports !== "object") return;
-    let c = false;
-    for (const k of Object.keys(p.exports)) {
-      const e = p.exports[k];
-      if (typeof e === "object" && e !== null && e.import && !e.default) { e.default = e.import; c = true; }
-    }
-    if (c) { fs.writeFileSync(f, JSON.stringify(p, null, 2) + "\n"); patched++; }
-  } catch {}
-}
-walk(nmDir);
-console.log("Patched", patched, "packages");
-SCRIPT
-sudo node /tmp/patch-all-exports.js
-
-# 步骤 4: 修复模板路径（resolveOpenClawPackageRoot 在 global install 下可能返回 null）
-mkdir -p ~/docs/reference
-sudo ln -sf /usr/lib/node_modules/openclaw/docs/reference/templates ~/docs/reference/templates
-
 # 刷新 shell 缓存并验证
 hash -r
 openclaw --version    # 应显示对应版本号
 ```
+
+> **注意**: 旧版本（cd96e900 之前）需要额外两个手动步骤：
+>
+> - **ESM exports patch**: jiti 加载插件时需要 `default` export 条件，需批量 patch 约 64 个包。
+>   已在 `src/plugins/loader.ts` 中通过 `tryNative: true` 修复（jiti 先尝试原生 ESM import）。
+> - **模板路径 symlink**: `resolveOpenClawPackageRoot` 在 npm global install 下可能返回 null，
+>   导致模板路径回退到 `cwd`。已在 `src/agents/workspace-templates.ts` 中通过添加
+>   `DIST_TEMPLATE_DIR`（从 `dist/` 向上一级）作为候选路径修复。
+>
+> 如果使用旧版本仍需手动执行这两步，参见下方"故障排除"章节。
 
 ### 4.2 首次配置（交互式向导）
 
@@ -315,8 +288,6 @@ cd ~
 sudo rm -rf /usr/lib/node_modules/openclaw
 sudo npm install -g /tmp/openclaw-VERSION.tgz --ignore-scripts
 sudo tar -xzf /tmp/pi-mono-patch.tar.gz -C /usr/lib/node_modules/openclaw/node_modules/
-sudo node /tmp/patch-all-exports.js
-mkdir -p ~/docs/reference && sudo ln -sf /usr/lib/node_modules/openclaw/docs/reference/templates ~/docs/reference/templates
 
 # 3. 验证 + 重启
 hash -r
@@ -362,6 +333,54 @@ sudo kill -9 $(ss -ltnp | grep 18789 | awk '{print $NF}' | grep -o '[0-9]*')
 openclaw logs --follow
 # 或直接查看日志文件
 tail -f /tmp/openclaw-gateway.log
+```
+
+### ERR_PACKAGE_PATH_NOT_EXPORTED（旧版本）
+
+如果插件加载报 `ERR_PACKAGE_PATH_NOT_EXPORTED`，说明使用的是 cd96e900 之前的版本，
+jiti 没有 `tryNative` 选项。手动 patch 所有 exports：
+
+```bash
+cat > /tmp/patch-all-exports.js << 'SCRIPT'
+const fs = require("fs");
+const path = require("path");
+const nmDir = "/usr/lib/node_modules/openclaw/node_modules";
+let patched = 0;
+function walk(dir) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!e.isDirectory()) continue;
+    if (e.name.startsWith("@")) {
+      for (const s of fs.readdirSync(path.join(dir, e.name), { withFileTypes: true }))
+        if (s.isDirectory()) patch(path.join(dir, e.name, s.name));
+    } else patch(path.join(dir, e.name));
+  }
+}
+function patch(d) {
+  const f = path.join(d, "package.json");
+  try {
+    const p = JSON.parse(fs.readFileSync(f, "utf8"));
+    if (!p.exports || typeof p.exports !== "object") return;
+    let c = false;
+    for (const k of Object.keys(p.exports)) {
+      const e = p.exports[k];
+      if (typeof e === "object" && e !== null && e.import && !e.default) { e.default = e.import; c = true; }
+    }
+    if (c) { fs.writeFileSync(f, JSON.stringify(p, null, 2) + "\n"); patched++; }
+  } catch {}
+}
+walk(nmDir);
+console.log("Patched", patched, "packages");
+SCRIPT
+sudo node /tmp/patch-all-exports.js
+```
+
+### Missing workspace template（旧版本）
+
+如果报 `Missing workspace template: AGENTS.md`，说明模板路径解析失败。手动创建 symlink：
+
+```bash
+mkdir -p ~/docs/reference
+sudo ln -sf /usr/lib/node_modules/openclaw/docs/reference/templates ~/docs/reference/templates
 ```
 
 ### 运行诊断
