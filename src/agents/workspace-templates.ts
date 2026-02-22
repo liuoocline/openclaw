@@ -3,10 +3,11 @@ import { fileURLToPath } from "node:url";
 import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
 import { pathExists } from "../utils.js";
 
-const FALLBACK_TEMPLATE_DIR = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../docs/reference/templates",
-);
+// Source layout: src/agents/workspace-templates.ts → ../../docs/reference/templates
+// Bundled dist:  dist/chunk.js → ../docs/reference/templates
+const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
+const FALLBACK_TEMPLATE_DIR = path.resolve(MODULE_DIR, "../../docs/reference/templates");
+const DIST_TEMPLATE_DIR = path.resolve(MODULE_DIR, "../docs/reference/templates");
 
 let cachedTemplateDir: string | undefined;
 let resolvingTemplateDir: Promise<string> | undefined;
@@ -31,6 +32,7 @@ export async function resolveWorkspaceTemplateDir(opts?: {
     const packageRoot = await resolveOpenClawPackageRoot({ moduleUrl, argv1, cwd });
     const candidates = [
       packageRoot ? path.join(packageRoot, "docs", "reference", "templates") : null,
+      DIST_TEMPLATE_DIR,
       cwd ? path.resolve(cwd, "docs", "reference", "templates") : null,
       FALLBACK_TEMPLATE_DIR,
     ].filter(Boolean) as string[];
