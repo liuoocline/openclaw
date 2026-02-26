@@ -1,7 +1,8 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.22",
-    "lastTouchedAt": "2026-02-22T09:12:49.967Z"
+    "lastTouchedVersion": "2026.2.26",
+    "lastTouchedAt": "2026-02-26T08:00:00.000Z",
+    "description": "Leader agent — receives user commands, delegates tasks to worker agents via @mention"
   },
   "wizard": {
     "lastRunAt": "2026-02-18T15:27:32.021Z",
@@ -21,34 +22,15 @@
     "providers": {
       "custom-integrate-api-nvidia-com": {
         "baseUrl": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "nvapi-111111111111111111111111111111111111111111111111111111111",
+        "apiKey": "nvapi-YOUR_NVIDIA_API_KEY_HERE",
         "api": "openai-completions",
         "models": [
-          {
-            "id": "qwen/qwen3.5-397b-a17b",
-            "name": "Qwen 3.5 397B (NVIDIA)",
-            "reasoning": true,
-            "input": ["text", "image"],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 128000,
-            "maxTokens": 16384
-          },
           {
             "id": "z-ai/glm4.7",
             "name": "GLM 4.7 (NVIDIA)",
             "reasoning": true,
             "input": ["text"],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 128000,
             "maxTokens": 16384
           },
@@ -57,13 +39,17 @@
             "name": "GLM 5 (NVIDIA)",
             "reasoning": true,
             "input": ["text"],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 205000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "qwen/qwen3.5-397b-a17b",
+            "name": "Qwen 3.5 397B (NVIDIA)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
             "maxTokens": 16384
           },
           {
@@ -71,12 +57,7 @@
             "name": "Kimi K2.5 (NVIDIA)",
             "reasoning": true,
             "input": ["text", "image"],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
             "contextWindow": 128000,
             "maxTokens": 16384
           }
@@ -84,7 +65,7 @@
       },
       "openai": {
         "baseUrl": "https://api.openai.com/v1",
-        "apiKey": "sk-proj-YOUR_API_KEY_HERE",
+        "apiKey": "sk-proj-YOUR_OPENAI_API_KEY_HERE",
         "api": "openai-completions",
         "models": [
           {
@@ -92,12 +73,7 @@
             "name": "GPT-5 Mini (OpenAI)",
             "reasoning": true,
             "input": ["text", "image"],
-            "cost": {
-              "input": 0.3,
-              "output": 1.25,
-              "cacheRead": 0.03,
-              "cacheWrite": 0.3
-            },
+            "cost": { "input": 0.3, "output": 1.25, "cacheRead": 0.03, "cacheWrite": 0.3 },
             "contextWindow": 128000,
             "maxTokens": 16384
           },
@@ -106,12 +82,7 @@
             "name": "GPT-5 (OpenAI)",
             "reasoning": true,
             "input": ["text", "image"],
-            "cost": {
-              "input": 1.25,
-              "output": 10,
-              "cacheRead": 0.125,
-              "cacheWrite": 1.25
-            },
+            "cost": { "input": 1.25, "output": 10, "cacheRead": 0.125, "cacheWrite": 1.25 },
             "contextWindow": 200000,
             "maxTokens": 32768
           },
@@ -120,12 +91,7 @@
             "name": "GPT-5 Nano (OpenAI)",
             "reasoning": true,
             "input": ["text", "image"],
-            "cost": {
-              "input": 0.1,
-              "output": 0.4,
-              "cacheRead": 0.01,
-              "cacheWrite": 0.1
-            },
+            "cost": { "input": 0.1, "output": 0.4, "cacheRead": 0.01, "cacheWrite": 0.1 },
             "contextWindow": 128000,
             "maxTokens": 16384
           }
@@ -136,54 +102,43 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "custom-integrate-api-nvidia-com/z-ai/glm4.7",
-        "fallbacks": ["custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"]
+        "primary": "openai/gpt-5-mini",
+        "fallbacks": [
+          "custom-integrate-api-nvidia-com/z-ai/glm5",
+          "custom-integrate-api-nvidia-com/z-ai/glm4.7"
+        ]
+      },
+      "identity": {
+        "name": "Leader",
+        "description": "You are the team Leader agent in a multi-agent Discord group. Your responsibilities:\n\n1. RECEIVE: When a user @mentions you with a task, analyze it and break it into subtasks.\n2. DELEGATE: Assign subtasks to Worker agents by writing <@WORKER_BOT_ID> in your reply (replace WORKER_BOT_ID with the actual bot user ID). Be specific about what you need.\n3. WAIT: After delegating, do NOT send follow-up messages. Wait for Worker to @mention you back with results.\n4. SUMMARIZE: When Worker @mentions you with results, collect all data and provide a comprehensive summary to the user.\n5. TERMINATE: Your summary reply should NOT @mention any other bot. This ends the chain.\n\nTeam members:\n- Worker (<@WORKER_BOT_ID>): Executes data queries, analysis tasks, and code execution.\n\nRules:\n- Never @mention a Worker more than once for the same subtask.\n- If Worker's result is incomplete, ask the user whether to retry, not the Worker directly.\n- Keep track of which user requested the original task so you can address your summary to them."
       },
       "models": {
-        "custom-integrate-api-nvidia-com/moonshotai/kimi-k2.5": {
-          "alias": "kimi2.5",
-          "params": {
-            "contextTokens": 128000
-          }
+        "custom-integrate-api-nvidia-com/z-ai/glm5": {
+          "alias": "glm5",
+          "params": { "contextTokens": 205000 }
         },
         "custom-integrate-api-nvidia-com/z-ai/glm4.7": {
           "alias": "glm4.7",
-          "params": {
-            "contextTokens": 128000
-          }
+          "params": { "contextTokens": 128000 }
         },
         "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b": {
           "alias": "qwen3.5",
-          "params": {
-            "contextTokens": 128000
-          }
-        },
-        "custom-integrate-api-nvidia-com/z-ai/glm5": {
-          "alias": "glm5",
-          "params": {
-            "contextTokens": 205000
-          }
+          "params": { "contextTokens": 128000 }
         },
         "openai/gpt-5-mini": {
           "alias": "5m",
-          "params": {
-            "contextTokens": 128000
-          }
+          "params": { "contextTokens": 128000 }
         },
         "openai/gpt-5": {
           "alias": "5",
-          "params": {
-            "contextTokens": 200000
-          }
+          "params": { "contextTokens": 200000 }
         },
         "openai/gpt-5-nano": {
           "alias": "5n",
-          "params": {
-            "contextTokens": 128000
-          }
+          "params": { "contextTokens": 128000 }
         }
       },
-      "workspace": "/home/liu/.openclaw/workspace",
+      "workspace": "/home/liu/.openclaw/leader-workspace",
       "contextTokens": 64000,
       "contextPruning": {
         "mode": "cache-ttl",
@@ -192,37 +147,25 @@
         "softTrimRatio": 0.25,
         "hardClearRatio": 0.4,
         "minPrunableToolChars": 30000,
-        "tools": {
-          "allow": ["Bash", "Read", "Grep", "Glob"]
-        },
-        "softTrim": {
-          "maxChars": 3000,
-          "headChars": 1000,
-          "tailChars": 1000
-        },
-        "hardClear": {
-          "enabled": true,
-          "placeholder": "[Old content cleared]"
-        }
+        "tools": { "allow": ["Bash", "Read", "Grep", "Glob"] },
+        "softTrim": { "maxChars": 3000, "headChars": 1000, "tailChars": 1000 },
+        "hardClear": { "enabled": true, "placeholder": "[Old content cleared]" }
       },
       "compaction": {
         "mode": "safeguard",
         "reserveTokensFloor": 10000,
         "maxHistoryShare": 0.3,
-        "memoryFlush": {
-          "enabled": true,
-          "softThresholdTokens": 6000
-        }
+        "memoryFlush": { "enabled": true, "softThresholdTokens": 6000 }
       },
       "maxConcurrent": 4,
       "subagents": {
-        "maxConcurrent": 2
+        "maxConcurrent": 3
       }
     }
   },
   "messages": {
     "groupChat": {
-      "historyLimit": 5
+      "historyLimit": 20
     },
     "ackReactionScope": "group-mentions",
     "tts": {
@@ -247,26 +190,23 @@
     "internal": {
       "enabled": true,
       "entries": {
-        "command-logger": {
-          "enabled": true
-        },
-        "session-memory": {
-          "enabled": true
-        }
+        "command-logger": { "enabled": true },
+        "session-memory": { "enabled": true }
       }
     }
   },
   "channels": {
     "discord": {
       "enabled": true,
-      "token": "YOUR_DISCORD_BOT_TOKEN_HERE",
+      "token": "LEADER_BOT_DISCORD_TOKEN_HERE",
+      "allowBots": true,
       "groupPolicy": "allowlist",
       "dmHistoryLimit": 15,
       "streaming": "off",
       "guilds": {
-        "1467004974801223884": {
+        "YOUR_GUILD_ID": {
           "channels": {
-            "1467004975526969357": {
+            "YOUR_CHANNEL_ID": {
               "allow": true
             }
           }
@@ -280,23 +220,16 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "oc_gw_7f3a911111111111111111111111111111111"
+      "token": "oc_gw_leader_RANDOM_TOKEN_HERE"
     },
-    "tailscale": {
-      "mode": "off",
-      "resetOnExit": false
-    }
+    "tailscale": { "mode": "off", "resetOnExit": false }
   },
   "skills": {
-    "install": {
-      "nodeManager": "pnpm"
-    }
+    "install": { "nodeManager": "pnpm" }
   },
   "plugins": {
     "entries": {
-      "discord": {
-        "enabled": true
-      }
+      "discord": { "enabled": true }
     }
   }
 }

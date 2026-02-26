@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.26",
+    "lastTouchedAt": "2026-02-26T08:00:00.000Z",
+    "description": "Worker agent — receives tasks from Leader via @mention, executes and reports back in the group channel"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-18T15:27:32.021Z",
+    "lastRunVersion": "2026.2.13",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "browser": {
+    "enabled": true,
+    "executablePath": "/usr/bin/google-chrome-stable",
+    "headless": true,
+    "noSandbox": true,
+    "defaultProfile": "openclaw"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "custom-integrate-api-nvidia-com": {
+        "baseUrl": "https://integrate.api.nvidia.com/v1",
+        "apiKey": "nvapi-YOUR_NVIDIA_API_KEY_HERE",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen/qwen3.5-397b-a17b",
+            "name": "Qwen 3.5 397B (NVIDIA)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "z-ai/glm4.7",
+            "name": "GLM 4.7 (NVIDIA)",
+            "reasoning": true,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "moonshotai/kimi-k2.5",
+            "name": "Kimi K2.5 (NVIDIA)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 16384
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
+        "fallbacks": ["custom-integrate-api-nvidia-com/z-ai/glm4.7"]
+      },
+      "identity": {
+        "name": "Worker",
+        "description": "You are a Worker agent in a multi-agent Discord group. Your responsibilities:\n\n1. RECEIVE: You will be @mentioned by the Leader agent (<@LEADER_BOT_ID>) with a specific task. Only act on tasks from Leader.\n2. EXECUTE: Complete the assigned task using your available tools (Bash, Read, Grep, etc.).\n3. REPORT: When done, reply in the group and include <@LEADER_BOT_ID> in your message so Leader is notified. Provide clear, structured results.\n4. STOP: After reporting, do NOT send any follow-up messages unless @mentioned again.\n\nRules:\n- Only respond when @mentioned. Never initiate conversations.\n- Always @mention Leader (<@LEADER_BOT_ID>) in your task completion reply.\n- Keep responses concise and data-focused.\n- If you cannot complete a task, @mention Leader and explain why.\n- Never @mention the human user directly; let Leader handle user communication."
+      },
+      "models": {
+        "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b": {
+          "alias": "qwen3.5",
+          "params": { "contextTokens": 128000 }
+        },
+        "custom-integrate-api-nvidia-com/z-ai/glm4.7": {
+          "alias": "glm4.7",
+          "params": { "contextTokens": 128000 }
+        },
+        "custom-integrate-api-nvidia-com/moonshotai/kimi-k2.5": {
+          "alias": "kimi2.5",
+          "params": { "contextTokens": 128000 }
+        }
+      },
+      "workspace": "/home/liu/.openclaw/worker-workspace",
+      "contextTokens": 64000,
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "3m",
+        "keepLastAssistants": 2,
+        "softTrimRatio": 0.25,
+        "hardClearRatio": 0.4,
+        "minPrunableToolChars": 30000,
+        "tools": { "allow": ["Bash", "Read", "Grep", "Glob"] },
+        "softTrim": { "maxChars": 3000, "headChars": 1000, "tailChars": 1000 },
+        "hardClear": { "enabled": true, "placeholder": "[Old content cleared]" }
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "reserveTokensFloor": 10000,
+        "maxHistoryShare": 0.3,
+        "memoryFlush": { "enabled": true, "softThresholdTokens": 6000 }
+      },
+      "maxConcurrent": 2,
+      "subagents": {
+        "maxConcurrent": 1
+      }
+    }
+  },
+  "messages": {
+    "groupChat": {
+      "historyLimit": 20
+    },
+    "ackReactionScope": "group-mentions",
+    "tts": {
+      "auto": "tagged",
+      "provider": "edge",
+      "edge": {
+        "voice": "zh-CN-YunxiNeural",
+        "lang": "zh-CN",
+        "outputFormat": "ogg-48khz-16bit-mono-opus"
+      },
+      "maxTextLength": 4000,
+      "timeoutMs": 30000
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": { "enabled": true },
+        "session-memory": { "enabled": true }
+      }
+    }
+  },
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "WORKER_BOT_DISCORD_TOKEN_HERE",
+      "allowBots": true,
+      "groupPolicy": "allowlist",
+      "dmHistoryLimit": 5,
+      "streaming": "off",
+      "guilds": {
+        "YOUR_GUILD_ID": {
+          "channels": {
+            "YOUR_CHANNEL_ID": {
+              "allow": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18790,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "oc_gw_worker_RANDOM_TOKEN_HERE"
+    },
+    "tailscale": { "mode": "off", "resetOnExit": false }
+  },
+  "skills": {
+    "install": { "nodeManager": "pnpm" }
+  },
+  "plugins": {
+    "entries": {
+      "discord": { "enabled": true }
+    }
+  }
+}
