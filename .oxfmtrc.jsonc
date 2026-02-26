@@ -9,6 +9,7 @@
   "tabWidth": 2,
   "useTabs": false,
   "ignorePatterns": [
+    ".openclaw/",
     "apps/",
     "assets/",
     "CLAUDE.md",
@@ -17,6 +18,7 @@
     "docs/_layouts/",
     "node_modules/",
     "patches/",
+    "pi-mono/",
     "pnpm-lock.yaml/",
     "src/gateway/server-methods/CLAUDE.md",
     "src/auto-reply/reply/export-html/",
