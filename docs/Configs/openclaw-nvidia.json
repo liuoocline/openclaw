@@ -1,11 +1,11 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.22",
-    "lastTouchedAt": "2026-02-22T09:12:49.967Z"
+    "lastTouchedVersion": "2026.2.26",
+    "lastTouchedAt": "2026-02-26T15:48:14.322Z"
   },
   "wizard": {
-    "lastRunAt": "2026-02-18T15:27:32.021Z",
-    "lastRunVersion": "2026.2.13",
+    "lastRunAt": "2026-02-26T15:48:14.307Z",
+    "lastRunVersion": "2026.2.26",
     "lastRunCommand": "onboard",
     "lastRunMode": "local"
   },
@@ -16,12 +16,20 @@
     "noSandbox": true,
     "defaultProfile": "openclaw"
   },
+  "auth": {
+    "profiles": {
+      "openai-codex:default": {
+        "provider": "openai-codex",
+        "mode": "oauth"
+      }
+    }
+  },
   "models": {
     "mode": "merge",
     "providers": {
       "custom-integrate-api-nvidia-com": {
         "baseUrl": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "nvapi-111111111111111111111111111111111111111111111111111111111",
+        "apiKey": "nvapi-1111111111111111111111111111111111111111111111",
         "api": "openai-completions",
         "models": [
           {
@@ -81,62 +89,13 @@
             "maxTokens": 16384
           }
         ]
-      },
-      "openai": {
-        "baseUrl": "https://api.openai.com/v1",
-        "apiKey": "sk-proj-YOUR_API_KEY_HERE",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "gpt-5-mini",
-            "name": "GPT-5 Mini (OpenAI)",
-            "reasoning": true,
-            "input": ["text", "image"],
-            "cost": {
-              "input": 0.3,
-              "output": 1.25,
-              "cacheRead": 0.03,
-              "cacheWrite": 0.3
-            },
-            "contextWindow": 128000,
-            "maxTokens": 16384
-          },
-          {
-            "id": "gpt-5",
-            "name": "GPT-5 (OpenAI)",
-            "reasoning": true,
-            "input": ["text", "image"],
-            "cost": {
-              "input": 1.25,
-              "output": 10,
-              "cacheRead": 0.125,
-              "cacheWrite": 1.25
-            },
-            "contextWindow": 200000,
-            "maxTokens": 32768
-          },
-          {
-            "id": "gpt-5-nano",
-            "name": "GPT-5 Nano (OpenAI)",
-            "reasoning": true,
-            "input": ["text", "image"],
-            "cost": {
-              "input": 0.1,
-              "output": 0.4,
-              "cacheRead": 0.01,
-              "cacheWrite": 0.1
-            },
-            "contextWindow": 128000,
-            "maxTokens": 16384
-          }
-        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "custom-integrate-api-nvidia-com/z-ai/glm4.7",
+        "primary": "openai-codex/gpt-5.1",
         "fallbacks": ["custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"]
       },
       "models": {
@@ -164,24 +123,7 @@
             "contextTokens": 205000
           }
         },
-        "openai/gpt-5-mini": {
-          "alias": "5m",
-          "params": {
-            "contextTokens": 128000
-          }
-        },
-        "openai/gpt-5": {
-          "alias": "5",
-          "params": {
-            "contextTokens": 200000
-          }
-        },
-        "openai/gpt-5-nano": {
-          "alias": "5n",
-          "params": {
-            "contextTokens": 128000
-          }
-        }
+        "openai-codex/gpt-5.1": {}
       },
       "workspace": "/home/liu/.openclaw/workspace",
       "contextTokens": 64000,
@@ -214,11 +156,24 @@
           "softThresholdTokens": 6000
         }
       },
-      "maxConcurrent": 4,
+      "maxConcurrent": 6,
       "subagents": {
-        "maxConcurrent": 2
+        "maxConcurrent": 4
       }
-    }
+    },
+    "list": [
+      {
+        "id": "evomap",
+        "name": "EvoMap Bot",
+        "model": {
+          "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
+          "fallbacks": ["custom-integrate-api-nvidia-com/z-ai/glm5"]
+        },
+        "subagents": {
+          "model": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"
+        }
+      }
+    ]
   },
   "messages": {
     "groupChat": {
@@ -242,6 +197,9 @@
     "nativeSkills": "auto",
     "restart": true,
     "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
   },
   "hooks": {
     "internal": {
@@ -280,7 +238,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "oc_gw_7f3a911111111111111111111111111111111"
+      "token": "1111111111111111111111111111111111"
     },
     "tailscale": {
       "mode": "off",
