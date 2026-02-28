@@ -27,6 +27,49 @@
   "models": {
     "mode": "merge",
     "providers": {
+      "bailian": {
+        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
+        "apiKey": "YOUR_CODING_PLAN_API_KEY",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen3.5-plus",
+            "name": "Qwen 3.5 Plus (Bailian)",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 1000000,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3-max-2026-01-23",
+            "name": "Qwen3 Max (Bailian)",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 262144,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3-coder-next",
+            "name": "Qwen3 Coder Next (Bailian)",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 262144,
+            "maxTokens": 65536
+          },
+          {
+            "id": "kimi-k2.5",
+            "name": "Kimi K2.5 (Bailian)",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 262144,
+            "maxTokens": 32768
+          }
+        ]
+      },
       "custom-integrate-api-nvidia-com": {
         "baseUrl": "https://integrate.api.nvidia.com/v1",
         "apiKey": "nvapi-1111111111111111111111111111111111111111111111",
@@ -123,7 +166,11 @@
             "contextTokens": 205000
           }
         },
-        "openai-codex/gpt-5.1": {}
+        "openai-codex/gpt-5.1": {},
+        "bailian/qwen3.5-plus": { "alias": "bqwen", "params": { "contextTokens": 128000 } },
+        "bailian/qwen3-max-2026-01-23": { "alias": "bqmax", "params": { "contextTokens": 131072 } },
+        "bailian/qwen3-coder-next": { "alias": "bcoder", "params": { "contextTokens": 131072 } },
+        "bailian/kimi-k2.5": { "alias": "bkimi", "params": { "contextTokens": 131072 } }
       },
       "workspace": "/home/liu/.openclaw/workspace",
       "contextTokens": 64000,
@@ -166,11 +213,17 @@
         "id": "evomap",
         "name": "EvoMap Bot",
         "model": {
-          "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
-          "fallbacks": ["custom-integrate-api-nvidia-com/z-ai/glm5"]
+          "primary": "bailian/qwen3-coder-next",
+          "fallbacks": [
+            "bailian/qwen3.5-plus",
+            "bailian/qwen3-max-2026-01-23",
+            "bailian/kimi-k2.5",
+            "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
+            "custom-integrate-api-nvidia-com/z-ai/glm5"
+          ]
         },
         "subagents": {
-          "model": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"
+          "model": "bailian/qwen3.5-plus"
         }
       }
     ]
