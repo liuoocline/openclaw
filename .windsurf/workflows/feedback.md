@@ -6,10 +6,10 @@ This workflow calls the AI Infinite Dialog feedback interface. You MUST replace 
 
 **CRITICAL EXECUTION RULES**:
 
-- Step 1 (health check): use `Blocking=true` (fast, returns in <3s).
-- Step 2 (send feedback): use `Blocking=false` with `WaitMsBeforeAsync=2000`. The service waits for user interaction so the request may take 30-120 seconds. Using `Blocking=true` will **cause Cascade session timeout** (`Could not find Cascade session` error).
-- Step 3 (poll): use `command_status` with `WaitDurationSeconds=60`. If still running after 60s, wait again (up to 2 retries). Do NOT give up after 10-15 seconds.
-- Step 4 (read): ALWAYS read from the file, never parse terminal output.
+- Step 1 (health check): `Blocking=true` (fast, <3s).
+- Step 2 (send feedback): **MUST use `Blocking=false`** with `WaitMsBeforeAsync=2000`. Using `Blocking=true` causes Cascade session timeout.
+- Step 3 (poll): call `command_status` with `WaitDurationSeconds=60`. **As soon as status is DONE, go to Step 4 immediately.** NEVER call `command_status` more than 3 times total.
+- Step 4 (read): use `read_file` on the temp JSON file. NEVER parse terminal output.
 
 // turbo
 1. Health check — verify service is running:
@@ -25,7 +25,10 @@ try { $body = @{tool='infinite_dialog_feedback';arguments=@{summary='YOUR_SUMMAR
 
 **NOTE**: The summary uses single quotes. If your summary contains a single quote (`'`), escape it by doubling: `''`.
 
-3. Poll for completion — use `command_status` with `WaitDurationSeconds=60`, `OutputCharacterCount=500`. If status is still RUNNING, retry up to 2 more times (total max ~180s wait).
+3. Poll for completion — call `command_status` with `WaitDurationSeconds=60`, `OutputCharacterCount=500`:
+   - If status is **DONE** → go to Step 4 **immediately**. Do NOT call `command_status` again.
+   - If status is **RUNNING** → retry (max 2 more times, then go to Step 4 anyway).
+   - **HARD CAP: NEVER call `command_status` more than 3 times total.**
 
 4. Read and parse the response — use `read_file` on `C:\Users\liu\AppData\Local\Temp\ai-dialog-resp.json`:
    - ALWAYS parse from the file, NEVER from terminal output (terminal output is garbled).
