@@ -159,10 +159,7 @@
     "defaults": {
       "model": {
         "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
-        "fallbacks": [
-          "bailian/qwen3.5-plus",
-          "bailian/qwen3-coder-next"
-        ]
+        "fallbacks": ["bailian/qwen3.5-plus", "bailian/qwen3-coder-next"]
       },
       "models": {
         "custom-integrate-api-nvidia-com/moonshotai/kimi-k2.5": {
