@@ -14,13 +14,13 @@ This workflow calls the AI Infinite Dialog feedback interface. You MUST replace 
 // turbo
 1. Health check — verify service is running:
 ```powershell
-try { $h = Invoke-WebRequest -Uri "http://127.0.0.1:3956/health" -UseBasicParsing -TimeoutSec 3; Write-Host "HEALTH_OK" } catch { Write-Host "HEALTH_FAIL: Service not running on port 3956"; exit 1 }
+try { $h = Invoke-WebRequest -Uri "http://127.0.0.1:13956/health" -UseBasicParsing -TimeoutSec 3; Write-Host "HEALTH_OK" } catch { Write-Host "HEALTH_FAIL: Service not running on port 13956" }
 ```
 
 // turbo
 2. Send feedback — run as **non-blocking** (`Blocking=false`, `WaitMsBeforeAsync=2000`). Replace YOUR_SUMMARY with your actual summary:
 ```powershell
-try { $body = @{tool='infinite_dialog_feedback';arguments=@{summary='YOUR_SUMMARY'}} | ConvertTo-Json -Depth 3 -Compress; $bytes = [System.Text.Encoding]::UTF8.GetBytes($body); (Invoke-WebRequest -Uri "http://127.0.0.1:3956/mcp/call" -Method Post -ContentType "application/json; charset=utf-8" -Body $bytes -UseBasicParsing).Content | Out-File "$env:TEMP\ai-dialog-resp.json" -Encoding utf8; Write-Host "FEEDBACK_OK" } catch { Write-Host "FEEDBACK_FAIL: $($_.Exception.Message)"; exit 1 }
+try { $body = @{tool='infinite_dialog_feedback';arguments=@{summary='YOUR_SUMMARY'}} | ConvertTo-Json -Depth 3 -Compress; $bytes = [System.Text.Encoding]::UTF8.GetBytes($body); (Invoke-WebRequest -Uri "http://127.0.0.1:13956/mcp/call" -Method Post -ContentType "application/json; charset=utf-8" -Body $bytes -UseBasicParsing).Content | Out-File "$env:TEMP\ai-dialog-resp.json" -Encoding utf8; Write-Host "FEEDBACK_OK" } catch { Write-Host "FEEDBACK_FAIL: $($_.Exception.Message)" }
 ```
 
 **NOTE**: The summary uses single quotes. If your summary contains a single quote (`'`), escape it by doubling: `''`.

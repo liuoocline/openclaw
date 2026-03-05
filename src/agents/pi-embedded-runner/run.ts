@@ -45,7 +45,6 @@ import {
   parseImageDimensionError,
   isRateLimitAssistantError,
   isTimeoutErrorMessage,
-  isJsonParseError,
   pickFallbackThinkingLevel,
   type FailoverReason,
 } from "../pi-embedded-helpers.js";
@@ -714,7 +713,6 @@ export async function runEmbeddedPiAgent(
           agentDir,
         });
       };
-      let jsonParseRetried = false;
       try {
         let authRetryPending = false;
         // Hoisted so the retry-limit error path can use the most recent API total.
@@ -1119,36 +1117,6 @@ export async function runEmbeddedPiAgent(
                   }),
                   systemPromptReport: attempt.systemPromptReport,
                   error: { kind: "image_size", message: errorText },
-                },
-              };
-            }
-            // Handle JSON parse errors — retry once, then return error
-            if (isJsonParseError(errorText)) {
-              if (!jsonParseRetried) {
-                jsonParseRetried = true;
-                log.warn(`JSON parse error detected, retrying once: ${errorText.slice(0, 200)}`);
-                continue;
-              }
-              log.warn(`JSON parse error persists after retry: ${errorText.slice(0, 200)}`);
-              return {
-                payloads: [
-                  {
-                    text:
-                      "Tool call failed due to JSON format error. " +
-                      "This may be caused by special characters in the content. " +
-                      "Please try rephrasing your request or use simpler text.",
-                    isError: true,
-                  },
-                ],
-                meta: {
-                  durationMs: Date.now() - started,
-                  agentMeta: {
-                    sessionId: sessionIdUsed,
-                    provider,
-                    model: model.id,
-                  },
-                  systemPromptReport: attempt.systemPromptReport,
-                  error: { kind: "json_parse", message: errorText },
                 },
               };
             }
