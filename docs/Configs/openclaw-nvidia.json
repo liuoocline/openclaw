@@ -18,8 +18,8 @@
   },
   "auth": {
     "profiles": {
-      "openai-codex:default": {
-        "provider": "openai-codex",
+      "openai:default": {
+        "provider": "openai",
         "mode": "oauth"
       }
     }
@@ -27,52 +27,9 @@
   "models": {
     "mode": "merge",
     "providers": {
-      "bailian": {
-        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
-        "apiKey": "YOUR_CODING_PLAN_API_KEY",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "qwen3.5-plus",
-            "name": "Qwen 3.5 Plus (Bailian)",
-            "reasoning": false,
-            "input": ["text", "image"],
-            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 1000000,
-            "maxTokens": 65536
-          },
-          {
-            "id": "qwen3-max-2026-01-23",
-            "name": "Qwen3 Max (Bailian)",
-            "reasoning": false,
-            "input": ["text"],
-            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 262144,
-            "maxTokens": 65536
-          },
-          {
-            "id": "qwen3-coder-next",
-            "name": "Qwen3 Coder Next (Bailian)",
-            "reasoning": false,
-            "input": ["text"],
-            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 262144,
-            "maxTokens": 65536
-          },
-          {
-            "id": "kimi-k2.5",
-            "name": "Kimi K2.5 (Bailian)",
-            "reasoning": false,
-            "input": ["text", "image"],
-            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
-            "contextWindow": 262144,
-            "maxTokens": 32768
-          }
-        ]
-      },
       "custom-integrate-api-nvidia-com": {
         "baseUrl": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "nvapi-1111111111111111111111111111111111111111111111",
+        "apiKey": "nvapi-1111111111111111111111111111111111111111111111111111111111111111",
         "api": "openai-completions",
         "models": [
           {
@@ -132,14 +89,80 @@
             "maxTokens": 16384
           }
         ]
+      },
+      "bailian": {
+        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
+        "apiKey": "sk-sp-1111111111111111111111111111111111111111",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen3-coder-next",
+            "name": "Qwen3 Coder Next",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 262144,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3.5-plus",
+            "name": "Qwen 3.5 Plus",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3-max-2026-01-23",
+            "name": "Qwen3 Max",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 262144,
+            "maxTokens": 65536
+          },
+          {
+            "id": "kimi-k2.5",
+            "name": "Kimi K2.5",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 262144,
+            "maxTokens": 32768
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "openai-codex/gpt-5.1",
-        "fallbacks": ["custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"]
+        "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
+        "fallbacks": [
+          "bailian/qwen3.5-plus",
+          "bailian/qwen3-coder-next"
+        ]
       },
       "models": {
         "custom-integrate-api-nvidia-com/moonshotai/kimi-k2.5": {
@@ -166,14 +189,21 @@
             "contextTokens": 205000
           }
         },
-        "openai-codex/gpt-5.1": {},
-        "bailian/qwen3.5-plus": { "alias": "bqwen", "params": { "contextTokens": 128000 } },
-        "bailian/qwen3-max-2026-01-23": { "alias": "bqmax", "params": { "contextTokens": 131072 } },
-        "bailian/qwen3-coder-next": { "alias": "bcoder", "params": { "contextTokens": 131072 } },
-        "bailian/kimi-k2.5": { "alias": "bkimi", "params": { "contextTokens": 131072 } }
+        "bailian/qwen3-coder-next": {
+          "alias": "bcoder",
+          "params": {
+            "contextTokens": 131072
+          }
+        },
+        "bailian/qwen3.5-plus": {
+          "alias": "bqwen",
+          "params": {
+            "contextTokens": 128000
+          }
+        }
       },
       "workspace": "/home/liu/.openclaw/workspace",
-      "contextTokens": 64000,
+      "contextTokens": 131072,
       "contextPruning": {
         "mode": "cache-ttl",
         "ttl": "3m",
@@ -213,17 +243,19 @@
         "id": "evomap",
         "name": "EvoMap Bot",
         "model": {
-          "primary": "bailian/qwen3-coder-next",
+          "primary": "bailian/qwen3.5-plus",
           "fallbacks": [
-            "bailian/qwen3.5-plus",
-            "bailian/qwen3-max-2026-01-23",
-            "bailian/kimi-k2.5",
-            "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
-            "custom-integrate-api-nvidia-com/z-ai/glm5"
+            "bailian/qwen3-coder-next",
+            "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"
           ]
         },
         "subagents": {
-          "model": "bailian/qwen3.5-plus"
+          "model": "bailian/qwen3-coder-next"
+        },
+        "heartbeat": {
+          "every": "30m",
+          "target": "none",
+          "prompt": "检查 Evo 官网连接状态，保持会话活跃。如果一切正常，回复 HEARTBEAT_OK。"
         }
       }
     ]
@@ -291,7 +323,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "1111111111111111111111111111111111"
+      "token": "oc_gw_71111111111111111111111111111111"
     },
     "tailscale": {
       "mode": "off",
@@ -304,9 +336,20 @@
     }
   },
   "plugins": {
+    "allow": ["discord", "tavily"],
     "entries": {
       "discord": {
         "enabled": true
+      },
+      "tavily": {
+        "enabled": true,
+        "config": {
+          "apiKey": "tvly-dev-111111111111111111",
+          "searchDepth": "basic",
+          "topic": "general",
+          "includeAnswer": false,
+          "maxResults": 5
+        }
       }
     }
   }

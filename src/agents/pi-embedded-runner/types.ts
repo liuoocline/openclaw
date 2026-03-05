@@ -41,8 +41,7 @@ export type EmbeddedPiRunMeta = {
       | "compaction_failure"
       | "role_ordering"
       | "image_size"
-      | "retry_limit"
-      | "json_parse";
+      | "retry_limit";
     message: string;
   };
   /** Stop reason for the agent run (e.g., "completed", "tool_calls"). */
