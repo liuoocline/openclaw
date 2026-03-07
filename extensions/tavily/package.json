@@ -1,0 +1,12 @@
+{
+  "name": "@openclaw/tavily",
+  "version": "2026.2.26",
+  "description": "Tavily web search tool for OpenClaw",
+  "type": "module",
+  "dependencies": {},
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

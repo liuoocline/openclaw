@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.26",
-    "lastTouchedAt": "2026-02-26T15:48:14.322Z"
+    "lastTouchedVersion": "2026.3.3-fork.1",
+    "lastTouchedAt": "2026-03-07T05:36:13.763Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-26T15:48:14.307Z",
@@ -18,8 +18,8 @@
   },
   "auth": {
     "profiles": {
-      "openai:default": {
-        "provider": "openai",
+      "openai-codex:default": {
+        "provider": "openai-codex",
         "mode": "oauth"
       }
     }
@@ -29,7 +29,7 @@
     "providers": {
       "custom-integrate-api-nvidia-com": {
         "baseUrl": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "nvapi-1111111111111111111111111111111111111111111111111111111111111111",
+        "apiKey": "nvapi-111111111111111111111111111111111111111111111",
         "api": "openai-completions",
         "models": [
           {
@@ -92,7 +92,7 @@
       },
       "bailian": {
         "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
-        "apiKey": "sk-sp-1111111111111111111111111111111111111111",
+        "apiKey": "sk-sp-111111111111111111111111111111111111111",
         "api": "openai-completions",
         "models": [
           {
@@ -158,8 +158,12 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b",
-        "fallbacks": ["bailian/qwen3.5-plus", "bailian/qwen3-coder-next"]
+        "primary": "openai-codex/gpt-5.3-codex",
+        "fallbacks": [
+          "openai-codex/gpt-5.4",
+          "openai-codex/gpt-5.3-codex",
+          "custom-integrate-api-nvidia-com/qwen/qwen3.5-397b-a17b"
+        ]
       },
       "models": {
         "custom-integrate-api-nvidia-com/moonshotai/kimi-k2.5": {
@@ -186,6 +190,12 @@
             "contextTokens": 205000
           }
         },
+        "openai-codex/gpt-5.4": { "alias": "5.4" },
+        "openai-codex/gpt-5.3-codex": { "alias": "5.3codex" },
+        "openai-codex/gpt-5.2-codex": { "alias": "5.2codex" },
+        "openai-codex/gpt-5.2": { "alias": "5.2" },
+        "openai-codex/gpt-5.1-codex-max": { "alias": "codex-max" },
+        "openai-codex/gpt-5.1-codex-mini": { "alias": "codex-mini" },
         "bailian/qwen3-coder-next": {
           "alias": "bcoder",
           "params": {
@@ -248,11 +258,6 @@
         },
         "subagents": {
           "model": "bailian/qwen3-coder-next"
-        },
-        "heartbeat": {
-          "every": "30m",
-          "target": "none",
-          "prompt": "检查 Evo 官网连接状态，保持会话活跃。如果一切正常，回复 HEARTBEAT_OK。"
         }
       }
     ]
@@ -299,7 +304,7 @@
   "channels": {
     "discord": {
       "enabled": true,
-      "token": "YOUR_DISCORD_BOT_TOKEN_HERE",
+      "token": "YOUR_DISCORD_BOT_TOKEN",
       "groupPolicy": "allowlist",
       "dmHistoryLimit": 15,
       "streaming": "off",
@@ -320,7 +325,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "oc_gw_71111111111111111111111111111111"
+      "token": "111111111111111111111111111111"
     },
     "tailscale": {
       "mode": "off",
@@ -333,7 +338,7 @@
     }
   },
   "plugins": {
-    "allow": ["discord", "tavily"],
+    "allow": ["discord", "tavily", "memory-core"],
     "entries": {
       "discord": {
         "enabled": true
@@ -341,12 +346,15 @@
       "tavily": {
         "enabled": true,
         "config": {
-          "apiKey": "tvly-dev-111111111111111111",
+          "apiKey": "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",
           "searchDepth": "basic",
           "topic": "general",
           "includeAnswer": false,
           "maxResults": 5
         }
+      },
+      "memory-core": {
+        "enabled": true
       }
     }
   }

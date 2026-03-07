@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "lastTouchedVersion": "0.1.6",
+    "lastTouchedAt": "2026-03-03T06:33:15.909Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-03T06:33:15.881Z",
+    "lastRunVersion": "0.1.6",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "bailian": {
+        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
+        "apiKey": "YOUR_CODING_PLAN_API_KEY",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen3.5-plus",
+            "name": "Qwen 3.5 Plus",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 1000000,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3-coder-plus",
+            "name": "Qwen 3 Coder Plus",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 1000000,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3-coder-next",
+            "name": "Qwen 3 Coder Next",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 262144,
+            "maxTokens": 65536
+          },
+          {
+            "id": "qwen3-max-2026-01-23",
+            "name": "Qwen 3 Max",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 262144,
+            "maxTokens": 65536
+          },
+          {
+            "id": "glm-5",
+            "name": "GLM-5",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 202752,
+            "maxTokens": 16384
+          },
+          {
+            "id": "glm-4.7",
+            "name": "GLM 4.7",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 202752,
+            "maxTokens": 16384
+          },
+          {
+            "id": "MiniMax-M2.5",
+            "name": "MiniMax M2.5",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 204800,
+            "maxTokens": 131072
+          },
+          {
+            "id": "kimi-k2.5",
+            "name": "Kimi K2.5",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 262144,
+            "maxTokens": 32768
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "bailian/qwen3.5-plus"
+      },
+      "models": {
+        "bailian/qwen3.5-plus": {
+          "alias": "qwen3.5+",
+          "params": { "contextTokens": 1000000 }
+        },
+        "bailian/qwen3-coder-plus": {
+          "alias": "coder+",
+          "params": { "contextTokens": 1000000 }
+        },
+        "bailian/qwen3-coder-next": {
+          "alias": "coder-next",
+          "params": { "contextTokens": 262144 }
+        },
+        "bailian/qwen3-max-2026-01-23": {
+          "alias": "qwen3-max",
+          "params": { "contextTokens": 262144 }
+        },
+        "bailian/glm-5": {
+          "alias": "glm5",
+          "params": { "contextTokens": 202752 }
+        },
+        "bailian/glm-4.7": {
+          "alias": "glm4.7",
+          "params": { "contextTokens": 202752 }
+        },
+        "bailian/MiniMax-M2.5": {
+          "alias": "minimax",
+          "params": { "contextTokens": 204800 }
+        },
+        "bailian/kimi-k2.5": {
+          "alias": "kimi",
+          "params": { "contextTokens": 262144 }
+        }
+      },
+      "workspace": "/home/hl/.openclaw/workspace",
+      "contextTokens": 64000,
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "3m",
+        "keepLastAssistants": 2,
+        "softTrimRatio": 0.25,
+        "hardClearRatio": 0.4,
+        "minPrunableToolChars": 30000,
+        "tools": { "allow": ["Bash", "Read", "Grep", "Glob"] },
+        "softTrim": { "maxChars": 3000, "headChars": 1000, "tailChars": 1000 },
+        "hardClear": { "enabled": true, "placeholder": "[Old content cleared]" }
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "reserveTokensFloor": 10000,
+        "memoryFlush": { "enabled": true, "softThresholdTokens": 6000 }
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "feishu": {
+      "accounts": {
+        "default": {
+          "appId": "YOUR_FEISHU_APP_ID",
+          "appSecret": "YOUR_FEISHU_APP_SECRET",
+          "domain": "feishu",
+          "enabled": true
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "oc_gw_YOUR_GATEWAY_TOKEN_HERE"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  },
+  "plugins": {
+    "load": {
+      "paths": [
+        "/home/hl/.nvm/versions/node/v22.22.0/lib/node_modules/openclaw-cn/extensions/feishu"
+      ]
+    },
+    "entries": {
+      "feishu": {
+        "enabled": true
+      }
+    }
+  }
+}

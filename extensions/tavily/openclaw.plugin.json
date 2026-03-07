@@ -1,0 +1,54 @@
+{
+  "id": "tavily",
+  "name": "Tavily Search",
+  "description": "Web search via Tavily API — AI-optimized search with structured results.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "apiKey": {
+        "type": "string"
+      },
+      "searchDepth": {
+        "type": "string",
+        "enum": ["basic", "advanced", "fast", "ultra-fast"]
+      },
+      "topic": {
+        "type": "string",
+        "enum": ["general", "news", "finance"]
+      },
+      "includeAnswer": {
+        "type": "boolean"
+      },
+      "maxResults": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 20
+      }
+    }
+  },
+  "uiHints": {
+    "apiKey": {
+      "label": "Tavily API Key",
+      "help": "Your Tavily API key (tvly-...). Falls back to TAVILY_API_KEY env var.",
+      "sensitive": true,
+      "placeholder": "tvly-..."
+    },
+    "searchDepth": {
+      "label": "Search Depth",
+      "help": "basic (fast, 1 credit), advanced (detailed, 2 credits), fast, ultra-fast."
+    },
+    "topic": {
+      "label": "Default Topic",
+      "help": "general, news, or finance."
+    },
+    "includeAnswer": {
+      "label": "Include AI Answer",
+      "help": "Include a Tavily LLM-synthesized answer in results."
+    },
+    "maxResults": {
+      "label": "Max Results",
+      "help": "Default number of results to return (1-20)."
+    }
+  }
+}
